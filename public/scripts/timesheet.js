@@ -1,3 +1,21 @@
+var data = {
+    weekDateRangeLabel: "20-27.09.2016",
+    weekDays: [{
+        day: "09",
+        month: "05",
+        year: "2016",
+        statusCode: "Accpeted",
+        reservations: [{}]
+    },
+        {
+            day: "10",
+            month: "05",
+            year: "2016",
+            statusCode: "Accpeted",
+            reservations: []
+        }]
+};
+
 var Header = React.createClass({
     render: function () {
         return (
@@ -24,7 +42,7 @@ var DateBox = React.createClass({
         return (
             <div className="row">
                 <div className="col-lg-12 text-center">
-                    <h3>25-28.09.2016</h3>
+                    <h3>{this.props.weekDateRangeLabel}</h3>
                 </div>
             </div>
         );
@@ -207,7 +225,7 @@ var Content = React.createClass({
     render: function () {
         return (
             <div className="container">
-                <DateBox />
+                <DateBox weekDateRangeLabel={this.props.data.weekDateRangeLabel}/>
                 <WeekNavigationBox />
                 <TimesheetTableHeader />
                 <TimesheetTableContent />
@@ -225,7 +243,7 @@ var TimesheetBox = React.createClass({
         return (
             <div>
                 <Header />
-                <Content />
+                <Content data={data}/>
                 <Footer />
             </div>
         );
