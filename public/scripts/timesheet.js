@@ -5,9 +5,16 @@ var data = {
         month: "05",
         year: "2016",
         statusCode: "Accepted",
+        defaultProject: {
+            id: 0,
+            projectName: "K-Solutions"
+        },
+        defaultHoursNumber: 8,
         reservations: [{
+            id: 1,
             hours: 40,
             project: {
+                id: 1,
                 projectName: "Lids PL"
             },
             description: "Opis",
@@ -15,18 +22,21 @@ var data = {
                 {
                     hours: 10,
                     project: {
+                        id: 2,
                         projectName: "IacsPlus"
                     }
                 },
                 {
                     hours: 10,
                     project: {
+                        id: 3,
                         projectName: "PZSIP"
                     }
                 },
                 {
                     hours: 10,
                     project: {
+                        id: 4,
                         projectName: "Wyrocznia"
                     }
                 }
@@ -39,8 +49,10 @@ var data = {
             year: "2016",
             statusCode: "Rejcted",
             reservations: [{
+                id: 2,
                 hours: 40,
                 project: {
+                    id: 5,
                     projectName: "Optipos PL"
                 },
                 description: "Opis",
@@ -48,18 +60,21 @@ var data = {
                     {
                         hours: 10,
                         project: {
+                            id: 6,
                             projectName: "Facebook"
                         }
                     },
                     {
                         hours: 10,
                         project: {
+                            id: 7,
                             projectName: "Google"
                         }
                     },
                     {
                         hours: 10,
                         project: {
+                            id: 8,
                             projectName: "ReactJs"
                         }
                     }
@@ -102,14 +117,20 @@ var DateBox = React.createClass({
 });
 
 var WeekNavigationBox = React.createClass({
+    handleGoBackward: function () {
+        alert('back');
+    },
+    handleGoForward: function () {
+        alert('next');
+    },
     render: function () {
         return (
             <div className="row">
                 <div className="col-lg-12">
                     <nav>
                         <ul className="pager">
-                            <li><a href="#" className="width-100">Previous</a></li>
-                            <li><a href="#" className="width-100">Next</a></li>
+                            <li><a href="#" className="width-100" onClick={this.handleGoBackward}>Previous</a></li>
+                            <li><a href="#" className="width-100" onClick={this.handleGoForward}>Next</a></li>
                         </ul>
                     </nav>
                 </div>
@@ -149,38 +170,81 @@ var TimesheetTableContent = React.createClass({
     render: function () {
         var rows = this.props.weekdays.map(function (weekday) {
             return (
-                <div className="row timesheet-row">
-                    <div className="col-lg-1">
-                        <span>{weekday.day}/{weekday.month}/{weekday.year}</span>
-                    </div>
-
-                    <ReservationListBox reservations={weekday.reservations}/>
-
-                    <div className="col-lg-1">
-                        <button type="button" className="btn btn-success">
-                            <span className="glyphicon  glyphicon-plus img-circle text-success"></span>
-                        </button>
-                    </div>
-                    <div className="col-lg-2">
-                        <button type="button" className="btn btn-default">
-                            <span className="glyphicon glyphicon-pencil"/>
-                        </button>
-                    </div>
-                    <div className="col-lg-1">
-                        <button type="button" className="btn  btn-success" title="Set default">
-                            <span className="glyphicon glyphicon-time img-circle text-success"/>
-                        </button>
-                    </div>
-                    <div className="col-lg-2">
-                        <span>{weekday.statusCode}</span>
-                    </div>
-                </div>
+                <TimesheetTableRow key={weekday.day} weekday={weekday}/>
             );
         });
-
         return (
             <div>
                 {rows}
+            </div>
+        );
+    }
+});
+
+var TimesheetTableRow = React.createClass({
+    getInitialState: function () {
+        return {reservations: this.props.weekday.reservations};
+    },
+
+    handleAddReservation: function () {
+        var availableProject = {
+            project: this.props.weekday.defaultProject,
+            hours: this.props.weekday.defaultHoursNumber
+        };
+        var genKey = Math.random() * 1000;
+        var new_reservation = {
+            id: genKey,
+            project: {
+                projectName: null
+            },
+            availableProjects: [availableProject]
+        };
+        this.props.weekday.reservations.push(new_reservation);
+        this.setState({reservations: this.props.weekday.reservations});
+
+    },
+    handleRemoveReservation: function (reservation) {
+        var index = this.props.weekday.reservations.indexOf(reservation);
+        if (index > -1) {
+            this.props.weekday.reservations.splice(index, 1);
+            this.setState({reservations: this.props.weekday.reservations});
+        }
+    },
+    handleOpenWeekdayDescription: function () {
+        alert('open weekday description');
+    },
+    handleSetDefault: function () {
+        alert('set default');
+    },
+    render: function () {
+        return (
+            <div className="row timesheet-row">
+                <div className="col-lg-1">
+                    <span>{this.props.weekday.day}/{this.props.weekday.month}/{this.props.weekday.year}</span>
+                </div>
+
+                <ReservationListBox reservations={this.state.reservations}
+                                    onRemoveReservation={this.handleRemoveReservation}/>
+
+                <div className="col-lg-1">
+                    <button type="button" className="btn btn-success" onClick={this.handleAddReservation}>
+                        <span className="glyphicon  glyphicon-plus img-circle text-success"></span>
+                    </button>
+                </div>
+                <div className="col-lg-2">
+                    <button type="button" className="btn btn-default" onClick={this.handleOpenWeekdayDescription}>
+                        <span className="glyphicon glyphicon-pencil"/>
+                    </button>
+                </div>
+                <div className="col-lg-1">
+                    <button type="button" className="btn  btn-success" title="Set default"
+                            onClick={this.handleSetDefault}>
+                        <span className="glyphicon glyphicon-time img-circle text-success"/>
+                    </button>
+                </div>
+                <div className="col-lg-2">
+                    <span>{this.props.weekday.statusCode}</span>
+                </div>
             </div>
         );
     }
@@ -190,9 +254,11 @@ var ReservationListBox = React.createClass({
     render: function () {
         var reservations = this.props.reservations.map(function (reservation) {
             return (
-                <ReservationBox reservation={reservation}/>
+                <ReservationBox key={reservation.id}
+                                reservation={reservation}
+                                onRemoveReservation={this.props.onRemoveReservation}/>
             );
-        });
+        }.bind(this));
         return (
             <div className="col-lg-5">
                 {reservations}
@@ -204,42 +270,50 @@ var ReservationListBox = React.createClass({
 var ReservationBox = React.createClass({
     getInitialState: function () {
         return {
-            reservation: this.props.reservation
+            projectName: this.props.reservation.project.projectName,
+            hours: this.props.reservation.hours
         }
     },
     onSelectProject: function (selectedProject) {
-        this.setState({reservation: {project: selectedProject}});
+        this.setState({projectName: selectedProject.projectName});
+        this.props.reservation.project = selectedProject;
     },
     handleHoursChange: function (e) {
-        //this.setState({reservation: {hours: e.target.value}})
+        this.setState({hours: e.target.value})
+        this.props.reservation.hours = e.target.value;
+    },
+    handleOpenDescriptionModal: function () {
+        alert('open reservation description');
+    },
+    handleRemoveReservation: function () {
+        this.props.onRemoveReservation(this.props.reservation);
     },
     render: function () {
         return (
             <div>
-                {this.state.name}
                 <div className="btn-group timesheet-project-column">
                     <button type="button"
-                            className="btn btn-primary">{this.state.reservation.project.projectName}</button>
+                            className="btn btn-primary">{this.state.projectName}</button>
                     <button type="button" className="btn btn-primary dropdown-toggle" data-toggle="dropdown"
                             aria-haspopup="true" aria-expanded="false">
                         <span className="caret"></span>
                         <span className="sr-only">Toggle Dropdown</span>
                     </button>
-                    <AvailableProjectsListBox reservation={this.state.reservation}
+                    <AvailableProjectsListBox reservation={this.props.reservation}
                                               onSelectProject={this.onSelectProject}/>
                 </div>
                 <div className="timesheet-column">
-                    <button type="button" className="btn btn-default">
+                    <button type="button" className="btn btn-default" onClick={this.handleOpenDescriptionModal}>
                         <span className="glyphicon glyphicon-pencil"/>
                     </button>
                 </div>
                 <div className="timesheet-column">
                     <input type="text" className="form-control timesheet-hour"
-                           value={this.state.reservation.hours}
+                           value={this.state.hours}
                            onChange={this.handleHoursChange}/>
                 </div>
                 <div className="timesheet-column">
-                    <button type="button" className="btn btn-danger">
+                    <button type="button" className="btn btn-danger" onClick={this.handleRemoveReservation}>
                         <span className="glyphicon  glyphicon-trash img-circle text-danger"></span>
                     </button>
                 </div>
@@ -251,12 +325,13 @@ var ReservationBox = React.createClass({
 
 var AvailableProjectsListBox = React.createClass({
     render: function () {
-        var onSelectProject = this.props.onSelectProject;
         var availableProjects = this.props.reservation.availableProjects.map(function (availableProject) {
             return (
-                <AvailableProject availableProject={availableProject} onSelectProject={onSelectProject}/>
+                <AvailableProject key={availableProject.project.id}
+                                  availableProject={availableProject}
+                                  onSelectProject={this.props.onSelectProject}/>
             );
-        });
+        }.bind(this));
         return (
             <ul className="dropdown-menu">
                 {availableProjects}
@@ -279,24 +354,44 @@ var AvailableProject = React.createClass({
 });
 
 var TimesheetButtons = React.createClass({
+    handleEdit: function (e) {
+        e.preventDefault();
+        this.props.onEdit();
+    },
+    handleSave: function (e) {
+        e.preventDefault();
+        this.props.onSave();
+    },
+    handleSubmit: function (e) {
+        e.preventDefault();
+        this.props.onSubmit();
+    },
+    handlePrint: function (e) {
+        e.preventDefault();
+        this.props.onPrint();
+    },
+    handleReject: function (e) {
+        e.preventDefault();
+        this.props.onReject();
+    },
     render: function () {
         return (
             <div className="row">
                 <div className="col-lg-12">
                     <div className="modal-footer">
-                        <button type="button" className="btn btn-default">
+                        <button type="submit" className="btn btn-default" onClick={this.handleEdit}>
                             <span className="glyphicon glyphicon-ban-circle"></span>&nbsp;<span>Edit</span>
                         </button>
-                        <button type="submit" className="btn btn-primary">
+                        <button type="submit" className="btn btn-primary" onClick={this.handleSave}>
                             <span className="glyphicon glyphicon-save"></span>&nbsp;<span>Save</span>
                         </button>
-                        <button type="submit" className="btn btn-primary">
+                        <button type="submit" className="btn btn-primary" onClick={this.handleSubmit}>
                             <span className="glyphicon glyphicon-send"></span>&nbsp;<span>Submit</span>
                         </button>
-                        <button type="submit" className="btn btn-primary">
+                        <button type="submit" className="btn btn-primary" onClick={this.handlePrint}>
                             <span className="glyphicon glyphicon-print"></span>&nbsp;<span>Print</span>
                         </button>
-                        <button type="submit" className="btn btn-primary">
+                        <button type="submit" className="btn btn-primary" onClick={this.handleReject}>
                             <span className="glyphicon glyphicon-remove"></span>&nbsp;<span>Request for rejection</span>
                         </button>
                     </div>
@@ -350,17 +445,39 @@ var SummaryContent = React.createClass({
 });
 
 var Content = React.createClass({
+    onEdit: function () {
+        alert(this.props.data.weekDays[0].reservations[0].project.projectName);
+        alert(this.props.data.weekDays[0].reservations[0].hours);
+    },
+    onSave: function () {
+
+    },
+    onSubmit: function () {
+
+    },
+    onPrint: function () {
+
+    },
+    onReject: function () {
+
+    },
     render: function () {
         return (
             <div className="container">
-                <DateBox weekDateRangeLabel={this.props.data.weekDateRangeLabel}/>
-                <WeekNavigationBox />
-                <TimesheetTableHeader />
-                <TimesheetTableContent weekdays={this.props.data.weekDays}/>
-                <TimesheetButtons />
-                <SummaryTitle />
-                <SummaryHeader />
-                <SummaryContent />
+                <form>
+                    <DateBox weekDateRangeLabel={this.props.data.weekDateRangeLabel}/>
+                    <WeekNavigationBox />
+                    <TimesheetTableHeader />
+                    <TimesheetTableContent weekdays={this.props.data.weekDays}/>
+                    <TimesheetButtons onEdit={this.onEdit}
+                                      onSave={this.onSave}
+                                      onSubmit={this.onSubmit}
+                                      onPrint={this.onPrint}
+                                      onReject={this.onReject}/>
+                    <SummaryTitle />
+                    <SummaryHeader />
+                    <SummaryContent />
+                </form>
             </div>
         );
     }
@@ -377,7 +494,6 @@ var TimesheetBox = React.createClass({
         );
     }
 });
-
 
 ReactDOM.render(
     <TimesheetBox />,
