@@ -214,7 +214,9 @@ var TimesheetTableRow = React.createClass({
         alert('open weekday description');
     },
     handleSetDefault: function () {
-        alert('set default');
+        this.props.weekday.reservations[0].project = this.props.weekday.defaultProject;
+        this.props.weekday.reservations[0].hours = this.props.weekday.defaultHoursNumber;
+        this.setState({reservations: this.props.weekday.reservations}); // Don't propagate change down the component tree.
     },
     render: function () {
         return (

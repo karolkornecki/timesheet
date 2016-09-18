@@ -1,9 +1,9 @@
 {
-  "name": "react-tutorial",
-  "version": "0.0.0",
+  "name": "Timesheet",
+  "version": "1.0.0",
   "private": true,
   "license": "see LICENSE file",
-  "description": "Code from the React tutorial.",
+  "description": "timesheet application",
   "main": "server.js",
   "dependencies": {
     "body-parser": "^1.4.3",
@@ -16,19 +16,17 @@
   },
   "repository": {
     "type": "git",
-    "url": "https://github.com/reactjs/react-tutorial.git"
+    "url": "https://github.com/karolkornecki/timesheet-ReactJS.git"
   },
   "keywords": [
     "react",
-    "tutorial",
-    "comment",
-    "example"
+    "timesheet",
   ],
-  "author": "petehunt",
+  "author": "Karol Kornecki",
   "bugs": {
-    "url": "https://github.com/reactjs/react-tutorial/issues"
+    "url": "karol.kornecki@gmail.com"
   },
-  "homepage": "https://github.com/reactjs/react-tutorial",
+  "homepage": "https://github.com/karolkornecki",
   "engines" : {
     "node" : "0.12.x"
   }
