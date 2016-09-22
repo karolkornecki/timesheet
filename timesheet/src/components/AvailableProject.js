@@ -1,16 +1,20 @@
-import React, { Component, PropTypes } from 'react'
+import React, { Component } from 'react'
+import { connect } from 'react-redux'
+
+
+const mapStateToProps = (state, ownProps) => ({
+    project: state.projectsMap[ownProps.projectId]
+})
 
 class AvailableProject extends Component {
-    static propTypes = {
-        project: PropTypes.object
-    }
+
     render() {
         return (
             <li><a href="#">
-                {this.props.availableProject.project.projectName}</a>
+                {this.props.project.projectName}</a>
             </li>
         );
     }
 }
-
+AvailableProject = connect(mapStateToProps)(AvailableProject);
 export default AvailableProject

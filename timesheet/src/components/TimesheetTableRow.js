@@ -1,11 +1,12 @@
-import React, { Component, PropTypes } from 'react';
+import React, { Component } from 'react';
 import ReservationListBox from './ReservationListBox'
+import { connect } from 'react-redux'
 
+const mapStateToProps = (state, ownProps) => ({
+    weekday: state.weekdaysMap[ownProps.weekdayId]
+})
 
 class TimesheetTableRow extends Component {
-    static propTypes = {
-        weekday: PropTypes.object
-    }
     render() {
         return (
             <div className="row timesheet-row">
@@ -13,7 +14,7 @@ class TimesheetTableRow extends Component {
                     <span>{this.props.weekday.day}/{this.props.weekday.month}/{this.props.weekday.year}</span>
                 </div>
 
-                <ReservationListBox reservations={this.props.weekday.reservations}/>
+                <ReservationListBox weekdayId={this.props.weekday.id}/>
 
                 <div className="col-lg-1">
                     <button type="button" className="btn btn-success">
@@ -37,5 +38,7 @@ class TimesheetTableRow extends Component {
         );
     }
 }
+
+TimesheetTableRow = connect(mapStateToProps)(TimesheetTableRow);
 
 export default TimesheetTableRow

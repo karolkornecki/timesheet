@@ -1,9 +1,7 @@
-import Immutable from "immutable"
-
-const weekdaysReducer = (state = {}, action) => {
+const reducer = (state = {}, action) => {
     switch (action.type) {
         case 'SELECT_PROJECT':
-            return selectProjectReducer(state, action);
+            return state;
         case 'FILL_HOURS':
             alert('fill');
             return state;
@@ -16,19 +14,28 @@ const weekdaysReducer = (state = {}, action) => {
     }
 }
 
-const selectProjectReducer = (state, action) => {
+//const weekdaysMap = (state = {}, action) => {
+//    switch (action.type) {
+//        case 'SELECT_PROJECT':
+//            return state;
+//        default :
+//            return state;
+//    }
+//}
+//
+//const selectProjectReducer = (state, action) => {
+//
+//    //var reservation = state.weekDays[action.weekdayIndex].reservations[action.reservationIndex];
+//    //var selectedProject = reservation.availableProjects.filter(p => p.id === action.selectedProjectId);
+//    //state.weekDays[action.weekdayIndex].reservations[action.reservationIndex].project = selectedProject[0].project;
+//    //
+//    var new_state = Object.assign({}, state.weekDays);
+//
+//    new_state.weekDays[action.weekdayIndex].reservations[action.reservationIndex].project = state.weekDays[action.weekdayIndex]
+//        .reservations[action.reservationIndex]
+//        .availableProjects.filter(p => p.id === action.selectedProjectId)[0].project;
+//    return state;
+//
+//}
 
-    //var reservation = state.weekDays[action.weekdayIndex].reservations[action.reservationIndex];
-    //var selectedProject = reservation.availableProjects.filter(p => p.id === action.selectedProjectId);
-    //state.weekDays[action.weekdayIndex].reservations[action.reservationIndex].project = selectedProject[0].project;
-    //
-    var new_state = Object.assign({}, state.weekDays);
-
-    new_state.weekDays[action.weekdayIndex].reservations[action.reservationIndex].project = state.weekDays[action.weekdayIndex]
-        .reservations[action.reservationIndex]
-        .availableProjects.filter(p => p.id === action.selectedProjectId)[0].project;
-    return state;
-
-}
-
-export default weekdaysReducer
+export default reducer

@@ -1,26 +1,23 @@
-import React, { Component, PropTypes } from 'react'
-import DateBox from './DateBox'
+import React, { Component } from 'react'
 import WeekNavigationBox from './WeekNavigationBox'
 import TimesheetTableHeader from './TimesheetTableHeader'
-import TimesheetTableContent from './TimesheetTableContent'
+import TimesheetTableContent from '../containers/TimesheetTableContent'
 import TimesheetButtons from './TimesheetButtons'
 import SummaryTitle from './SummaryTitle'
 import SummaryHeader from './SummaryHeader'
 import SummaryContent from './SummaryContent'
+import DateBox from '../containers/DateBox'
 
 class Content extends Component {
-    static propTypes = {
-        data: PropTypes.object
-    }
 
     render() {
         return (
             <div className="container">
                 <form>
-                    <DateBox weekDateRangeLabel={this.props.data.weekDateRangeLabel}/>
+                    <DateBox />
                     <WeekNavigationBox />
                     <TimesheetTableHeader />
-                    <TimesheetTableContent weekdays={this.props.data.weekDays}/>
+                    <TimesheetTableContent />
                     <TimesheetButtons />
                     <SummaryTitle />
                     <SummaryHeader />

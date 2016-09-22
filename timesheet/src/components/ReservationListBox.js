@@ -1,15 +1,19 @@
-import React, { Component, PropTypes } from 'react';
+import React, { Component } from 'react';
 import ReservationBox from './ReservationBox'
+import { connect } from 'react-redux'
+
+
+const mapStateToProps = (state, ownProps) => ({
+    reservations: Object.values(state.reservationsMap).filter(r => r.weekdayId === ownProps.weekdayId)
+})
 
 class ReservationListBox extends Component {
-    static propTypes = {
-        reservations: PropTypes.array
-    }
+
     render() {
         var reservations = this.props.reservations.map(function (reservation) {
             return (
                 <ReservationBox key={reservation.id}
-                                reservation={reservation}/>
+                                reservationId={reservation.id}/>
             );
         });
         return (
@@ -19,5 +23,7 @@ class ReservationListBox extends Component {
         );
     }
 }
+
+ReservationListBox = connect(mapStateToProps)(ReservationListBox);
 
 export default ReservationListBox

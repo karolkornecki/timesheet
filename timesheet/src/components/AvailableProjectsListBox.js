@@ -1,15 +1,22 @@
-import React, { Component, PropTypes } from 'react'
+import React, { Component } from 'react'
 import AvailableProject from './AvailableProject'
+import { connect } from 'react-redux'
+
+
+const mapStateToProps = (state, ownProps) => ({
+    availableProjects: state.availableProjects
+        .filter(a => a.reservationId === ownProps.reservationId)
+        .map(a => a.projectId)
+        .map(id => state.projectsMap[id])
+})
+
 
 class AvailableProjectsListBox extends Component {
-    static propTypes = {
-        reservation: PropTypes.object
-    }
+
     render() {
-        var availableProjects = this.props.reservation.availableProjects.map(function (availableProject) {
+        var availableProjects = this.props.availableProjects.map(function (project) {
             return (
-                <AvailableProject key={availableProject.project.id}
-                                  availableProject={availableProject}/>
+                <AvailableProject key={project.id} projectId={project.id}/>
             );
         });
         return (
@@ -19,5 +26,7 @@ class AvailableProjectsListBox extends Component {
         );
     }
 }
+
+AvailableProjectsListBox = connect(mapStateToProps)(AvailableProjectsListBox);
 
 export default AvailableProjectsListBox
