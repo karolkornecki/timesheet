@@ -14,7 +14,9 @@
     "redux": "^3.5.2",
     "deep-freeze": "^0.0.1",
     "immutable": "^3.8.1",
-    "normalizr": "^2.2.1"
+    "normalizr": "^2.2.1",
+    "bootstrap": "3.3.7",
+    "lodash": "^4.16.1"
   },
   "scripts": {
     "start": "react-scripts start",
