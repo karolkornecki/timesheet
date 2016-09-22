@@ -1,23 +1,21 @@
-export const selectProject = (weekdayIndex, reservationIndex, selectedProjectId) => ({
+export const selectProject = (weekdayId, reservationId, selectedProjectId) => ({
     type: 'SELECT_PROJECT',
-    weekdayIndex,
-    reservationIndex,
+    reservationId,
     selectedProjectId
 })
 
-export const fillHours = (weekdayIndex, reservationIndex, hours) => ({
+export const fillHours = (weekdayId, reservationId, hours) => ({
     type: 'FILL_HOURS',
-    weekdayIndex,
-    reservationIndex,
+    reservationId,
     hours
 })
 
-export const addReservation = (weekdayIndex) => ({
+export const addReservation = (weekdayId) => ({
     type: 'ADD_RESERVATION',
-    weekdayIndex
+    weekdayId
 })
 
-export const setDefaultProject = (weekdayIndex) => ({
+export const setDefaultProject = (weekdayId) => ({
     type: 'SET_DEFAULT_PROJECT',
-    weekdayIndex
+    weekdayId
 })
