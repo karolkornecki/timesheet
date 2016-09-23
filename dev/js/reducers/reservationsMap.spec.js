@@ -58,6 +58,63 @@ describe('reservationsMap reducer - test suite', () => {
         ).toEqual(stateAfter)
     })
 
+
+    it('should handle select project', () => {
+
+
+        let stateBefore = {
+            availableProjects: {},
+            weekdaysMap: {},
+            weekDateRangeLabel: {},
+            projectsMap: {},
+            reservationsMap: {
+                1: {
+                    id: 1,
+                    weekdayId: 1,
+                    projectId: 3,
+                    hours: 8
+                },
+                2: {
+                    id: 2,
+                    weekdayId: 1,
+                    projectId: 2,
+                    hours: 8
+                }
+            }
+        };
+
+        let stateAfter = {
+            availableProjects: {},
+            weekdaysMap: {},
+            weekDateRangeLabel: {},
+            projectsMap: {},
+            reservationsMap: {
+                1: {
+                    id: 1,
+                    weekdayId: 1,
+                    projectId: 3,
+                    hours: 8
+                },
+                2: {
+                    id: 2,
+                    weekdayId: 1,
+                    projectId: 1,
+                    hours: 8
+                }
+            }
+        };
+
+        deepFreeze(stateBefore);
+
+        expect(
+            reservationMap(stateBefore, {
+                type: 'SELECT_PROJECT',
+                reservationId: 2,
+                selectedProjectId: 1
+            })
+        ).toEqual(stateAfter)
+    })
+
     it('should return previous state in case of incorrect reservation id', () => {
 
         var stateBefore = {

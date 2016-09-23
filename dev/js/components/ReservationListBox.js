@@ -8,7 +8,7 @@ const mapStateToProps = (state, ownProps) => ({
 
 class ReservationListBox extends Component {
     render() {
-        var reservations = this.props.reservations.map(function (reservation) {
+        let reservations = this.props.reservations.map(function (reservation) {
             return (
                 <ReservationBox key={reservation.id}
                                 reservationId={reservation.id} />

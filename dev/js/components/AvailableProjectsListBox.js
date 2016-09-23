@@ -14,9 +14,10 @@ const mapStateToProps = (state, ownProps) => ({
 class AvailableProjectsListBox extends Component {
 
     render() {
+        let reservationId = this.props.reservationId;
         var availableProjects = this.props.availableProjects.map(function (project) {
             return (
-                <AvailableProject key={project.id} projectId={project.id}/>
+                <AvailableProject key={project.id} projectId={project.id} reservationId={reservationId}/>
             );
         });
         return (

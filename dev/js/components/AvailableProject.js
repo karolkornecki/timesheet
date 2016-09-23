@@ -1,5 +1,6 @@
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
+import { selectProject } from '../actions'
 
 
 const mapStateToProps = (state, ownProps) => ({
@@ -10,7 +11,7 @@ class AvailableProject extends Component {
 
     render() {
         return (
-            <li><a href="#">
+            <li><a href="#" onClick={()=> this.props.dispatch(selectProject(this.props.reservationId, this.props.projectId))}>
                 {this.props.project.projectName}</a>
             </li>
         );
