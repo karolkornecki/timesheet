@@ -1,17 +1,17 @@
 import _ from "lodash"
 
-const reservationsMap = (state = {}, action = {}) => { // default action to satisfy intellij checkstyle
+const reservationsMap = ( state = {}, action = {}) => { // default action to satisfy intellij checkstyle
     switch (action.type) {
         case 'SELECT_PROJECT':
             return state;
         case 'FILL_HOURS':
-            console.log("Reducer w akcji "+action.reservationId+" "+action.hours);
-            let reservation = _.pick(state, action.reservationId);
-            let id = action.reservationId;
-            var x =  _.merge(_.omit(state, id), _.set(reservation, _.set(reservation[id], "hours", action.hours)));
+            if (!_.hasIn(state, action.reservationId)) {
+                return state;
+            }
 
-            console.log(_.pick(x, action.reservationId)[id].hours);
-            return x
+            let reservation = _.set(_.assign({}, _.pick(state, action.reservationId)[action.reservationId]), "hours", action.hours);
+            let reservationEntry = _.set(_.assign({}, _.pick(state, action.reservationId)), action.reservationId, reservation);
+            return _.assign({}, _.omit(state, action.reservationId), reservationEntry);
         case 'ADD_RESERVATION':
             return state;
         case 'SET_DEFAULT_PROJECT':

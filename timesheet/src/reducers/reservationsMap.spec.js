@@ -39,7 +39,7 @@ describe('reservationsMap reducer - test suite', () => {
             }
         };
 
-        //deepFreeze(stateBefore);
+        deepFreeze(stateBefore);
 
         expect(
             reservationMap(stateBefore, {
@@ -70,7 +70,6 @@ describe('reservationsMap reducer - test suite', () => {
         };
 
         deepFreeze(stateBefore);
-
         expect(
             reservationMap(stateBefore, {
                 type: 'FILL_HOURS',

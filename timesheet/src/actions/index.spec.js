@@ -3,7 +3,7 @@ import * as actions from "./index"
 describe("timesheet form actions", () => {
 
     it("selectProject should create SELECT_PROJECT action", () => {
-        expect(actions.selectProject(0, 0, 1)).toEqual({
+        expect(actions.selectProject(0, 1)).toEqual({
             type: "SELECT_PROJECT",
             reservationId: 0,
             selectedProjectId: 1
@@ -11,7 +11,7 @@ describe("timesheet form actions", () => {
     })
 
     it("fillHours should create FILL_HOURS action", () => {
-        expect(actions.fillHours(1, 2, 8)).toEqual({
+        expect(actions.fillHours(2, 8)).toEqual({
             type: "FILL_HOURS",
             reservationId: 2,
             hours: 8
