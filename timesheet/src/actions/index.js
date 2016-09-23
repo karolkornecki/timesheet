@@ -1,10 +1,10 @@
-export const selectProject = (weekdayId, reservationId, selectedProjectId) => ({
+export const selectProject = (reservationId, selectedProjectId) => ({
     type: 'SELECT_PROJECT',
     reservationId,
     selectedProjectId
 })
 
-export const fillHours = (weekdayId, reservationId, hours) => ({
+export const fillHours = (reservationId, hours) => ({
     type: 'FILL_HOURS',
     reservationId,
     hours
