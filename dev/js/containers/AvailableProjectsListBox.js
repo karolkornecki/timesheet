@@ -16,9 +16,10 @@ class AvailableProjectsListBox extends Component {
     render() {
         let availableProjects = this.props.availableProjects.map((project) => {
             return (
-            <li key={project.id}><a href="#" onClick={()=> this.props.dispatch(selectProject(this.props.reservationId, project.id))}>
-                {project.projectName}</a>
-            </li>
+                <li key={project.id}><a href="#"
+                                        onClick={()=> this.props.onSelectProject(this.props.reservationId, project.id)}>
+                    {project.projectName}</a>
+                </li>
             );
         });
         return (
@@ -29,6 +30,11 @@ class AvailableProjectsListBox extends Component {
     }
 }
 
-AvailableProjectsListBox = connect(mapStateToProps)(AvailableProjectsListBox);
+AvailableProjectsListBox = connect(
+    mapStateToProps,
+    {
+        onSelectProject: selectProject
+    } // same as -> onSelectProject(resId,projId) {dispatch(selectProject(resId, projId)) }
+)(AvailableProjectsListBox);
 
 export default AvailableProjectsListBox

@@ -1,5 +1,7 @@
 import reservationMap from './index'
+import * as actions from '../actions/index'
 import deepFreeze from "deep-freeze"
+import _ from 'lodash'
 
 describe('reservationsMap reducer - test suite', () => {
     it('should handle hours change', () => {
@@ -50,11 +52,7 @@ describe('reservationsMap reducer - test suite', () => {
         deepFreeze(stateBefore);
 
         expect(
-            reservationMap(stateBefore, {
-                type: 'FILL_HOURS',
-                reservationId: 1,
-                hours: 40
-            })
+            reservationMap(stateBefore, actions.fillHours(1, 40))
         ).toEqual(stateAfter)
     })
 
@@ -107,11 +105,7 @@ describe('reservationsMap reducer - test suite', () => {
         deepFreeze(stateBefore);
 
         expect(
-            reservationMap(stateBefore, {
-                type: 'SELECT_PROJECT',
-                reservationId: 2,
-                selectedProjectId: 1
-            })
+            reservationMap(stateBefore, actions.selectProject(2, 1))
         ).toEqual(stateAfter)
     })
 
@@ -140,11 +134,7 @@ describe('reservationsMap reducer - test suite', () => {
 
         deepFreeze(stateBefore);
         expect(
-            reservationMap(stateBefore, {
-                type: 'FILL_HOURS',
-                reservationId: 3,
-                hours: 40
-            })
+            reservationMap(stateBefore, actions.fillHours(3, 40))
         ).toEqual(stateBefore)
     })
 
@@ -191,11 +181,43 @@ describe('reservationsMap reducer - test suite', () => {
         deepFreeze(stateBefore);
 
         expect(
-            reservationMap(stateBefore, {
-                type: 'REMOVE_RESERVATION',
-                reservationId: 1
-            })
+            reservationMap(stateBefore, actions.removeReservation(1))
         ).toEqual(stateAfter)
+    })
+
+    it('should handle add reservation', () => {
+
+
+        let stateBefore = {
+            availableProjects: {},
+            weekdaysMap: {},
+            weekDateRangeLabel: {},
+            projectsMap: {},
+            reservationsMap: {
+                1: {
+                    id: 1,
+                    weekdayId: 1,
+                    projectId: 3,
+                    hours: 8
+                },
+                2: {
+                    id: 2,
+                    weekdayId: 1,
+                    projectId: 2,
+                    hours: 8
+                }
+            }
+        };
+
+        deepFreeze(stateBefore);
+
+        //when
+        let result = reservationMap(stateBefore, actions.addReservation(1));
+
+        //then
+        let newReservation = _.values(_.omit(_.pick(result, 'reservationsMap').reservationsMap, [1, 2]))[0]; // TODO I dont like the way it's done. I need to find better way to unwrap inner object
+        expect(newReservation.weekdayId).toEqual(1)
+
     })
 
 })

@@ -19,10 +19,13 @@ describe("timesheet form actions", () => {
     })
 
     it("addReservation should create ADD_RESERVATION action", () => {
-        expect(actions.addReservation(4)).toEqual({
-            type: "ADD_RESERVATION",
-            weekdayId: 4
-        })
+        let action = actions.addReservation(4);
+
+        const UUID_FORMAT = /[0-9a-f]{8}-[0-9a-f]{4}-4[0-9a-f]{3}-[89ab][0-9a-f]{3}-[0-9a-f]{12}/i
+
+        expect(action.type).toEqual("ADD_RESERVATION")
+        expect(action.weekdayId).toEqual(4)
+        expect(UUID_FORMAT.test(action.reservationId)).toBe(true)
     })
 
     it("removeReservation should create CREATE_RESERVATION action", () => {

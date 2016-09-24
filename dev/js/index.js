@@ -10,6 +10,7 @@ import allReducers from './reducers';
 import TimesheetBox from './components/TimesheetBox';
 import {loadState, saveState} from './localStorage'
 import throttle from "lodash/throttle"
+import {Route, Router, browserHistory} from "react-router";
 
 var data = {
     weekDateRangeLabel: "20-27.09.2016",
@@ -112,7 +113,9 @@ const store = createStore(
 
 ReactDOM.render(
     <Provider store={store}>
-        <TimesheetBox />
+        <Router history={browserHistory}>
+            <Route path='/' component={TimesheetBox}/>
+        </Router>
     </Provider>,
     document.getElementById('root')
 );

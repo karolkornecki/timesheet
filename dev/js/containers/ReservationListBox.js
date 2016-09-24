@@ -13,7 +13,9 @@ class ReservationListBox extends Component {
         let reservations = this.props.reservations.map((reservation) => {
             let project = this.props.projectsMap[reservation.projectId];
 
+            let hoursInput;
             return (
+
                 <div key={reservation.id}>
                     <div className="btn-group timesheet-project-column">
                         <button type="button"
@@ -31,9 +33,9 @@ class ReservationListBox extends Component {
                         </button>
                     </div>
                     <div className="timesheet-column">
-                        <input ref="hoursInput" type="text" className="form-control timesheet-hour"
+                        <input ref={ node => {hoursInput = node}} type="text" className="form-control timesheet-hour"
                                value={reservation.hours}
-                               onChange={()=> this.props.dispatch(fillHours(reservation.id, this.refs.hoursInput.value))}/>
+                               onChange={()=> this.props.dispatch(fillHours(reservation.id, hoursInput.value))}/>
                     </div>
                     <div className="timesheet-column">
                         <button type="button" className="btn btn-danger"

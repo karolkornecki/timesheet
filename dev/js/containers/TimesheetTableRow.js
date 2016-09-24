@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import ReservationListBox from './ReservationListBox'
 import { connect } from 'react-redux'
+import { addReservation } from '../actions/index'
 
 const mapStateToProps = (state, ownProps) => ({
     weekday: state.weekdaysMap[ownProps.weekdayId]
@@ -17,7 +18,8 @@ class TimesheetTableRow extends Component {
                 <ReservationListBox weekdayId={this.props.weekday.id}/>
 
                 <div className="col-lg-1">
-                    <button type="button" className="btn btn-success">
+                    <button type="button" className="btn btn-success"
+                            onClick={()=> this.props.onAddReservation(this.props.weekdayId)}>
                         <span className="glyphicon  glyphicon-plus img-circle text-success"></span>
                     </button>
                 </div>
@@ -39,6 +41,12 @@ class TimesheetTableRow extends Component {
     }
 }
 
-TimesheetTableRow = connect(mapStateToProps)(TimesheetTableRow);
+TimesheetTableRow = connect(
+    mapStateToProps,
+    {
+        onAddReservation: addReservation
+    }
+)
+(TimesheetTableRow);
 
 export default TimesheetTableRow
