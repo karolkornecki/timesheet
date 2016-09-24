@@ -41,7 +41,8 @@
     "immutable": "^3.8.1",
     "normalizr": "^2.2.1",
     "bootstrap": "3.3.7",
-    "lodash": "^4.16.1"
+    "lodash": "^4.16.1",
+    "node-uuid": "^1.0.0"
   },
   "devDependencies": {
     "babel-plugin-react-transform": "^2.0.2",

@@ -8,6 +8,8 @@ import promise from 'redux-promise';
 import createLogger from 'redux-logger';
 import allReducers from './reducers';
 import TimesheetBox from './components/TimesheetBox';
+import {loadState, saveState} from './localStorage'
+import throttle from "lodash/throttle"
 
 var data = {
     weekDateRangeLabel: "20-27.09.2016",
@@ -96,6 +98,8 @@ var data = {
     ]
 };
 
+//const persistedState = loadState();// not used for now
+
 
 const logger = createLogger();
 const store = createStore(
@@ -103,6 +107,8 @@ const store = createStore(
     data,
     applyMiddleware(thunk, promise, logger)
 );
+
+//store.subscribe(throttle(()=> saveState(store.getState()), 1000));
 
 ReactDOM.render(
     <Provider store={store}>

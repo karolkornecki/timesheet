@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import TimesheetTableRow from '../components/TimesheetTableRow'
+import TimesheetTableRow from './TimesheetTableRow'
 import { connect } from 'react-redux'
 
 

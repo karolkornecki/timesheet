@@ -1,3 +1,5 @@
+import { v4 } from "node-uuid";
+
 export const selectProject = (reservationId, selectedProjectId) => ({
     type: 'SELECT_PROJECT',
     reservationId,
@@ -12,7 +14,8 @@ export const fillHours = (reservationId, hours) => ({
 
 export const addReservation = (weekdayId) => ({
     type: 'ADD_RESERVATION',
-    weekdayId
+    weekdayId,
+    reservationId: v4()
 })
 
 export const removeReservation = (reservationId) => ({
