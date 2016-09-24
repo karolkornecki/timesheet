@@ -11,7 +11,13 @@ const reservationsMap = (state = {}, action = {}) => { // default action to sati
         case 'FILL_HOURS':
             return createNewReservationState(state, action.reservationId, "hours", action.hours);
         case 'ADD_RESERVATION':
+
+
+
+
             return state;
+        case 'REMOVE_RESERVATION':
+            return _.assign({}, _.omit(state, action.reservationId));
         case 'SET_DEFAULT_PROJECT':
             return state;
         default:

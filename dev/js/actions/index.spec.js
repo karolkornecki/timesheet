@@ -25,6 +25,13 @@ describe("timesheet form actions", () => {
         })
     })
 
+    it("removeReservation should create CREATE_RESERVATION action", () => {
+        expect(actions.removeReservation(1)).toEqual({
+            type: "REMOVE_RESERVATION",
+            reservationId: 1
+        })
+    })
+
     it("setDefaultProject should create SET_DEFAULT_PROJECT action", () => {
         expect(actions.setDefaultProject(0)).toEqual({
             type: "SET_DEFAULT_PROJECT",
