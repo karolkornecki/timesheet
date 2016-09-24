@@ -1,6 +1,6 @@
 import React, { Component } from 'react'
-import AvailableProject from './AvailableProject'
 import { connect } from 'react-redux'
+import { selectProject } from '../actions'
 
 
 const mapStateToProps = (state, ownProps) => ({
@@ -14,10 +14,11 @@ const mapStateToProps = (state, ownProps) => ({
 class AvailableProjectsListBox extends Component {
 
     render() {
-        let reservationId = this.props.reservationId;
-        var availableProjects = this.props.availableProjects.map(function (project) {
+        let availableProjects = this.props.availableProjects.map((project) => {
             return (
-                <AvailableProject key={project.id} projectId={project.id} reservationId={reservationId}/>
+            <li key={project.id}><a href="#" onClick={()=> this.props.dispatch(selectProject(this.props.reservationId, project.id))}>
+                {project.projectName}</a>
+            </li>
             );
         });
         return (
