@@ -4,9 +4,6 @@ const reservationsMap = (state = {}, action = {}) => { // default action to sati
 
     switch (action.type) {
         case 'SELECT_PROJECT':
-            if (!_.hasIn(state, action.reservationId)) {
-                return state;
-            }
             return _.mapValues(state, (value) => {
                     if (value.id == action.reservationId) {
                         return {
@@ -21,9 +18,6 @@ const reservationsMap = (state = {}, action = {}) => { // default action to sati
                 }
             )
         case 'FILL_HOURS':
-            if (!_.hasIn(state, action.reservationId)) {
-                return state;
-            }
             return _.mapValues(state, (value) => {
                     if (value.id == action.reservationId) {
                         return {
@@ -50,9 +44,6 @@ const reservationsMap = (state = {}, action = {}) => { // default action to sati
             };
         case
         'REMOVE_RESERVATION':
-            if (!_.hasIn(state, action.reservationId)) {
-                return state;
-            }
             return _.assign({}, _.omit(state, action.reservationId));
         case
         'SET_DEFAULT_PROJECT_AND_HOURS':

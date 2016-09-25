@@ -10,16 +10,15 @@ const mapStateToProps = (state, ownProps) => ({
 
 class ReservationListBox extends Component {
     render() {
-        let reservations = this.props.reservations.map((reservation) => {
-            let project = this.props.projectsMap[reservation.projectId];
-            let weekdayId = this.props.weekdayId;
+        const reservations = this.props.reservations.map((reservation) => {
+            const project = this.props.projectsMap[reservation.projectId];
+            const weekdayId = this.props.weekdayId;
             let hoursInput;
             return (
-
-                <div key={reservation.id}>
+                <div className="reservation-row" key={reservation.id}>
                     <div className="btn-group timesheet-project-column">
                         <button type="button"
-                                className="btn btn-primary">{project.projectName}</button>
+                                className="btn btn-primary reservation-project">{project.projectName}</button>
                         <button type="button" className="btn btn-primary dropdown-toggle" data-toggle="dropdown"
                                 aria-haspopup="true" aria-expanded="false">
                             <span className="caret"></span>
@@ -28,7 +27,7 @@ class ReservationListBox extends Component {
                         <AvailableProjectsListBox weekdayId={weekdayId} reservationId={reservation.id}/>
                     </div>
                     <div className="timesheet-column">
-                        <button type="button" className="btn btn-default">
+                        <button type="button" className="btn btn-default" title="add note to reservation">
                             <span className="glyphicon glyphicon-pencil"/>
                         </button>
                     </div>
@@ -38,7 +37,7 @@ class ReservationListBox extends Component {
                                onChange={()=> this.props.dispatch(fillHours(reservation.id, hoursInput.value))}/>
                     </div>
                     <div className="timesheet-column">
-                        <button type="button" className="btn btn-danger"
+                        <button type="button" className="btn btn-danger" title="remove reservation"
                                 onClick={() => this.props.dispatch(removeReservation(reservation.id))}>
                             <span className="glyphicon  glyphicon-trash img-circle text-danger"></span>
                         </button>

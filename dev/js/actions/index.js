@@ -27,3 +27,9 @@ export const setDefaultProjectAndHours = (weekday) => ({
     type: 'SET_DEFAULT_PROJECT_AND_HOURS',
     weekday
 })
+
+export const saveWeekdayDescription = (weekdayId, descriptionText) => ({
+    type: 'SAVE_WEEKDAY_DESCRIPTION',
+    weekdayId,
+    descriptionText
+})

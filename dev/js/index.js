@@ -22,7 +22,8 @@ var data = {
             year: "2016",
             statusCode: "Accepted",
             defaultHoursNumber: 50,
-            defaultProjectId: 1
+            defaultProjectId: 1,
+            description: "weekday 1 description"
         },
         2: {
             id: 2,
@@ -31,7 +32,8 @@ var data = {
             year: "2016",
             statusCode: "Accepted",
             defaultHoursNumber: 50,
-            defaultProjectId: 5
+            defaultProjectId: 5,
+            description: "weekday 2 description"
         }
     },
     projectsMap: {
@@ -62,12 +64,14 @@ var data = {
             weekdayId: 1,
             projectId: 3,
             hours: 8,
+            description: "reservation 1 description"
         },
         2: {
             id: 2,
             weekdayId: 2,
             projectId: 4,
             hours: 6,
+            description: "reservation 2 description"
         }
     },
     availableProjects: [

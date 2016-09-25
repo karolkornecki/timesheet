@@ -61,4 +61,12 @@ describe("timesheet form actions", () => {
         expect(action.type).toEqual("SET_DEFAULT_PROJECT_AND_HOURS")
         expect(action.weekday).toEqual(weekday)
     })
+
+    it("saveWeekdayDescription should create SAVE_WEEKDAY_DESCRIPTION action", ()=> {
+        expect(actions.saveWeekdayDescription(1, "implementing createOrder WS")).toEqual({
+            type: 'SAVE_WEEKDAY_DESCRIPTION',
+            weekdayId: 1,
+            descriptionText: 'implementing createOrder WS'
+        })
+    })
 })
