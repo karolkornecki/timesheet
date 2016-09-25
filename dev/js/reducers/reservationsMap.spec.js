@@ -185,7 +185,6 @@ describe('reservationsMap reducer - test suite', () => {
 
     it('should handle add reservation', () => {
 
-
         let stateBefore = {
             availableProjects: {},
             weekdaysMap: {},
@@ -215,6 +214,68 @@ describe('reservationsMap reducer - test suite', () => {
         //then
         let newReservation = _.values(_.omit(_.pick(result, 'reservationsMap').reservationsMap, [1, 2]))[0]; // TODO I dont like the way it's done. I need to find better way to unwrap inner object
         expect(newReservation.weekdayId).toEqual(1)
+
+    })
+
+    it('should handle select default project and hours for reservation', () => {
+
+        const stateBefore = {
+            availableProjects: {},
+            weekdaysMap: {},
+            weekDateRangeLabel: {},
+            projectsMap: {},
+            reservationsMap: {
+                1: {
+                    id: 1,
+                    weekdayId: 1,
+                    projectId: 3,
+                    hours: 8
+                },
+                2: {
+                    id: 2,
+                    weekdayId: 2,
+                    projectId: 2,
+                    hours: 8
+                }
+            }
+        };
+
+        const weekday = {
+            id: 2,
+            defaultHoursNumber: 10,
+            defaultProjectId: 7
+        }
+
+        const stateAfter = {
+            availableProjects: {},
+            weekdaysMap: {},
+            weekDateRangeLabel: {},
+            projectsMap: {},
+            reservationsMap: {
+                1: {
+                    id: 1,
+                    weekdayId: 1,
+                    projectId: 3,
+                    hours: 8
+                },
+                2: {
+                    id: 2,
+                    weekdayId: 2,
+                    projectId: 7,
+                    hours: 10
+                }
+            }
+        };
+
+
+        deepFreeze(stateBefore);
+        deepFreeze(weekday);
+
+        //when
+        let result = reservationMap(stateBefore, actions.setDefaultProjectAndHours(weekday));
+
+        //then
+        expect(result).toEqual(stateAfter)
 
     })
 

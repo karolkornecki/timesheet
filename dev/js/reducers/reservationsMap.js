@@ -55,8 +55,20 @@ const reservationsMap = (state = {}, action = {}) => { // default action to sati
             }
             return _.assign({}, _.omit(state, action.reservationId));
         case
-        'SET_DEFAULT_PROJECT':
-            return state;
+        'SET_DEFAULT_PROJECT_AND_HOURS':
+            return _.mapValues(state, (value) => {
+                    if (value.weekdayId == action.weekday.id) {
+                        return {
+                            id: value.id,
+                            weekdayId: value.weekdayId,
+                            hours: action.weekday.defaultHoursNumber,
+                            projectId: action.weekday.defaultProjectId
+                        }
+
+                    }
+                    return value
+                }
+            );
         default:
             return state;
     }

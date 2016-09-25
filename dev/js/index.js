@@ -21,7 +21,7 @@ var data = {
             month: "05",
             year: "2016",
             statusCode: "Accepted",
-            defaultHoursNumber: 8,
+            defaultHoursNumber: 50,
             defaultProjectId: 1
         },
         2: {
@@ -30,30 +30,30 @@ var data = {
             month: "05",
             year: "2016",
             statusCode: "Accepted",
-            defaultHoursNumber: 8,
-            defaultProjectId: 2
+            defaultHoursNumber: 50,
+            defaultProjectId: 5
         }
     },
     projectsMap: {
         1: {
             id: 1,
-            projectName: "K-Solutions"
+            projectName: "Google Chrome"
         },
         2: {
             id: 2,
-            projectName: "Lids PL"
+            projectName: "React"
         },
         3: {
             id: 3,
-            projectName: "IacsPlus"
+            projectName: "Redux"
         },
         4: {
             id: 4,
-            projectName: "PZSIP"
+            projectName: "Facebook"
         },
         5: {
             id: 5,
-            projectName: "Wyrocznia"
+            projectName: "Angular 2"
         }
     },
     reservationsMap: {
@@ -74,27 +74,32 @@ var data = {
         {
             id: 1,
             projectId: 1,
-            reservationId: 1
+            weekdayId: 1
         },
         {
             id: 2,
             projectId: 2,
-            reservationId: 1
+            weekdayId: 1
         },
         {
             id: 3,
             projectId: 3,
-            reservationId: 1
+            weekdayId: 1
         },
         {
             id: 4,
             projectId: 4,
-            reservationId: 2
+            weekdayId: 2
         },
         {
             id: 5,
             projectId: 5,
-            reservationId: 2
+            weekdayId: 2
+        },
+        {
+            id: 6,
+            projectId: 3,
+            weekdayId: 2
         }
     ]
 };

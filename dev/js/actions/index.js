@@ -23,7 +23,7 @@ export const removeReservation = (reservationId) => ({
     reservationId
 })
 
-export const setDefaultProject = (weekdayId) => ({
-    type: 'SET_DEFAULT_PROJECT',
-    weekdayId
+export const setDefaultProjectAndHours = (weekday) => ({
+    type: 'SET_DEFAULT_PROJECT_AND_HOURS',
+    weekday
 })

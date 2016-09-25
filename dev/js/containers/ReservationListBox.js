@@ -12,7 +12,7 @@ class ReservationListBox extends Component {
     render() {
         let reservations = this.props.reservations.map((reservation) => {
             let project = this.props.projectsMap[reservation.projectId];
-
+            let weekdayId = this.props.weekdayId;
             let hoursInput;
             return (
 
@@ -25,7 +25,7 @@ class ReservationListBox extends Component {
                             <span className="caret"></span>
                             <span className="sr-only">Toggle Dropdown</span>
                         </button>
-                        <AvailableProjectsListBox reservationId={reservation.id}/>
+                        <AvailableProjectsListBox weekdayId={weekdayId} reservationId={reservation.id}/>
                     </div>
                     <div className="timesheet-column">
                         <button type="button" className="btn btn-default">
