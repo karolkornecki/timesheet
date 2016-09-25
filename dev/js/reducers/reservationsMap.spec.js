@@ -59,7 +59,6 @@ describe('reservationsMap reducer - test suite', () => {
 
     it('should handle select project', () => {
 
-
         let stateBefore = {
             availableProjects: {},
             weekdaysMap: {},
@@ -141,7 +140,6 @@ describe('reservationsMap reducer - test suite', () => {
 
     it('should handle remove reservation', () => {
 
-
         let stateBefore = {
             availableProjects: {},
             weekdaysMap: {},
@@ -212,7 +210,7 @@ describe('reservationsMap reducer - test suite', () => {
         deepFreeze(stateBefore);
 
         //when
-        let result = reservationMap(stateBefore, actions.addReservation(1));
+        let result = reservationMap(stateBefore, actions.addReservation({id: 1}));
 
         //then
         let newReservation = _.values(_.omit(_.pick(result, 'reservationsMap').reservationsMap, [1, 2]))[0]; // TODO I dont like the way it's done. I need to find better way to unwrap inner object

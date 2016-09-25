@@ -19,7 +19,7 @@ class TimesheetTableRow extends Component {
 
                 <div className="col-lg-1">
                     <button type="button" className="btn btn-success"
-                            onClick={()=> this.props.onAddReservation(this.props.weekdayId)}>
+                            onClick={()=> this.props.dispatch(addReservation(this.props.weekday))}>
                         <span className="glyphicon  glyphicon-plus img-circle text-success"></span>
                     </button>
                 </div>
@@ -42,10 +42,7 @@ class TimesheetTableRow extends Component {
 }
 
 TimesheetTableRow = connect(
-    mapStateToProps,
-    {
-        onAddReservation: addReservation
-    }
+    mapStateToProps
 )
 (TimesheetTableRow);
 

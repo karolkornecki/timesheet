@@ -12,9 +12,9 @@ export const fillHours = (reservationId, hours) => ({
     hours
 })
 
-export const addReservation = (weekdayId) => ({
+export const addReservation = (weekday) => ({
     type: 'ADD_RESERVATION',
-    weekdayId,
+    weekday,
     reservationId: v4()
 })
 

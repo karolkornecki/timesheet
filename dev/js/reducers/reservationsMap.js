@@ -7,39 +7,59 @@ const reservationsMap = (state = {}, action = {}) => { // default action to sati
             if (!_.hasIn(state, action.reservationId)) {
                 return state;
             }
-            return createNewReservationState(state, action.reservationId, "projectId", action.selectedProjectId);
+            return _.mapValues(state, (value) => {
+                    if (value.id == action.reservationId) {
+                        return {
+                            id: value.id,
+                            weekdayId: value.weekdayId,
+                            hours: value.hours,
+                            projectId: action.selectedProjectId
+                        }
+
+                    }
+                    return value
+                }
+            )
         case 'FILL_HOURS':
             if (!_.hasIn(state, action.reservationId)) {
                 return state;
             }
-            return createNewReservationState(state, action.reservationId, "hours", action.hours);
-        case 'ADD_RESERVATION':
+            return _.mapValues(state, (value) => {
+                    if (value.id == action.reservationId) {
+                        return {
+                            id: value.id,
+                            weekdayId: value.weekdayId,
+                            hours: action.hours,
+                            projectId: value.projectId
+                        }
+
+                    }
+                    return value
+                }
+            );
+        case
+        'ADD_RESERVATION':
             return {
                 ...state,
                 [action.reservationId]: {
                     id: action.reservationId,
-                    weekdayId: action.weekdayId,
-                    hours: 11,
-                    projectId: 1
+                    weekdayId: action.weekday.id,
+                    hours: action.weekday.defaultHoursNumber,
+                    projectId: action.weekday.defaultProjectId
                 }
             };
-        case 'REMOVE_RESERVATION':
+        case
+        'REMOVE_RESERVATION':
             if (!_.hasIn(state, action.reservationId)) {
                 return state;
             }
             return _.assign({}, _.omit(state, action.reservationId));
-        case 'SET_DEFAULT_PROJECT':
+        case
+        'SET_DEFAULT_PROJECT':
             return state;
         default:
             return state;
     }
 }
-
-const createNewReservationState = (state, id, property, value) => {
-    let reservation = _.set(_.assign({}, _.pick(state, id)[id]), property, value);
-    let reservationEntry = _.set(_.assign({}, _.pick(state, id)), id, reservation);
-    return _.assign({}, _.omit(state, id), reservationEntry);
-}
-
 
 export default reservationsMap

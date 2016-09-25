@@ -19,12 +19,26 @@ describe("timesheet form actions", () => {
     })
 
     it("addReservation should create ADD_RESERVATION action", () => {
-        let action = actions.addReservation(4);
+        let action = actions.addReservation({
+            id: 4,
+            day: "10",
+            month: "05",
+            year: "2016",
+            statusCode: "Accepted",
+            defaultHoursNumber: 8,
+            defaultProjectId: 2
+        });
 
         const UUID_FORMAT = /[0-9a-f]{8}-[0-9a-f]{4}-4[0-9a-f]{3}-[89ab][0-9a-f]{3}-[0-9a-f]{12}/i
 
         expect(action.type).toEqual("ADD_RESERVATION")
-        expect(action.weekdayId).toEqual(4)
+        expect(action.weekday.id).toEqual(4)
+        expect(action.weekday.day).toEqual("10")
+        expect(action.weekday.month).toEqual("05")
+        expect(action.weekday.year).toEqual("2016")
+        expect(action.weekday.statusCode).toEqual("Accepted")
+        expect(action.weekday.defaultHoursNumber).toEqual(8)
+        expect(action.weekday.defaultProjectId).toEqual(2)
         expect(UUID_FORMAT.test(action.reservationId)).toBe(true)
     })
 
