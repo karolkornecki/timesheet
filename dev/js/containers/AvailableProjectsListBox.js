@@ -6,7 +6,7 @@ import { selectProject } from '../actions'
 const mapStateToProps = (state, ownProps) => ({
     availableProjects: state.availableProjects
         .filter(a => a.weekdayId === ownProps.weekdayId)
-        .map(a => state.projectsMap[a.projectId])
+        .map(a => state.projectById[a.projectId])
 })
 
 

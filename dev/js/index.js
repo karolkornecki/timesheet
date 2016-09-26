@@ -14,7 +14,7 @@ import {Route, Router, browserHistory} from "react-router";
 
 var data = {
     weekDateRangeLabel: "20-27.09.2016",
-    weekdaysMap: {
+    weekdayById: {
         1: {
             id: 1,
             day: "09",
@@ -36,7 +36,7 @@ var data = {
             description: "weekday 2 description"
         }
     },
-    projectsMap: {
+    projectById: {
         1: {
             id: 1,
             projectName: "Google Chrome"
@@ -58,7 +58,7 @@ var data = {
             projectName: "Angular 2"
         }
     },
-    reservationsMap: {
+    reservationById: {
         1: {
             id: 1,
             weekdayId: 1,

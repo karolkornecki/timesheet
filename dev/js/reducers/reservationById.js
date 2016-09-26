@@ -1,6 +1,6 @@
 import _ from "lodash"
 
-const reservationsMap = (state = {}, action = {}) => { // default action to satisfy intellij checkstyle
+const reservationById = (state = {}, action = {}) => { // default action to satisfy intellij checkstyle
 
     switch (action.type) {
         case 'SELECT_PROJECT':
@@ -72,4 +72,4 @@ const reservationsMap = (state = {}, action = {}) => { // default action to sati
     }
 }
 
-export default reservationsMap
+export default reservationById

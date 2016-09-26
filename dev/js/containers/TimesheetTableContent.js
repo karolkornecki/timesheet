@@ -4,7 +4,7 @@ import { connect } from 'react-redux'
 
 
 const mapStateToProps = (state, ownProps) => ({
-    weekdays: Object.values(state.weekdaysMap)
+    weekdays: Object.values(state.weekdayById)
 })
 
 class TimesheetTableContent extends Component {

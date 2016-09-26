@@ -6,16 +6,16 @@ import { ModalManager} from 'react-dynamic-modal'
 import DescriptionModal from './DescriptionModal'
 
 const mapStateToProps = (state, ownProps) => ({
-    reservationsMap: state.reservationsMap,
-    reservations: Object.values(state.reservationsMap).filter(r => r.weekdayId === ownProps.weekdayId),
-    projectsMap: state.projectsMap
+    reservationById: state.reservationById,
+    reservations: Object.values(state.reservationById).filter(r => r.weekdayId === ownProps.weekdayId),
+    projectById: state.projectById
 })
 
 class ReservationListBox extends Component {
 
     openModal(reservationId) {
         ModalManager.open(
-            <DescriptionModal initialText={this.props.reservationsMap[reservationId].description}
+            <DescriptionModal initialText={this.props.reservationById[reservationId].description}
                               onRequestClose={() => true}
                               onOkClose={ (description) => {  this.props.dispatch(saveReservationDescription(reservationId, description))}}/>
         );
@@ -23,7 +23,7 @@ class ReservationListBox extends Component {
 
     render() {
         const reservations = this.props.reservations.map((reservation) => {
-            const project = this.props.projectsMap[reservation.projectId];
+            const project = this.props.projectById[reservation.projectId];
             const weekdayId = this.props.weekdayId;
             let hoursInput;
             return (

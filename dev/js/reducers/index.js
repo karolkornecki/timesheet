@@ -1,15 +1,15 @@
 import { combineReducers } from 'redux'
-import reservationsMap from './reservationsMap'
-import weekdaysMap from './weekdaysMap'
+import reservationById from './reservationById'
+import weekdayById from './weekdayById'
 import availableProjects from './availableProjects'
-import projectsMap from './projectsMap'
+import projectById from './projectById'
 import weekDateRangeLabel from './weekDateRangeLabel'
 
 const reducers = combineReducers({
-    reservationsMap,
-    weekdaysMap,
+    reservationById,
+    weekdayById,
     availableProjects,
-    projectsMap,
+    projectById,
     weekDateRangeLabel
 });
 

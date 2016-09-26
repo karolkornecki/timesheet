@@ -6,7 +6,7 @@ import DescriptionModal from './DescriptionModal'
 import { ModalManager} from 'react-dynamic-modal';
 
 const mapStateToProps = (state, ownProps) => ({
-    weekday: state.weekdaysMap[ownProps.weekdayId]
+    weekday: state.weekdayById[ownProps.weekdayId]
 })
 
 class TimesheetTableRow extends Component {

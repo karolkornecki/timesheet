@@ -3,16 +3,16 @@ import * as actions from '../actions/index'
 import deepFreeze from "deep-freeze"
 import _ from 'lodash'
 
-describe('reservationsMap reducer - test suite', () => {
+describe('reservationById reducer - test suite', () => {
     it('should handle hours change', () => {
 
 
         let stateBefore = {
             availableProjects: {},
-            weekdaysMap: {},
+            weekdayById: {},
             weekDateRangeLabel: {},
-            projectsMap: {},
-            reservationsMap: {
+            projectById: {},
+            reservationById: {
                 1: {
                     id: 1,
                     weekdayId: 1,
@@ -30,10 +30,10 @@ describe('reservationsMap reducer - test suite', () => {
 
         let stateAfter = {
             availableProjects: {},
-            weekdaysMap: {},
+            weekdayById: {},
             weekDateRangeLabel: {},
-            projectsMap: {},
-            reservationsMap: {
+            projectById: {},
+            reservationById: {
                 1: {
                     id: 1,
                     weekdayId: 1,
@@ -61,10 +61,10 @@ describe('reservationsMap reducer - test suite', () => {
 
         let stateBefore = {
             availableProjects: {},
-            weekdaysMap: {},
+            weekdayById: {},
             weekDateRangeLabel: {},
-            projectsMap: {},
-            reservationsMap: {
+            projectById: {},
+            reservationById: {
                 1: {
                     id: 1,
                     weekdayId: 1,
@@ -82,10 +82,10 @@ describe('reservationsMap reducer - test suite', () => {
 
         let stateAfter = {
             availableProjects: {},
-            weekdaysMap: {},
+            weekdayById: {},
             weekDateRangeLabel: {},
-            projectsMap: {},
-            reservationsMap: {
+            projectById: {},
+            reservationById: {
                 1: {
                     id: 1,
                     weekdayId: 1,
@@ -112,10 +112,10 @@ describe('reservationsMap reducer - test suite', () => {
 
         var stateBefore = {
             availableProjects: {},
-            weekdaysMap: {},
+            weekdayById: {},
             weekDateRangeLabel: {},
-            projectsMap: {},
-            reservationsMap: {
+            projectById: {},
+            reservationById: {
                 1: {
                     id: 1,
                     weekdayId: 1,
@@ -142,10 +142,10 @@ describe('reservationsMap reducer - test suite', () => {
 
         let stateBefore = {
             availableProjects: {},
-            weekdaysMap: {},
+            weekdayById: {},
             weekDateRangeLabel: {},
-            projectsMap: {},
-            reservationsMap: {
+            projectById: {},
+            reservationById: {
                 1: {
                     id: 1,
                     weekdayId: 1,
@@ -163,10 +163,10 @@ describe('reservationsMap reducer - test suite', () => {
 
         let stateAfter = {
             availableProjects: {},
-            weekdaysMap: {},
+            weekdayById: {},
             weekDateRangeLabel: {},
-            projectsMap: {},
-            reservationsMap: {
+            projectById: {},
+            reservationById: {
                 2: {
                     id: 2,
                     weekdayId: 1,
@@ -187,10 +187,10 @@ describe('reservationsMap reducer - test suite', () => {
 
         let stateBefore = {
             availableProjects: {},
-            weekdaysMap: {},
+            weekdayById: {},
             weekDateRangeLabel: {},
-            projectsMap: {},
-            reservationsMap: {
+            projectById: {},
+            reservationById: {
                 1: {
                     id: 1,
                     weekdayId: 1,
@@ -212,7 +212,7 @@ describe('reservationsMap reducer - test suite', () => {
         let result = reservationMap(stateBefore, actions.addReservation({id: 1}));
 
         //then
-        let newReservation = _.values(_.omit(_.pick(result, 'reservationsMap').reservationsMap, [1, 2]))[0]; // TODO I dont like the way it's done. I need to find better way to unwrap inner object
+        let newReservation = _.values(_.omit(_.pick(result, 'reservationById').reservationById, [1, 2]))[0]; // TODO I dont like the way it's done. I need to find better way to unwrap inner object
         expect(newReservation.weekdayId).toEqual(1)
 
     })
@@ -221,10 +221,10 @@ describe('reservationsMap reducer - test suite', () => {
 
         const stateBefore = {
             availableProjects: {},
-            weekdaysMap: {},
+            weekdayById: {},
             weekDateRangeLabel: {},
-            projectsMap: {},
-            reservationsMap: {
+            projectById: {},
+            reservationById: {
                 1: {
                     id: 1,
                     weekdayId: 1,
@@ -248,10 +248,10 @@ describe('reservationsMap reducer - test suite', () => {
 
         const stateAfter = {
             availableProjects: {},
-            weekdaysMap: {},
+            weekdayById: {},
             weekDateRangeLabel: {},
-            projectsMap: {},
-            reservationsMap: {
+            projectById: {},
+            reservationById: {
                 1: {
                     id: 1,
                     weekdayId: 1,
@@ -284,10 +284,10 @@ describe('reservationsMap reducer - test suite', () => {
 
         const stateBefore = {
             availableProjects: {},
-            weekdaysMap: {},
+            weekdayById: {},
             weekDateRangeLabel: {},
-            projectsMap: {},
-            reservationsMap: {
+            projectById: {},
+            reservationById: {
                 1: {
                     id: 1,
                     weekdayId: 1,
@@ -307,10 +307,10 @@ describe('reservationsMap reducer - test suite', () => {
 
         const stateAfter = {
             availableProjects: {},
-            weekdaysMap: {},
+            weekdayById: {},
             weekDateRangeLabel: {},
-            projectsMap: {},
-            reservationsMap: {
+            projectById: {},
+            reservationById: {
                 1: {
                     id: 1,
                     weekdayId: 1,

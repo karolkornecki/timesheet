@@ -9,7 +9,7 @@ describe('weekdayMap reducer - test suite', () => {
 
         let stateBefore = {
             availableProjects: {},
-            weekdaysMap: {
+            weekdayById: {
                 1: {
                     id: 1,
                     day: "09",
@@ -32,14 +32,14 @@ describe('weekdayMap reducer - test suite', () => {
                 }
             },
             weekDateRangeLabel: {},
-            projectsMap: {},
-            reservationsMap: {}
+            projectById: {},
+            reservationById: {}
         }
 
 
         let stateAfter = {
             availableProjects: {},
-            weekdaysMap: {
+            weekdayById: {
                 1: {
                     id: 1,
                     day: "09",
@@ -62,8 +62,8 @@ describe('weekdayMap reducer - test suite', () => {
                 }
             },
             weekDateRangeLabel: {},
-            projectsMap: {},
-            reservationsMap: {}
+            projectById: {},
+            reservationById: {}
         }
 
         deepFreeze(stateBefore);

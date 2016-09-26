@@ -1,6 +1,6 @@
 import _ from "lodash"
 
-const weekdaysMap = (state = {}, action = {}) => { // default action to satisfy intellij checkstyle
+const weekdayById = (state = {}, action = {}) => { // default action to satisfy intellij checkstyle
     switch (action.type) {
         case 'SAVE_WEEKDAY_DESCRIPTION':
             return _.mapValues(state, (value) => {
@@ -20,4 +20,4 @@ const weekdaysMap = (state = {}, action = {}) => { // default action to satisfy 
 }
 
 
-export default weekdaysMap
+export default weekdayById
