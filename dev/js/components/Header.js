@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import React, { Component } from 'react'
 
 class Header extends Component {
     render() {
@@ -7,7 +7,7 @@ class Header extends Component {
                 <nav className="navbar navbar-default" role="navigation">
                     <div className="container">
                         <div className="navbar-header">
-                            LOGO
+
                         </div>
                         <div className="collapse navbar-collapse" id="navbar-collapse">
                             <ul className="nav navbar-nav navbar-right">
