@@ -69,4 +69,12 @@ describe("timesheet form actions", () => {
             descriptionText: 'implementing createOrder WS'
         })
     })
+
+    it("saveReservationDescription should create SAVE_RESERVATION_DESCRIPTION action", ()=> {
+        expect(actions.saveReservationDescription(1, "meeting with customer")).toEqual({
+            type: 'SAVE_RESERVATION_DESCRIPTION',
+            reservationId: 1,
+            descriptionText: 'meeting with customer'
+        })
+    })
 })

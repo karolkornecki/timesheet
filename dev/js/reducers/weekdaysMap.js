@@ -6,13 +6,7 @@ const weekdaysMap = (state = {}, action = {}) => { // default action to satisfy 
             return _.mapValues(state, (value) => {
                     if (value.id == action.weekdayId) {
                         return {
-                            id: value.id,
-                            day: value.day,
-                            month: value.month,
-                            year: value.year,
-                            statusCode: value.statusCode,
-                            defaultHoursNumber: value.defaultHoursNumber,
-                            defaultProjectId: value.defaultProjectId,
+                            ...value,
                             description: action.descriptionText
                         }
 

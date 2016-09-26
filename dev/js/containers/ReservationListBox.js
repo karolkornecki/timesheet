@@ -1,14 +1,26 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux'
-import { fillHours, removeReservation } from '../actions'
+import { fillHours, removeReservation, saveReservationDescription } from '../actions'
 import AvailableProjectsListBox from './AvailableProjectsListBox'
+import { ModalManager} from 'react-dynamic-modal'
+import DescriptionModal from './DescriptionModal'
 
 const mapStateToProps = (state, ownProps) => ({
+    reservationsMap: state.reservationsMap,
     reservations: Object.values(state.reservationsMap).filter(r => r.weekdayId === ownProps.weekdayId),
     projectsMap: state.projectsMap
 })
 
 class ReservationListBox extends Component {
+
+    openModal(reservationId) {
+        ModalManager.open(
+            <DescriptionModal initialText={this.props.reservationsMap[reservationId].description}
+                              onRequestClose={() => true}
+                              onOkClose={ (description) => {  this.props.dispatch(saveReservationDescription(reservationId, description))}}/>
+        );
+    }
+
     render() {
         const reservations = this.props.reservations.map((reservation) => {
             const project = this.props.projectsMap[reservation.projectId];
@@ -27,7 +39,8 @@ class ReservationListBox extends Component {
                         <AvailableProjectsListBox weekdayId={weekdayId} reservationId={reservation.id}/>
                     </div>
                     <div className="timesheet-column">
-                        <button type="button" className="btn btn-default" title="add note to reservation">
+                        <button type="button" className="btn btn-default" title="add note to reservation"
+                            onClick={ ()=> this.openModal(reservation.id)}>
                             <span className="glyphicon glyphicon-pencil"/>
                         </button>
                     </div>

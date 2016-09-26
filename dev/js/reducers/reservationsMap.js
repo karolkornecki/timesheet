@@ -7,9 +7,7 @@ const reservationsMap = (state = {}, action = {}) => { // default action to sati
             return _.mapValues(state, (value) => {
                     if (value.id == action.reservationId) {
                         return {
-                            id: value.id,
-                            weekdayId: value.weekdayId,
-                            hours: value.hours,
+                            ...value,
                             projectId: action.selectedProjectId
                         }
 
@@ -21,10 +19,8 @@ const reservationsMap = (state = {}, action = {}) => { // default action to sati
             return _.mapValues(state, (value) => {
                     if (value.id == action.reservationId) {
                         return {
-                            id: value.id,
-                            weekdayId: value.weekdayId,
-                            hours: action.hours,
-                            projectId: value.projectId
+                            ...value,
+                            hours: action.hours
                         }
 
                     }
@@ -50,8 +46,7 @@ const reservationsMap = (state = {}, action = {}) => { // default action to sati
             return _.mapValues(state, (value) => {
                     if (value.weekdayId == action.weekday.id) {
                         return {
-                            id: value.id,
-                            weekdayId: value.weekdayId,
+                            ...value,
                             hours: action.weekday.defaultHoursNumber,
                             projectId: action.weekday.defaultProjectId
                         }
@@ -60,6 +55,18 @@ const reservationsMap = (state = {}, action = {}) => { // default action to sati
                     return value
                 }
             );
+        case 'SAVE_RESERVATION_DESCRIPTION':
+            return _.mapValues(state, (value) => {
+                    if (value.id == action.reservationId) {
+                        return {
+                            ...value,
+                            description: action.descriptionText
+                        }
+
+                    }
+                    return value
+                }
+            )
         default:
             return state;
     }

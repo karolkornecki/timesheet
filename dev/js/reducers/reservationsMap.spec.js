@@ -279,4 +279,60 @@ describe('reservationsMap reducer - test suite', () => {
 
     })
 
+
+    it('should handle save reservation description', () => {
+
+        const stateBefore = {
+            availableProjects: {},
+            weekdaysMap: {},
+            weekDateRangeLabel: {},
+            projectsMap: {},
+            reservationsMap: {
+                1: {
+                    id: 1,
+                    weekdayId: 1,
+                    projectId: 3,
+                    hours: 8,
+                    description: 'old description 1'
+                },
+                2: {
+                    id: 2,
+                    weekdayId: 2,
+                    projectId: 2,
+                    hours: 8,
+                    description: 'description 2'
+                }
+            }
+        };
+
+        const stateAfter = {
+            availableProjects: {},
+            weekdaysMap: {},
+            weekDateRangeLabel: {},
+            projectsMap: {},
+            reservationsMap: {
+                1: {
+                    id: 1,
+                    weekdayId: 1,
+                    projectId: 3,
+                    hours: 8,
+                    description: 'new description from reservation'
+                },
+                2: {
+                    id: 2,
+                    weekdayId: 2,
+                    projectId: 2,
+                    hours: 8,
+                    description: 'description 2'
+                }
+            }
+        };
+
+
+        deepFreeze(stateBefore);
+
+        expect(reservationMap(stateBefore, actions.saveReservationDescription(1, 'new description from reservation'
+        ))).toEqual(stateAfter)
+
+    })
 })

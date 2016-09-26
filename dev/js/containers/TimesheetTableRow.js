@@ -3,7 +3,7 @@ import ReservationListBox from './ReservationListBox'
 import { connect } from 'react-redux'
 import { addReservation, setDefaultProjectAndHours, saveWeekdayDescription } from '../actions/index'
 import DescriptionModal from './DescriptionModal'
-import { Modal,ModalManager,Effect} from 'react-dynamic-modal';
+import { ModalManager} from 'react-dynamic-modal';
 
 const mapStateToProps = (state, ownProps) => ({
     weekday: state.weekdaysMap[ownProps.weekdayId]
@@ -14,8 +14,8 @@ class TimesheetTableRow extends Component {
     openModal() {
         ModalManager.open(
             <DescriptionModal initialText={this.props.weekday.description}
-                                     onRequestClose={() => true}
-                                     onOkClose={
+                              onRequestClose={() => true}
+                              onOkClose={
                                      (description) => {
                                              const { weekdayId , dispatch} = this.props;
                                              dispatch(saveWeekdayDescription(weekdayId, description))}

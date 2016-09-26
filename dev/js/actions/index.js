@@ -33,3 +33,9 @@ export const saveWeekdayDescription = (weekdayId, descriptionText) => ({
     weekdayId,
     descriptionText
 })
+
+export const saveReservationDescription = (reservationId, descriptionText) => ({
+    type: 'SAVE_RESERVATION_DESCRIPTION',
+    reservationId,
+    descriptionText
+})
