@@ -1,19 +1,18 @@
-import React, { Component } from 'react'
+import React, {Component} from 'react'
+
 import Header from './Header'
-import Content from './Content'
 import Footer from './Footer'
 
 
-class TimesheetBox extends Component {
+class Layout extends Component {
     render() {
         return (
             <div>
                 <Header />
-                <Content />
+                {this.props.children}
                 <Footer />
             </div>
         );
     }
 }
-
-export default TimesheetBox
+export default Layout

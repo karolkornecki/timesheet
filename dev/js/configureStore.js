@@ -6,8 +6,6 @@ import throttle from "lodash/throttle"
 import allReducers from './reducers'
 import {loadState, saveState} from './localStorage'
 
-
-
 var data = {
     weekDateRangeLabel: "20-27.09.2016",
     weekdayById: {
@@ -105,7 +103,7 @@ var data = {
 };
 
 
-//const persistedState = loadState();// not used for now
+//const persistedState = loadState();
 
 const configureStore = ()=> {
 
@@ -117,6 +115,6 @@ const configureStore = ()=> {
     )
 }
 
-export default configureStore
-
 //store.subscribe(throttle(()=> saveState(store.getState()), 1000));
+
+export default configureStore

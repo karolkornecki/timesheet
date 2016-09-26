@@ -1,8 +1,9 @@
 import React, { Component } from 'react'
 import {Provider} from 'react-redux'
-import {Route, Router, browserHistory} from "react-router"
+import {Route, Router, IndexRoute, browserHistory} from "react-router"
 
-import TimesheetBox from './TimesheetBox'
+import Layout from './Layout'
+import TimesheetForm from './TimesheetForm'
 import RegistrationForm from './RegistrationForm'
 
 class ApplicationRoot extends Component {
@@ -10,7 +11,10 @@ class ApplicationRoot extends Component {
         return (
             <Provider store={this.props.store}>
                 <Router history={browserHistory}>
-                    <Route path='/' component={TimesheetBox}/>
+                    <Route path='/' component={Layout}>
+                        <Route path='/timesheet' component={TimesheetForm}/>
+                        <Route path='/register' component={RegistrationForm}/>
+                    </Route>
                 </Router>
             </Provider>
         );

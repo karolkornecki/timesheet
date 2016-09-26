@@ -8,7 +8,7 @@ import SummaryHeader from './SummaryHeader'
 import SummaryContent from './SummaryContent'
 import DateBox from '../containers/DateBox'
 
-class Content extends Component {
+class TimesheetForm extends Component {
 
     render() {
         return (
@@ -28,4 +28,4 @@ class Content extends Component {
     }
 }
 
-export default Content
+export default TimesheetForm
