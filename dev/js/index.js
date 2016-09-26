@@ -8,6 +8,7 @@ import promise from 'redux-promise';
 import createLogger from 'redux-logger';
 import allReducers from './reducers';
 import TimesheetBox from './components/TimesheetBox';
+import RegistrationForm from './components/RegistrationForm';
 import {loadState, saveState} from './localStorage'
 import throttle from "lodash/throttle"
 import {Route, Router, browserHistory} from "react-router";

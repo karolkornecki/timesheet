@@ -24,7 +24,7 @@ class ReservationListBox extends Component {
     render() {
         const reservations = this.props.reservations.map((reservation) => {
             const project = this.props.projectById[reservation.projectId];
-            const weekdayId = this.props.weekdayId;
+            const { weekdayId }= this.props;
             let hoursInput;
             return (
                 <div className="reservation-row" key={reservation.id}>
@@ -40,7 +40,7 @@ class ReservationListBox extends Component {
                     </div>
                     <div className="timesheet-column">
                         <button type="button" className="btn btn-default" title="add note to reservation"
-                            onClick={ ()=> this.openModal(reservation.id)}>
+                                onClick={ ()=> this.openModal(reservation.id)}>
                             <span className="glyphicon glyphicon-pencil"/>
                         </button>
                     </div>
