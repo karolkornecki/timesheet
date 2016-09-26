@@ -41,7 +41,7 @@ class TimesheetTableRow extends Component {
                 </div>
                 <div className="col-lg-2">
                     <button type="button" className="btn btn-default" title="add note to weekday"
-                            onClick={this.openModal.bind(this)}>
+                            onClick={()=>this.openModal()}>
                         <span className="glyphicon glyphicon-pencil"/>
                     </button>
                 </div>
