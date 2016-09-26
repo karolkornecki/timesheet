@@ -2,7 +2,8 @@ import React, { Component } from 'react';
 
 class RegistrationForm extends Component {
     render() {
-        return (  <div className="container">
+        return (
+            <div className="container">
                 <div className="row">
                     <div className="col-md-8 col-md-offset-2">
                         <h1>Registration</h1>
@@ -92,8 +93,10 @@ class RegistrationForm extends Component {
                             </div>
 
                             <div className="form-group">
-                                <label className="control-label" htmlFor="confirmPassword">New password confirmation</label>
-                                <input type="password" className="form-control" id="confirmPassword" name="confirmPassword"/>
+                                <label className="control-label" htmlFor="confirmPassword">New password
+                                    confirmation</label>
+                                <input type="password" className="form-control" id="confirmPassword"
+                                       name="confirmPassword"/>
 
                                 <div>
                                     <p className="help-block">

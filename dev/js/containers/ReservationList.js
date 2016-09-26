@@ -1,8 +1,9 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux'
-import { fillHours, removeReservation, saveReservationDescription } from '../actions'
-import AvailableProjectsListBox from './AvailableProjectsListBox'
 import { ModalManager} from 'react-dynamic-modal'
+
+import { fillHours, removeReservation, saveReservationDescription } from '../actions'
+import AvailableProjectsList from './AvailableProjectsList'
 import DescriptionModal from './DescriptionModal'
 
 const mapStateToProps = (state, ownProps) => ({
@@ -11,7 +12,7 @@ const mapStateToProps = (state, ownProps) => ({
     projectById: state.projectById
 })
 
-class ReservationListBox extends Component {
+class ReservationList extends Component {
 
     openModal(reservationId) {
         ModalManager.open(
@@ -36,7 +37,7 @@ class ReservationListBox extends Component {
                             <span className="caret"></span>
                             <span className="sr-only">Toggle Dropdown</span>
                         </button>
-                        <AvailableProjectsListBox weekdayId={weekdayId} reservationId={reservation.id}/>
+                        <AvailableProjectsList weekdayId={weekdayId} reservationId={reservation.id}/>
                     </div>
                     <div className="timesheet-column">
                         <button type="button" className="btn btn-default" title="add note to reservation"
@@ -66,6 +67,6 @@ class ReservationListBox extends Component {
     }
 }
 
-ReservationListBox = connect(mapStateToProps)(ReservationListBox);
+ReservationList = connect(mapStateToProps)(ReservationList);
 
-export default ReservationListBox
+export default ReservationList

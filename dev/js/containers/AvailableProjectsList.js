@@ -10,7 +10,7 @@ const mapStateToProps = (state, ownProps) => ({
 })
 
 
-class AvailableProjectsListBox extends Component {
+class AvailableProjectsList extends Component {
 
     render() {
         let availableProjects = this.props.availableProjects.map((project) => {
@@ -29,11 +29,12 @@ class AvailableProjectsListBox extends Component {
     }
 }
 
-AvailableProjectsListBox = connect(
+
+AvailableProjectsList = connect(
     mapStateToProps,
     {
         onSelectProject: selectProject
     } // same as -> onSelectProject(resId,projId) {dispatch(selectProject(resId, projId)) }
-)(AvailableProjectsListBox);
+)(AvailableProjectsList);
 
-export default AvailableProjectsListBox
+export default AvailableProjectsList

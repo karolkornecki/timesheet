@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import ReservationListBox from './ReservationListBox'
+import ReservationList from './ReservationList'
 import { connect } from 'react-redux'
 import { addReservation, setDefaultProjectAndHours, saveWeekdayDescription } from '../actions/index'
 import DescriptionModal from './DescriptionModal'
@@ -31,7 +31,7 @@ class TimesheetTableRow extends Component {
                     <span>{weekday.day}/{weekday.month}/{weekday.year}</span>
                 </div>
 
-                <ReservationListBox weekdayId={weekday.id}/>
+                <ReservationList weekdayId={weekday.id}/>
 
                 <div className="col-lg-1">
                     <button type="button" className="btn btn-success" title="add new reservation to weekday"
