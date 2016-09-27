@@ -6,6 +6,8 @@ import { fillHours, removeReservation, saveReservationDescription } from '../act
 import AvailableProjectsList from './AvailableProjectsList'
 import DescriptionModal from './DescriptionModal'
 
+import './reservation.scss'
+
 const mapStateToProps = (state, ownProps) => ({
     reservationById: state.reservationById,
     reservations: Object.values(state.reservationById).filter(r => r.weekdayId === ownProps.weekdayId),
@@ -29,7 +31,7 @@ class ReservationList extends Component {
             let hoursInput;
             return (
                 <div className="reservation-row" key={reservation.id}>
-                    <div className="btn-group timesheet-project-column">
+                    <div className="btn-group reservation-project-column">
                         <button type="button"
                                 className="btn btn-primary reservation-project">{project.projectName}</button>
                         <button type="button" className="btn btn-primary dropdown-toggle" data-toggle="dropdown"
@@ -39,18 +41,18 @@ class ReservationList extends Component {
                         </button>
                         <AvailableProjectsList weekdayId={weekdayId} reservationId={reservation.id}/>
                     </div>
-                    <div className="timesheet-column">
+                    <div className="reservation-column">
                         <button type="button" className="btn btn-default" title="add note to reservation"
                                 onClick={ ()=> this.openModal(reservation.id)}>
                             <span className="glyphicon glyphicon-pencil"/>
                         </button>
                     </div>
-                    <div className="timesheet-column">
-                        <input ref={ node => {hoursInput = node}} type="text" className="form-control timesheet-hour"
+                    <div className="reservation-column">
+                        <input ref={ node => {hoursInput = node}} type="text" className="form-control reservation-hour"
                                value={reservation.hours}
                                onChange={()=> this.props.dispatch(fillHours(reservation.id, hoursInput.value))}/>
                     </div>
-                    <div className="timesheet-column">
+                    <div className="reservation-column">
                         <button type="button" className="btn btn-danger" title="remove reservation"
                                 onClick={() => this.props.dispatch(removeReservation(reservation.id))}>
                             <span className="glyphicon  glyphicon-trash img-circle text-danger"></span>

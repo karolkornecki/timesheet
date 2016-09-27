@@ -4,6 +4,8 @@ import ReactDOM from "react-dom";
 import configureStore from "./configureStore"
 import ApplicationRoot from './components/ApplicationRoot'
 
+import '.././scss/base.scss'
+
 const store = configureStore();
 
 ReactDOM.render(

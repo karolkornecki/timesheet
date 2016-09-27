@@ -2,6 +2,8 @@ import React, { Component } from 'react';
 import TimesheetTableRow from './TimesheetTableRow'
 import { connect } from 'react-redux'
 
+import './timesheet.scss'
+
 
 const mapStateToProps = (state, ownProps) => ({
     weekdays: Object.values(state.weekdayById)
