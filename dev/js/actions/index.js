@@ -39,3 +39,8 @@ export const saveReservationDescription = (reservationId, descriptionText) => ({
     reservationId,
     descriptionText
 })
+
+export const saveRegistrationUsername = (username) => ({
+    type: 'SAVE_REGISTRATION_USERNAME',
+    username
+})

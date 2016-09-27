@@ -4,13 +4,15 @@ import weekdayById from './weekdayById'
 import availableProjects from './availableProjects'
 import projectById from './projectById'
 import weekDateRangeLabel from './weekDateRangeLabel'
+import registrationUser from './registrationUser'
 
 const reducers = combineReducers({
     reservationById,
     weekdayById,
     availableProjects,
     projectById,
-    weekDateRangeLabel
+    weekDateRangeLabel,
+    registrationUser
 });
 
 export default reducers

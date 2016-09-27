@@ -1,4 +1,4 @@
-import reservationMap from './index'
+import reservationsById from './reservationById'
 import * as actions from '../actions/index'
 import deepFreeze from "deep-freeze"
 import _ from 'lodash'
@@ -8,51 +8,39 @@ describe('reservationById reducer - test suite', () => {
 
 
         let stateBefore = {
-            availableProjects: {},
-            weekdayById: {},
-            weekDateRangeLabel: {},
-            projectById: {},
-            reservationById: {
-                1: {
-                    id: 1,
-                    weekdayId: 1,
-                    projectId: 3,
-                    hours: 8
-                },
-                2: {
-                    id: 2,
-                    weekdayId: 1,
-                    projectId: 2,
-                    hours: 8
-                }
+            1: {
+                id: 1,
+                weekdayId: 1,
+                projectId: 3,
+                hours: 8
+            },
+            2: {
+                id: 2,
+                weekdayId: 1,
+                projectId: 2,
+                hours: 8
             }
         };
 
         let stateAfter = {
-            availableProjects: {},
-            weekdayById: {},
-            weekDateRangeLabel: {},
-            projectById: {},
-            reservationById: {
-                1: {
-                    id: 1,
-                    weekdayId: 1,
-                    projectId: 3,
-                    hours: 40
-                },
-                2: {
-                    id: 2,
-                    weekdayId: 1,
-                    projectId: 2,
-                    hours: 8
-                }
+            1: {
+                id: 1,
+                weekdayId: 1,
+                projectId: 3,
+                hours: 40
+            },
+            2: {
+                id: 2,
+                weekdayId: 1,
+                projectId: 2,
+                hours: 8
             }
         };
 
         deepFreeze(stateBefore);
 
         expect(
-            reservationMap(stateBefore, actions.fillHours(1, 40))
+            reservationsById(stateBefore, actions.fillHours(1, 40))
         ).toEqual(stateAfter)
     })
 
@@ -60,183 +48,136 @@ describe('reservationById reducer - test suite', () => {
     it('should handle select project', () => {
 
         let stateBefore = {
-            availableProjects: {},
-            weekdayById: {},
-            weekDateRangeLabel: {},
-            projectById: {},
-            reservationById: {
-                1: {
-                    id: 1,
-                    weekdayId: 1,
-                    projectId: 3,
-                    hours: 8
-                },
-                2: {
-                    id: 2,
-                    weekdayId: 1,
-                    projectId: 2,
-                    hours: 8
-                }
+            1: {
+                id: 1,
+                weekdayId: 1,
+                projectId: 3,
+                hours: 8
+            },
+            2: {
+                id: 2,
+                weekdayId: 1,
+                projectId: 2,
+                hours: 8
             }
         };
 
         let stateAfter = {
-            availableProjects: {},
-            weekdayById: {},
-            weekDateRangeLabel: {},
-            projectById: {},
-            reservationById: {
-                1: {
-                    id: 1,
-                    weekdayId: 1,
-                    projectId: 3,
-                    hours: 8
-                },
-                2: {
-                    id: 2,
-                    weekdayId: 1,
-                    projectId: 1,
-                    hours: 8
-                }
+            1: {
+                id: 1,
+                weekdayId: 1,
+                projectId: 3,
+                hours: 8
+            },
+            2: {
+                id: 2,
+                weekdayId: 1,
+                projectId: 1,
+                hours: 8
             }
         };
 
         deepFreeze(stateBefore);
 
         expect(
-            reservationMap(stateBefore, actions.selectProject(2, 1))
+            reservationsById(stateBefore, actions.selectProject(2, 1))
         ).toEqual(stateAfter)
     })
 
     it('should return previous state in case of incorrect reservation id', () => {
 
         var stateBefore = {
-            availableProjects: {},
-            weekdayById: {},
-            weekDateRangeLabel: {},
-            projectById: {},
-            reservationById: {
-                1: {
-                    id: 1,
-                    weekdayId: 1,
-                    projectId: 3,
-                    hours: 8
-                },
-                2: {
-                    id: 2,
-                    weekdayId: 1,
-                    projectId: 2,
-                    hours: 8
-                }
+            1: {
+                id: 1,
+                weekdayId: 1,
+                projectId: 3,
+                hours: 8
+            },
+            2: {
+                id: 2,
+                weekdayId: 1,
+                projectId: 2,
+                hours: 8
             }
         };
 
         deepFreeze(stateBefore);
-        expect(
-            reservationMap(stateBefore, actions.fillHours(3, 40))
-        ).toEqual(stateBefore)
+
+        expect(reservationsById(stateBefore, actions.fillHours(3, 40))).toEqual(stateBefore)
     })
 
 
     it('should handle remove reservation', () => {
 
         let stateBefore = {
-            availableProjects: {},
-            weekdayById: {},
-            weekDateRangeLabel: {},
-            projectById: {},
-            reservationById: {
-                1: {
-                    id: 1,
-                    weekdayId: 1,
-                    projectId: 3,
-                    hours: 8
-                },
-                2: {
-                    id: 2,
-                    weekdayId: 1,
-                    projectId: 2,
-                    hours: 8
-                }
+            1: {
+                id: 1,
+                weekdayId: 1,
+                projectId: 3,
+                hours: 8
+            },
+            2: {
+                id: 2,
+                weekdayId: 1,
+                projectId: 2,
+                hours: 8
             }
         };
 
         let stateAfter = {
-            availableProjects: {},
-            weekdayById: {},
-            weekDateRangeLabel: {},
-            projectById: {},
-            reservationById: {
-                2: {
-                    id: 2,
-                    weekdayId: 1,
-                    projectId: 2,
-                    hours: 8
-                }
+            2: {
+                id: 2,
+                weekdayId: 1,
+                projectId: 2,
+                hours: 8
             }
         };
 
         deepFreeze(stateBefore);
 
-        expect(
-            reservationMap(stateBefore, actions.removeReservation(1))
-        ).toEqual(stateAfter)
+        expect(reservationsById(stateBefore, actions.removeReservation(1))).toEqual(stateAfter)
     })
 
     it('should handle add reservation', () => {
 
         let stateBefore = {
-            availableProjects: {},
-            weekdayById: {},
-            weekDateRangeLabel: {},
-            projectById: {},
-            reservationById: {
-                1: {
-                    id: 1,
-                    weekdayId: 1,
-                    projectId: 3,
-                    hours: 8
-                },
-                2: {
-                    id: 2,
-                    weekdayId: 1,
-                    projectId: 2,
-                    hours: 8
-                }
+            1: {
+                id: 1,
+                weekdayId: 1,
+                projectId: 3,
+                hours: 8
+            },
+            2: {
+                id: 2,
+                weekdayId: 1,
+                projectId: 2,
+                hours: 8
             }
         };
 
         deepFreeze(stateBefore);
 
         //when
-        let result = reservationMap(stateBefore, actions.addReservation({id: 1}));
+        let result = reservationsById(stateBefore, actions.addReservation({id: 1}));
 
-        //then
-        let newReservation = _.values(_.omit(_.pick(result, 'reservationById').reservationById, [1, 2]))[0]; // TODO I dont like the way it's done. I need to find better way to unwrap inner object
-        expect(newReservation.weekdayId).toEqual(1)
+        expect(_.values(_.omitBy(result, (value, key) => {return key === '1' || key === '2'}))[0].weekdayId).toEqual(1)
 
     })
 
     it('should handle select default project and hours for reservation', () => {
 
         const stateBefore = {
-            availableProjects: {},
-            weekdayById: {},
-            weekDateRangeLabel: {},
-            projectById: {},
-            reservationById: {
-                1: {
-                    id: 1,
-                    weekdayId: 1,
-                    projectId: 3,
-                    hours: 8
-                },
-                2: {
-                    id: 2,
-                    weekdayId: 2,
-                    projectId: 2,
-                    hours: 8
-                }
+            1: {
+                id: 1,
+                weekdayId: 1,
+                projectId: 3,
+                hours: 8
+            },
+            2: {
+                id: 2,
+                weekdayId: 2,
+                projectId: 2,
+                hours: 8
             }
         };
 
@@ -247,23 +188,17 @@ describe('reservationById reducer - test suite', () => {
         }
 
         const stateAfter = {
-            availableProjects: {},
-            weekdayById: {},
-            weekDateRangeLabel: {},
-            projectById: {},
-            reservationById: {
-                1: {
-                    id: 1,
-                    weekdayId: 1,
-                    projectId: 3,
-                    hours: 8
-                },
-                2: {
-                    id: 2,
-                    weekdayId: 2,
-                    projectId: 7,
-                    hours: 10
-                }
+            1: {
+                id: 1,
+                weekdayId: 1,
+                projectId: 3,
+                hours: 8
+            },
+            2: {
+                id: 2,
+                weekdayId: 2,
+                projectId: 7,
+                hours: 10
             }
         };
 
@@ -272,7 +207,7 @@ describe('reservationById reducer - test suite', () => {
         deepFreeze(weekday);
 
         //when
-        let result = reservationMap(stateBefore, actions.setDefaultProjectAndHours(weekday));
+        let result = reservationsById(stateBefore, actions.setDefaultProjectAndHours(weekday));
 
         //then
         expect(result).toEqual(stateAfter)
@@ -283,56 +218,43 @@ describe('reservationById reducer - test suite', () => {
     it('should handle save reservation description', () => {
 
         const stateBefore = {
-            availableProjects: {},
-            weekdayById: {},
-            weekDateRangeLabel: {},
-            projectById: {},
-            reservationById: {
-                1: {
-                    id: 1,
-                    weekdayId: 1,
-                    projectId: 3,
-                    hours: 8,
-                    description: 'old description 1'
-                },
-                2: {
-                    id: 2,
-                    weekdayId: 2,
-                    projectId: 2,
-                    hours: 8,
-                    description: 'description 2'
-                }
+            1: {
+                id: 1,
+                weekdayId: 1,
+                projectId: 3,
+                hours: 8,
+                description: 'old description 1'
+            },
+            2: {
+                id: 2,
+                weekdayId: 2,
+                projectId: 2,
+                hours: 8,
+                description: 'description 2'
             }
         };
 
         const stateAfter = {
-            availableProjects: {},
-            weekdayById: {},
-            weekDateRangeLabel: {},
-            projectById: {},
-            reservationById: {
-                1: {
-                    id: 1,
-                    weekdayId: 1,
-                    projectId: 3,
-                    hours: 8,
-                    description: 'new description from reservation'
-                },
-                2: {
-                    id: 2,
-                    weekdayId: 2,
-                    projectId: 2,
-                    hours: 8,
-                    description: 'description 2'
-                }
+            1: {
+                id: 1,
+                weekdayId: 1,
+                projectId: 3,
+                hours: 8,
+                description: 'new description from reservation'
+            },
+            2: {
+                id: 2,
+                weekdayId: 2,
+                projectId: 2,
+                hours: 8,
+                description: 'description 2'
             }
         };
 
 
         deepFreeze(stateBefore);
 
-        expect(reservationMap(stateBefore, actions.saveReservationDescription(1, 'new description from reservation'
-        ))).toEqual(stateAfter)
+        expect(reservationsById(stateBefore, actions.saveReservationDescription(1, 'new description from reservation'))).toEqual(stateAfter)
 
     })
 })
