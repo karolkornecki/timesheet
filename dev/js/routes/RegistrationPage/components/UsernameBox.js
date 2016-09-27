@@ -1,5 +1,8 @@
 import React, { Component } from 'react'
 import classnames from 'classnames'
+import { connect } from 'react-redux'
+
+import saveRegistrationUsername from '../actions/index'
 
 class UsernameBox extends Component {
     constructor(props) {
@@ -18,6 +21,7 @@ class UsernameBox extends Component {
             isMaxLength: e.target.value.trim().length > 50,
             isLowerOrDigit: /^[a-z0-9]+$/.test(e.target.value),
         })
+        this.props.dispatch(saveRegistrationUsername(e.target.value))
     }
 
     render() {
@@ -61,5 +65,7 @@ class UsernameBox extends Component {
         );
     }
 }
+
+UsernameBox = connect()(UsernameBox);
 
 export default UsernameBox
