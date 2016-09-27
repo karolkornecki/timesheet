@@ -3,8 +3,8 @@ import {Provider} from 'react-redux'
 import {Route, Router, IndexRoute, browserHistory} from "react-router"
 
 import Layout from './Layout'
-import TimesheetForm from './TimesheetForm'
-import RegistrationForm from './RegistrationForm'
+import TimesheetForm from '../routes/TimesheetPage/components/TimesheetForm'
+import RegistrationForm from '../routes/RegistrationPage/components/RegistrationForm'
 
 class ApplicationRoot extends Component {
     render() {
