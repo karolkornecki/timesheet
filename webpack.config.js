@@ -4,11 +4,11 @@ var webpack = require('webpack');
 module.exports = {
     devServer: {
         inline: true,
-        contentBase: './src',
+        contentBase: './web-src',
         port: 3000
     },
     devtool: 'cheap-module-eval-source-map',
-    entry: './dev/js/index.js',
+    entry: './web-dev/js/index.js',
     module: {
         loaders: [
             {
@@ -23,7 +23,7 @@ module.exports = {
         ]
     },
     output: {
-        path: 'src',
+        path: 'web-src',
         filename: 'js/bundle.min.js'
     },
     plugins: [
