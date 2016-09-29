@@ -28,8 +28,12 @@ class Header extends Component {
                                         </span>
                                     </a>
                                     <ul className="dropdown-menu">
-                                        <li><a><span className="glyphicon glyphicon-wrench"></span>
-                                            &#xA0;<span>Settings</span></a></li>
+                                        <li>
+                                            <Link to="/settings">
+                                                <span className="glyphicon glyphicon-wrench"></span>
+                                            &#xA0;<span>Settings</span>
+                                            </Link>
+                                        </li>
                                         <li><a><span className="glyphicon glyphicon-lock"></span>
                                             &#xA0;<span>Password</span></a></li>
                                         <li><a><span className="glyphicon glyphicon-cloud"></span>

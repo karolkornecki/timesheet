@@ -4,52 +4,11 @@ import { connect } from 'react-redux'
 import { SubmissionError } from 'redux-form'
 import _ from 'lodash'
 
-import * as constants from '../constants'
+import * as constants from '../../../errorCodes.js'
+import { validate } from '../validate'
 
+//TODO to remove
 const sleep = ms => new Promise(resolve => setTimeout(resolve, ms))
-
-
-const validate = values => {
-    const errors = {}
-    if (!values.username) {
-        errors.username = 'Your username is required.'
-    } else if (values.username.length < 1) {
-        errors.username = 'Your username is required to be at least 1 characters.'
-    } else if (values.username.length > 50) {
-        errors.username = 'Your username cannot be longer than 50 characters.'
-    } else if (!/^[a-z0-9]+$/.test(values.username)) {
-        errors.username = 'Your username can only contain lower-case letters and digits.'
-    }
-
-    if (!values.email) {
-        errors.email = 'Your e-mail is required.'
-    } else if (values.email.length < 5) {
-        errors.email = 'Your e-mail is required to be at least 5 characters..'
-    } else if (values.email.length > 100) {
-        errors.email = 'Your e-mail cannot be longer than 100 characters.'
-    } else if (!/^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,4}$/i.test(values.email)) {
-        errors.email = 'Your e-mail is invalid.'
-    }
-
-    if (!values.password) {
-        errors.password = 'Your password is required.'
-    } else if (values.password.length < 4) {
-        errors.password = 'Your password is required to be at least 4 characters.'
-    } else if (values.password.length > 50) {
-        errors.password = 'Your password cannot be longer than 50 characters.'
-    }
-
-    if (!values.confirmation) {
-        errors.confirmation = 'Your confirmation password is required.'
-    } else if (values.confirmation.length < 4) {
-        errors.confirmation = 'Your confirmation password is required to be at least 4 characters.'
-    } else if (values.confirmation.length > 50) {
-        errors.confirmation = 'Your confirmation password cannot be longer than 50 characters.'
-    }
-
-    return errors
-}
-
 
 const renderField = ({ input, label, type, meta: { touched, error } }) => (
     <div>
@@ -65,7 +24,6 @@ const renderField = ({ input, label, type, meta: { touched, error } }) => (
         </div>
     </div>
 )
-
 
 class RegistrationForm extends Component {
     constructor(props) {

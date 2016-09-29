@@ -7,6 +7,13 @@ import allReducers from './reducers'
 import {loadState, saveState} from './localStorage'
 
 var data = {
+    user: {
+        id: 1,
+        firstName: 'Karol',
+        lastName: 'Kornecki',
+        email: 'karol.kornecki@gmail.com',
+        langKey: 'PL'
+    },
     weekDateRangeLabel: "20-27.09.2016",
     weekdayById: {
         1: {
