@@ -31,11 +31,15 @@ class Header extends Component {
                                         <li>
                                             <Link to="/settings">
                                                 <span className="glyphicon glyphicon-wrench"></span>
-                                            &#xA0;<span>Settings</span>
+                                                &#xA0;<span>Settings</span>
                                             </Link>
                                         </li>
-                                        <li><a><span className="glyphicon glyphicon-lock"></span>
-                                            &#xA0;<span>Password</span></a></li>
+                                        <li>
+                                            <Link to="/password">
+                                                <span className="glyphicon glyphicon-lock"></span>
+                                                &#xA0;<span>Password</span>
+                                            </Link>
+                                        </li>
                                         <li><a><span className="glyphicon glyphicon-cloud"></span>
                                             &#xA0;<span>Sessions</span></a></li>
                                         <li><a href="" id="logout"><span className="glyphicon glyphicon-log-out"></span>

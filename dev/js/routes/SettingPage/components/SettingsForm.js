@@ -13,18 +13,12 @@ const renderField = ({ input, label, type, meta: { touched, error } }) => (
             placeholder={label}
             type={type}
             className="form-control"/>
-
         <div>
             <p className="help-block">
                 {touched && error && <span>{error}</span>}
             </p>
         </div>
     </div>
-)
-
-const renderSelect = (field) => (
-    <LanguageSelect value={field.input.value}
-                    onChange={ e => field.input.onChange(e.target.value)}/>
 )
 
 class LanguageSelect extends Component {
@@ -39,6 +33,11 @@ class LanguageSelect extends Component {
         );
     }
 }
+
+const renderSelect = (field) => (
+    <LanguageSelect value={field.input.value}
+                    onChange={ e => field.input.onChange(e.target.value)}/>
+)
 
 class SettingsForm extends Component {
     constructor(props) {
