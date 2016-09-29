@@ -7,8 +7,6 @@ import _ from 'lodash'
 import * as constants from '../../../errorCodes.js'
 import { validate } from '../validate'
 
-//TODO to remove
-const sleep = ms => new Promise(resolve => setTimeout(resolve, ms))
 
 const renderField = ({ input, label, type, meta: { touched, error } }) => (
     <div>
@@ -33,6 +31,7 @@ class RegistrationForm extends Component {
     }
 
     submit(values) {
+        const sleep = ms => new Promise(resolve => setTimeout(resolve, ms))
         return sleep(1000)
             .then(() => {
                 this.setState({valid: false})
@@ -43,6 +42,7 @@ class RegistrationForm extends Component {
                     throw new SubmissionError({_error: constants.SERVER_ERROR})
                 }
                 this.setState({valid: true})
+                this.props.reset()
             })
     }
 
@@ -62,17 +62,19 @@ class RegistrationForm extends Component {
                             {error && error === constants.SERVER_ERROR && <div className="alert alert-danger">
                                 <strong>Registration failed!</strong> Please try again later.
                             </div>}
-                            {error && error === constants.LOGIN_ALREADY_REGISTRED && <div className="alert alert-danger">
+                            {error && error === constants.LOGIN_ALREADY_REGISTRED &&
+                            <div className="alert alert-danger">
                                 <strong>Login name already registered!</strong> Please choose another one.
                             </div>}
                             {error && error === constants.EMAIL_ALREADY_IN_USE && <div className="alert alert-danger">
                                 <strong>E-mail is already in use!</strong> Please choose another one.
                             </div>}
-                            {error && error === constants.PASSWORD_DOES_NOT_MATCH && <div className="alert alert-danger">
+                            {error && error === constants.PASSWORD_DOES_NOT_MATCH &&
+                            <div className="alert alert-danger">
                                 The password and its confirmation do not match!
                             </div>}
                         </div>
-                        <div className="col-md-8 col-md-offset-2">
+                        {!this.state.valid && <div className="col-md-8 col-md-offset-2">
                             <div className="form-group">
                                 <label className="control-label" htmlFor="username">Username</label>
                                 <Field name="username" type="text" component={renderField} label="Username"/>
@@ -91,7 +93,7 @@ class RegistrationForm extends Component {
                                 <Field name="confirmation" type="password" component={renderField} label=""/>
                             </div>
                             <button type="submit" disabled={submitting} className="btn btn-primary">Register</button>
-                        </div>
+                        </div>}
                     </div>
                 </div>
             </form>

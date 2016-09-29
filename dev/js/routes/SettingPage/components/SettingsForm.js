@@ -5,12 +5,7 @@ import { SubmissionError } from 'redux-form'
 import _ from 'lodash'
 
 import { validate } from '../validate'
-//import {languages} from '../../../constants'
-
-const languages = {
-    EN: 'English',
-    PL: 'Polski'
-}
+import {languages} from '../../../constants'
 
 const renderField = ({ input, label, type, meta: { touched, error } }) => (
     <div>
@@ -27,32 +22,52 @@ const renderField = ({ input, label, type, meta: { touched, error } }) => (
     </div>
 )
 
-class LanguageSelect extends Component{
-    render(){
+const renderSelect = (field) => (
+    <LanguageSelect value={field.input.value}
+                    onChange={ e => field.input.onChange(e.target.value)}/>
+)
+
+class LanguageSelect extends Component {
+    render() {
         const languagesOptions = Object
             .keys(languages)
             .map(key =>  <option value={key} key={key}> {languages[key]} </option>)
-        return
+        return (
+            <select value={this.props.val} className="form-control" onChange={this.props.onChange}>
+                {languagesOptions}
+            </select>
+        );
     }
 }
 
 class SettingsForm extends Component {
     constructor(props) {
         super(props);
+        this.submit = this.submit.bind(this);
+        this.state = {valid: false}
     }
+
+    submit() {
+        const sleep = ms => new Promise(resolve => setTimeout(resolve, ms))
+        return sleep(1000)
+            .then(() => {
+                this.setState({valid: true})
+            })
+    }
+
 
     render() {
 
         return (
-            <form>
+            <form onSubmit={this.props.handleSubmit(this.submit)}>
                 <div className="container">
                     <div className="row">
                         <div className="col-md-8 col-md-offset-2">
                             <h2 >User settings for [<b>{this.props.initialValues.firstName}</b>]</h2>
 
-                            <div className="alert alert-success">
+                            {this.state.valid && <div className="alert alert-success">
                                 <strong>Settings saved!</strong>
-                            </div>
+                            </div>}
                             <div className="form-group">
                                 <label className="control-label" htmlFor="firstName">First Name</label>
                                 <Field name="firstName" type="text" component={renderField} label="First Name"/>
@@ -67,9 +82,7 @@ class SettingsForm extends Component {
                             </div>
                             <div className="form-group">
                                 <label htmlFor="langKey">Language</label>
-                                <Field name="langKey" component="select">
-                                    {languagesOptions}
-                                </Field>
+                                <Field name="langKey" component={renderSelect}/>
                             </div>
                             <button type="submit" className="btn btn-primary">Save</button>
                         </div>
