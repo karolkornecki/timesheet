@@ -9,8 +9,6 @@ import org.springframework.mail.javamail.JavaMailSenderImpl;
 import org.springframework.mail.javamail.MimeMessageHelper;
 import org.springframework.scheduling.annotation.Async;
 import org.springframework.stereotype.Service;
-import org.thymeleaf.context.Context;
-import org.thymeleaf.spring4.SpringTemplateEngine;
 import com.timesheet.domain.User;
 
 import javax.inject.Inject;
@@ -33,11 +31,11 @@ public class MailService {
     @Inject
     private JavaMailSenderImpl javaMailSender;
 
-    @Inject
+    //@Inject
     private MessageSource messageSource;
 
-    @Inject
-    private SpringTemplateEngine templateEngine;
+    //@Inject
+    //private SpringTemplateEngine templateEngine;
 
     /**
      * System default email address that sends the e-mails.
@@ -66,38 +64,38 @@ public class MailService {
 
     @Async
     public void sendActivationEmail(User user, String baseUrl) {
-        log.debug("Sending activation e-mail to '{}'", user.getEmail());
-        Locale locale = Locale.forLanguageTag(user.getLangKey());
-        Context context = new Context(locale);
-        context.setVariable("user", user);
-        context.setVariable("baseUrl", baseUrl);
-        String content = templateEngine.process("activationEmail", context);
-        String subject = messageSource.getMessage("email.activation.title", null, locale);
-        sendEmail(user.getEmail(), subject, content, false, true);
+//        log.debug("Sending activation e-mail to '{}'", user.getEmail());
+//        Locale locale = Locale.forLanguageTag(user.getLangKey());
+//        Context context = new Context(locale);
+//        context.setVariable("user", user);
+//        context.setVariable("baseUrl", baseUrl);
+//        String content = templateEngine.process("activationEmail", context);
+//        String subject = messageSource.getMessage("email.activation.title", null, locale);
+//        sendEmail(user.getEmail(), subject, content, false, true);
     }
 
     @Async
     public void sendCreationEmail(User user, String baseUrl) {
-        log.debug("Sending creation e-mail to '{}'", user.getEmail());
-        Locale locale = Locale.forLanguageTag(user.getLangKey());
-        Context context = new Context(locale);
-        context.setVariable("user", user);
-        context.setVariable("baseUrl", baseUrl);
-        String content = templateEngine.process("creationEmail", context);
-        String subject = messageSource.getMessage("email.activation.title", null, locale);
-        sendEmail(user.getEmail(), subject, content, false, true);
+//        log.debug("Sending creation e-mail to '{}'", user.getEmail());
+//        Locale locale = Locale.forLanguageTag(user.getLangKey());
+//        Context context = new Context(locale);
+//        context.setVariable("user", user);
+//        context.setVariable("baseUrl", baseUrl);
+//        String content = templateEngine.process("creationEmail", context);
+//        String subject = messageSource.getMessage("email.activation.title", null, locale);
+//        sendEmail(user.getEmail(), subject, content, false, true);
     }
 
     @Async
     public void sendPasswordResetMail(User user, String baseUrl) {
-        log.debug("Sending password reset e-mail to '{}'", user.getEmail());
-        Locale locale = Locale.forLanguageTag(user.getLangKey());
-        Context context = new Context(locale);
-        context.setVariable("user", user);
-        context.setVariable("baseUrl", baseUrl);
-        String content = templateEngine.process("passwordResetEmail", context);
-        String subject = messageSource.getMessage("email.reset.title", null, locale);
-        sendEmail(user.getEmail(), subject, content, false, true);
+//        log.debug("Sending password reset e-mail to '{}'", user.getEmail());
+//        Locale locale = Locale.forLanguageTag(user.getLangKey());
+//        Context context = new Context(locale);
+//        context.setVariable("user", user);
+//        context.setVariable("baseUrl", baseUrl);
+//        String content = templateEngine.process("passwordResetEmail", context);
+//        String subject = messageSource.getMessage("email.reset.title", null, locale);
+//        sendEmail(user.getEmail(), subject, content, false, true);
     }
 
 }
