@@ -1,0 +1,35 @@
+spring:
+    jpa:
+        open-in-view: false
+        hibernate:
+            ddl-auto: none
+            naming-strategy: org.springframework.boot.orm.jpa.hibernate.SpringNamingStrategy
+    messages:
+        basename: classpath:/i18n/messages
+    mvc:
+        favicon:
+            enabled: false
+    thymeleaf:
+        mode: XHTML
+security:
+    basic:
+        enabled: false
+
+timesheet:
+    async:
+        corePoolSize: 2
+        maxPoolSize: 50
+        queueCapacity: 10000
+    #cors: #By default CORS are not enabled. Uncomment to enable.
+        #allowed-origins: "*"
+        #allowed-methods: GET, PUT, POST, DELETE, OPTIONS
+        #allowed-headers: "*"
+        #exposed-headers:
+        #allow-credentials: true
+        #max-age: 1800
+    mail:
+        from: timesheet@localhost
+    security:
+        rememberme:
+            # security key (this key should be unique for your application, and kept secret)
+            key: e00b859c391d38f2532502717345542866c3f242

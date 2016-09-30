@@ -1,0 +1,67 @@
+# ===================================================================
+# Spring Boot configuration for the "dev" profile.
+#
+# This configuration overrides the application.yml file.
+# ===================================================================
+
+spring:
+    profiles:
+        active: dev
+    devtools:
+        restart:
+            enabled: true
+        livereload:
+            enabled: false
+    datasource:
+        driver-class-name: org.h2.jdbcx.JdbcDataSource
+        url: jdbc:h2:mem:timesheet;DB_CLOSE_DELAY=-1
+        name:
+        username: timesheet
+        password:
+    h2:
+        console:
+            enabled: false
+    jpa:
+        database-platform: com.timesheet.domain.util.FixedH2Dialect
+        database: H2
+        show_sql: true
+        properties:
+            hibernate.cache.use_second_level_cache: true
+            hibernate.cache.use_query_cache: false
+            hibernate.generate_statistics: true
+            hibernate.cache.region.factory_class: org.hibernate.cache.ehcache.SingletonEhCacheRegionFactory
+    mail:
+        host: smtp.gmail.com
+        port: 465
+        username: 1timesheet1@gmail.com
+        password: t1m3sh33t
+    messages:
+        cache-seconds: 1
+    thymeleaf:
+        cache: false
+
+liquibase:
+    contexts: dev
+
+server:
+    port: 8080
+
+
+timesheet:
+    cache: # Hibernate 2nd level cache, used by CacheConfiguration
+        timeToLiveSeconds: 3600
+        ehcache:
+            maxBytesLocalHeap: 16M
+    mail:
+        from: timesheet@localhost
+    metrics: # DropWizard Metrics configuration, used by MetricsConfiguration
+        jmx.enabled: true
+        spark:
+            enabled: false
+            host: localhost
+            port: 9999
+        graphite:
+            enabled: false
+            host: localhost
+            port: 2003
+            prefix: timesheet

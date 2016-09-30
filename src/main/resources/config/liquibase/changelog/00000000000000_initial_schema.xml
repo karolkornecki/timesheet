@@ -1,0 +1,277 @@
+<?xml version="1.0" encoding="utf-8"?>
+<databaseChangeLog
+        xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.4.xsd">
+
+    <property name="now" value="now()" dbms="mysql,h2"/>
+
+    <property name="autoIncrement" value="true" dbms="mysql,h2"/>
+
+    <changeSet id="00000000000000" author="Karol Kornecki" dbms="postgresql,oracle">
+        <createSequence sequenceName="hibernate_sequence" startValue="1000" incrementBy="1"/>
+    </changeSet>
+
+    <changeSet id="1" author="Karol Kornecki" dbms="h2">
+        <sql>
+            CREATE SCHEMA TIMESHEET;
+        </sql>
+    </changeSet>
+
+    <changeSet id="00000000000001" author="Karol Kornecki">
+        <createTable tableName="USER" schemaName="TIMESHEET">
+            <column name="ID" type="bigint" autoIncrement="${autoIncrement}">
+                <constraints primaryKey="true" nullable="false"/>
+            </column>
+            <column name="LOGIN" type="varchar(50)">
+                <constraints unique="true" nullable="false"/>
+            </column>
+            <column name="PASSWORD_HASH" type="varchar(60)"/>
+            <column name="FIRST_NAME" type="varchar(50)"/>
+            <column name="LAST_NAME" type="varchar(50)"/>
+            <column name="EMAIL" type="varchar(100)">
+                <constraints unique="true"/>
+            </column>
+            <column name="ACTIVATED" type="boolean" valueBoolean="false">
+                <constraints nullable="false"/>
+            </column>
+            <column name="LANG_KEY" type="varchar(5)"/>
+            <column name="ACTIVATION_KEY" type="varchar(20)"/>
+            <column name="RESET_KEY" type="varchar(20)"/>
+            <column name="CREATED_BY" type="varchar(50)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="CREATED_DATE" type="timestamp" defaultValueDate="${now}">
+                <constraints nullable="false"/>
+            </column>
+            <column name="RESET_DATE" type="timestamp">
+                <constraints nullable="true"/>
+            </column>
+            <column name="LAST_MODIFIED_BY" type="varchar(50)"/>
+            <column name="LAST_MODIFIED_DATE" type="timestamp"/>
+            <column name="POSITION" type="varchar(200)"/>
+            <column name="HOURLY_RATE" type="DECIMAL(10,2)"/>
+            <column name="MANAGER_ID" type="bigint">
+                <constraints foreignKeyName="FK_USER_MANAGER_ID" referencedColumnNames="ID" referencedTableName="USER"/>
+            </column>
+        </createTable>
+
+        <createIndex indexName="IDX_USER_LOGIN"
+                     tableName="USER"
+                     unique="true" schemaName="TIMESHEET">
+            <column name="LOGIN" type="varchar(50)"/>
+        </createIndex>
+
+        <createIndex indexName="IDX_USER_EMAIL" schemaName="TIMESHEET"
+                     tableName="USER"
+                     unique="true">
+            <column name="EMAIL" type="varchar(100)"/>
+        </createIndex>
+
+        <createTable tableName="AUTHORITY" schemaName="TIMESHEET">
+            <column name="NAME" type="varchar(50)">
+                <constraints primaryKey="true" nullable="false"/>
+            </column>
+        </createTable>
+
+        <createTable tableName="USER_AUTHORITY" schemaName="TIMESHEET">
+            <column name="USER_ID" type="bigint">
+                <constraints nullable="false" foreignKeyName="FK_USER_ID" referencedColumnNames="ID"
+                             referencedTableName="USER"/>
+            </column>
+            <column name="AUTHORITY_NAME" type="varchar(50)">
+                <constraints nullable="false" foreignKeyName="FK_AUTHORITY_NAME" referencedColumnNames="NAME"
+                             referencedTableName="AUTHORITY"/>
+            </column>
+        </createTable>
+
+        <addPrimaryKey columnNames="USER_ID, AUTHORITY_NAME" tableName="USER_AUTHORITY" schemaName="TIMESHEET"/>
+
+        <createTable tableName="PERSISTENT_TOKEN" schemaName="TIMESHEET">
+            <column name="SERIES" type="varchar(255)">
+                <constraints primaryKey="true" nullable="false"/>
+            </column>
+            <column name="USER_ID" type="bigint">
+                <constraints foreignKeyName="FK_USER_PERSISTENT_TOKEN" referencedColumnNames="ID"
+                             referencedTableName="USER"/>
+            </column>
+            <column name="TOKEN_VALUE" type="varchar(255)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="TOKEN_DATE" type="date"/>
+            <column name="IP_ADDRESS" type="varchar(39)"/>
+            <column name="USER_AGENT" type="varchar(255)"/>
+        </createTable>
+
+
+        <loadData encoding="UTF-8"
+                  file="config/liquibase/users.csv"
+                  separator=";"
+                  tableName="USER" schemaName="TIMESHEET">
+            <column name="ACTIVATED" type="boolean"/>
+            <column name="CREATED_DATE" type="timestamp"/>
+        </loadData>
+        <dropDefaultValue tableName="USER" schemaName="TIMESHEET" columnName="CREATED_DATE" columnDataType="datetime"/>
+
+        <loadData encoding="UTF-8"
+                  file="config/liquibase/authorities.csv"
+                  separator=";"
+                  tableName="AUTHORITY" schemaName="TIMESHEET"/>
+
+        <loadData encoding="UTF-8"
+                  file="config/liquibase/users_authorities.csv"
+                  separator=";"
+                  tableName="USER_AUTHORITY" schemaName="TIMESHEET"/>
+
+        <createTable tableName="PERSISTENT_AUDIT_EVENT" schemaName="TIMESHEET">
+            <column name="EVENT_ID" type="bigint" autoIncrement="${autoIncrement}">
+                <constraints primaryKey="true" nullable="false"/>
+            </column>
+            <column name="PRINCIPAL" type="varchar(255)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="EVENT_DATE" type="timestamp"/>
+            <column name="EVENT_TYPE" type="varchar(255)"/>
+        </createTable>
+
+        <createTable tableName="PERSISTENT_AUDIT_EVENT_DATA" schemaName="TIMESHEET">
+            <column name="EVENT_ID" type="bigint">
+                <constraints nullable="false"/>
+            </column>
+            <column name="NAME" type="varchar(255)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="VALUE" type="varchar(255)"/>
+        </createTable>
+        <addPrimaryKey columnNames="EVENT_ID, NAME" tableName="PERSISTENT_AUDIT_EVENT_DATA" schemaName="TIMESHEET"/>
+
+        <createIndex indexName="IDX_PERSISTENT_AUDIT_EVENT" schemaName="TIMESHEET"
+                     tableName="PERSISTENT_AUDIT_EVENT"
+                     unique="false">
+            <column name="PRINCIPAL" type="varchar(255)"/>
+            <column name="EVENT_DATE" type="timestamp"/>
+        </createIndex>
+
+        <createIndex indexName="IDX_PERSISTENT_AUDIT_EVENT_DATA" schemaName="TIMESHEET"
+                     tableName="PERSISTENT_AUDIT_EVENT_DATA"
+                     unique="false">
+            <column name="EVENT_ID" type="bigint">
+                <constraints foreignKeyName="FK_EVT_PERS_AUDIT_EVT_DATA" referencedColumnNames="EVENT_ID"
+                             referencedTableName="PERSISTENT_AUDIT_EVENT"/>
+            </column>
+        </createIndex>
+
+    </changeSet>
+
+
+    <changeSet id="00000000000002" author="Karol Kornecki">
+        <createTable tableName="WEEKDAY" schemaName="TIMESHEET">
+            <column name="ID" type="bigint" autoIncrement="${autoIncrement}">
+                <constraints primaryKey="true" nullable="false"/>
+            </column>
+            <column name="DATE" type="date">
+                <constraints nullable="false"/>
+            </column>
+            <column name="DESCRIPTION" type="varchar(2000)"/>
+            <column name="USER_ID" type="bigint">
+                <constraints foreignKeyName="FK_USER_WEEK_DAY" referencedColumnNames="ID" referencedTableName="USER"/>
+            </column>
+            <column name="STATUS" type="varchar(50)">
+                <constraints nullable="false"/>
+            </column>
+        </createTable>
+        <loadData encoding="UTF-8"
+                  file="config/liquibase/weekday.csv"
+                  separator=";"
+                  tableName="WEEKDAY" schemaName="TIMESHEET"/>
+
+        <createTable tableName="PROJECT" schemaName="TIMESHEET">
+            <column name="ID" type="bigint" autoIncrement="${autoIncrement}">
+                <constraints primaryKey="true" nullable="false"/>
+            </column>
+            <column name="NAME" type="varchar(255)"/>
+        </createTable>
+        <loadData encoding="UTF-8"
+                  file="config/liquibase/projects.csv"
+                  separator=";"
+                  tableName="PROJECT" schemaName="TIMESHEET"/>
+
+        <createTable tableName="RESERVATION" schemaName="TIMESHEET">
+            <column name="ID" type="bigint" autoIncrement="${autoIncrement}">
+                <constraints primaryKey="true" nullable="false"/>
+            </column>
+            <column name="HOURS" type="int"/>
+            <column name="DESCRIPTION" type="varchar(2000)"/>
+            <column name="PROJECT_ID" type="bigint">
+                <constraints foreignKeyName="FK_PROJECT_RESERVATION" referencedColumnNames="ID"
+                             referencedTableName="PROJECT"/>
+            </column>
+            <column name="WEEKDAY_ID" type="bigint">
+                <constraints foreignKeyName="FK_WEEKDAY_RESERVATION" referencedColumnNames="ID"
+                             referencedTableName="WEEKDAY"/>
+            </column>
+        </createTable>
+        <loadData encoding="UTF-8"
+                  file="config/liquibase/reservation.csv"
+                  separator=";"
+                  tableName="RESERVATION" schemaName="TIMESHEET"/>
+
+
+        <createTable tableName="AVAILABLE_PROJECT" schemaName="TIMESHEET">
+            <column name="ID" type="bigint" autoIncrement="${autoIncrement}">
+                <constraints primaryKey="true" nullable="false"/>
+            </column>
+            <column name="HOURS" type="int"/>
+            <column name="PROJECT_ID" type="bigint">
+                <constraints foreignKeyName="FK_PROJECT_AVAIL_PROJECT" referencedColumnNames="ID"
+                             referencedTableName="PROJECT"/>
+            </column>
+            <column name="RESERVATION_ID" type="bigint">
+                <constraints foreignKeyName="FK_RESERVATION_AVAIL_PROJECT" referencedColumnNames="ID"
+                             referencedTableName="RESERVATION"/>
+            </column>
+        </createTable>
+        <loadData encoding="UTF-8"
+                  file="config/liquibase/available_projects.csv"
+                  separator=";"
+                  tableName="AVAILABLE_PROJECT" schemaName="TIMESHEET"/>
+
+        <createTable tableName="USER_CONFIGURATION" schemaName="TIMESHEET">
+            <column name="ID" type="bigint" autoIncrement="${autoIncrement}">
+                <constraints primaryKey="true" nullable="false"/>
+            </column>
+            <column name="DEFAULT_HOURS_NUMBER" type="int"/>
+            <column name="DEFAULT_PROJECT_ID" type="bigint">
+                <constraints foreignKeyName="FK_PROJECT_USER_CONFIGURATION" referencedColumnNames="ID"
+                             referencedTableName="PROJECT"/>
+            </column>
+            <column name="USER_ID" type="bigint">
+                <constraints foreignKeyName="FK_USER_USER_CONFIGURATIONY" referencedColumnNames="ID"
+                             referencedTableName="USER"/>
+            </column>
+        </createTable>
+        <loadData encoding="UTF-8"
+                  file="config/liquibase/user_configuration.csv"
+                  separator=";"
+                  tableName="USER_CONFIGURATION" schemaName="TIMESHEET"/>
+
+
+        <createTable tableName="MANAGED_PROJECT" schemaName="TIMESHEET">
+            <column name="ID" type="bigint" autoIncrement="${autoIncrement}">
+                <constraints primaryKey="true" nullable="false"/>
+            </column>
+            <column name="PROJECT_ID" type="bigint">
+                <constraints foreignKeyName="FK_PROJECT_MA_PROJECT" referencedColumnNames="ID"
+                             referencedTableName="PROJECT"/>
+            </column>
+            <column name="USER_ID" type="bigint">
+                <constraints foreignKeyName="FK_USER_MA_PROJECT" referencedColumnNames="ID" referencedTableName="USER"/>
+            </column>
+        </createTable>
+        <loadData encoding="UTF-8"
+                  file="config/liquibase/managed_project.csv"
+                  separator=";"
+                  tableName="MANAGED_PROJECT" schemaName="TIMESHEET"/>
+
+    </changeSet>
+</databaseChangeLog>
