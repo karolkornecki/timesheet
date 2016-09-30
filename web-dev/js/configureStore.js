@@ -12,7 +12,9 @@ var data = {
         firstName: 'Karol',
         lastName: 'Kornecki',
         email: 'karol.kornecki@gmail.com',
-        langKey: 'PL'
+        langKey: 'PL',
+        password: '',
+        confirmation: ''
     },
     weekDateRangeLabel: "20-27.09.2016",
     weekdayById: {
