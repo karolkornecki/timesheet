@@ -18,7 +18,7 @@ import java.time.format.DateTimeFormatter;
 /**
  * Persistent tokens are used by Spring Security to automatically log in users.
  *
- * @see pl.ksolutions.timesheet.security.CustomPersistentRememberMeServices
+ * @see com.timesheet.security.CustomPersistentRememberMeServices
  */
 @Entity
 @Table(name = "PERSISTENT_TOKEN", schema = "TIMESHEET")
