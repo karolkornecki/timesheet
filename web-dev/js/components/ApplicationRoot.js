@@ -7,6 +7,7 @@ import TimesheetForm from '../routes/TimesheetPage/components/TimesheetForm'
 import RegistrationForm from '../routes/RegistrationPage/components/RegistrationForm'
 import SettingsForm from '../routes/SettingPage/components/SettingsForm'
 import PasswordForm from '../routes/PasswordPage/components/PasswordForm'
+import LoginForm from '../routes/LoginPage/containers/LoginForm'
 
 class ApplicationRoot extends Component {
     render() {
@@ -18,6 +19,7 @@ class ApplicationRoot extends Component {
                         <Route path='/register' component={RegistrationForm}/>
                         <Route path='/settings' component={SettingsForm}/>
                         <Route path='/password' component={PasswordForm}/>
+                        <Route path='/login' component={LoginForm}/>
                     </Route>
                 </Router>
             </Provider>

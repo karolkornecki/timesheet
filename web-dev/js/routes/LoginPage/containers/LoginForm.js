@@ -1,21 +1,16 @@
 import React,{ Component } from 'react';
-import { Modal, ModalManager, Effect} from 'react-dynamic-modal';
-//import { Field, reduxForm } from 'redux-form';
+import { Modal, Effect} from 'react-dynamic-modal';
+import { Field, reduxForm } from 'redux-form';
+import {Link} from 'react-router'
 
-class LoginPage extends Component {
-
-    constructor(props) {
-        super(props);
-    }
+class LoginForm extends Component {
 
     render() {
         return (
-            <Modal style={{content: {margin: 'auto'}}}
-                   onRequestClose={ () => true }
-                   effect={Effect.SlideFromRight}>
-
+            <Modal style={{content: {margin: 'auto'}}} effect={Effect.SlideFromRight}>
+                <form>
                     <div className="modal-header">
-                        <button type="button" className="close" aria-hidden="true">&times;</button>
+                        <Link to='/' className="close">&times;</Link>
                         <h4 className="modal-title">Sign in</h4>
                     </div>
                     <div className="modal-body">
@@ -29,14 +24,14 @@ class LoginPage extends Component {
                                 </div>
                             </div>
                             <div className="col-md-8 col-md-offset-2">
-                                    <div className="form-group">
-                                        <label htmlFor="username">Login</label>
-                                    </div>
-                                    <div className="form-group">
-                                        <label htmlFor="password">Password</label>
-                                    </div>
+                                <div className="form-group">
+                                    <label htmlFor="username">Login</label>
+                                </div>
+                                <div className="form-group">
+                                    <label htmlFor="password">Password</label>
+                                </div>
 
-                                    <button type="submit" className="btn btn-primary">Sign in</button>
+                                <button type="submit" className="btn btn-primary">Sign in</button>
                                 <p></p>
 
                                 <div className="alert alert-warning">
@@ -45,10 +40,11 @@ class LoginPage extends Component {
                             </div>
                         </div>
                     </div>
+                </form>
             </Modal>
-
-        );
+        )
     }
 }
-
-export default LoginPage
+export default reduxForm({
+    form: 'loginForm'
+})(LoginForm)
