@@ -1,7 +1,15 @@
 import React, { Component } from 'react'
 import {Link} from 'react-router'
+import { ModalManager } from 'react-dynamic-modal'
+import LoginPage from '../constainers/LoginPage'
 
 class Header extends Component {
+    openModal() {
+        ModalManager.open(
+            <LoginPage />
+        );
+    }
+
     render() {
         return (
             <div className="header">
@@ -44,7 +52,8 @@ class Header extends Component {
                                             &#xA0;<span>Sessions</span></a></li>
                                         <li><a href="" id="logout"><span className="glyphicon glyphicon-log-out"></span>
                                             &#xA0;<span>Sign out</span></a></li>
-                                        <li><a><span className="glyphicon glyphicon-log-in"></span>
+                                        <li><a onClick={ () => this.openModal() }><span
+                                            className="glyphicon glyphicon-log-in"></span>
                                             &#xA0;<span>Sign in</span></a></li>
                                         <li><Link to="register"><span className="glyphicon glyphicon-plus-sign"></span>
                                             &#xA0;<span>Register</span></Link></li>
