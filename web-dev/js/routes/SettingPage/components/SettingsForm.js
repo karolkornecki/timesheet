@@ -7,19 +7,7 @@ import _ from 'lodash'
 import { validate } from '../validate'
 import {languages} from '../../../constants'
 
-const renderField = ({ input, label, type, meta: { touched, error } }) => (
-    <div>
-        <input  {...input}
-            placeholder={label}
-            type={type}
-            className="form-control"/>
-        <div>
-            <p className="help-block">
-                {touched && error && <span>{error}</span>}
-            </p>
-        </div>
-    </div>
-)
+import { InputField } from '../../../components/InputField'
 
 class LanguageSelect extends Component {
     render() {
@@ -33,11 +21,6 @@ class LanguageSelect extends Component {
         );
     }
 }
-
-const renderSelect = (field) => (
-    <LanguageSelect value={field.input.value}
-                    onChange={ e => field.input.onChange(e.target.value)}/>
-)
 
 class SettingsForm extends Component {
     constructor(props) {
@@ -69,19 +52,21 @@ class SettingsForm extends Component {
                             </div>}
                             <div className="form-group">
                                 <label className="control-label" htmlFor="firstName">First Name</label>
-                                <Field name="firstName" type="text" component={renderField} label="First Name"/>
+                                <Field name="firstName" type="text" component={InputField} label="First Name"/>
                             </div>
                             <div className="form-group">
                                 <label className="control-label" htmlFor="lastName">Last Name</label>
-                                <Field name="lastName" type="text" component={renderField} label="Last Name"/>
+                                <Field name="lastName" type="text" component={InputField} label="Last Name"/>
                             </div>
                             <div className="form-group">
                                 <label className="control-label" htmlFor="email">E-mail</label>
-                                <Field name="email" type="text" component={renderField} label="E-mail"/>
+                                <Field name="email" type="text" component={InputField} label="E-mail"/>
                             </div>
                             <div className="form-group">
                                 <label htmlFor="langKey">Language</label>
-                                <Field name="langKey" component={renderSelect}/>
+                                <Field name="langKey"
+                                       component={(field) => (
+                                                    <LanguageSelect value={field.input.value} onChange={ e => field.input.onChange(e.target.value)}/>)}/>
                             </div>
                             <button type="submit" className="btn btn-primary">Save</button>
                         </div>

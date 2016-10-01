@@ -2,12 +2,14 @@ import React,{ Component } from 'react';
 import { Modal, Effect} from 'react-dynamic-modal';
 import { Field, reduxForm } from 'redux-form';
 import {Link} from 'react-router'
+import { InputField } from '../../../components/InputField'
+
 
 class LoginForm extends Component {
 
     render() {
         return (
-            <Modal style={{content: {margin: 'auto'}}} effect={Effect.SlideFromRight}>
+            <Modal style={{content: {marginTop: '5%'}}} effect={Effect.SlideFromRight}>
                 <form>
                     <div className="modal-header">
                         <Link to='/' className="close">&times;</Link>
@@ -26,9 +28,11 @@ class LoginForm extends Component {
                             <div className="col-md-8 col-md-offset-2">
                                 <div className="form-group">
                                     <label htmlFor="username">Login</label>
+                                    <Field name="username" type="text" component={InputField} label=""/>
                                 </div>
                                 <div className="form-group">
                                     <label htmlFor="password">Password</label>
+                                    <Field name="password" type="password" component={InputField} label=""/>
                                 </div>
 
                                 <button type="submit" className="btn btn-primary">Sign in</button>

@@ -1,4 +1,4 @@
-const projectById = (state = {}, action = {}) => { // default action to satisfy intellij checkstyle
+const projectById = (state = {}, action = {}) => {
     return state;
 }
 

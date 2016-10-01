@@ -4,21 +4,7 @@ import { connect } from 'react-redux'
 
 import { validate } from '../validate'
 import * as constants from '../../../errorCodes.js'
-
-const renderField = ({ input, label, type, meta: { touched, error } }) => (
-    <div>
-        <input  {...input}
-            placeholder={label}
-            type={type}
-            className="form-control"/>
-
-        <div>
-            <p className="help-block">
-                {touched && error && <span>{error}</span>}
-            </p>
-        </div>
-    </div>
-)
+import { InputField } from '../../../components/InputField'
 
 class PasswordForm extends Component {
     constructor(props) {
@@ -69,15 +55,16 @@ class PasswordForm extends Component {
 
                             <div className="form-group">
                                 <label className="control-label" htmlFor="password">New password</label>
-                                <Field name="password" type="password" component={renderField}/>
+                                <Field name="password" type="password" component={InputField}/>
                             </div>
 
                             <div className="form-group">
                                 <label className="control-label" htmlFor="confirmation">New password
                                     confirmation</label>
-                                <Field name="confirmation" type="password" component={renderField}/>
+                                <Field name="confirmation" type="password" component={InputField}/>
                             </div>
-                            <button type="submit" disabled={invalid || submitting} className="btn btn-primary">Save</button>
+                            <button type="submit" disabled={invalid || submitting} className="btn btn-primary">Save
+                            </button>
                         </div>
                     </div>
                 </div>

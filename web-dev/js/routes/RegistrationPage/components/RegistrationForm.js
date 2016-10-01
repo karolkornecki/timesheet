@@ -6,22 +6,7 @@ import _ from 'lodash'
 
 import * as constants from '../../../errorCodes.js'
 import { validate } from '../validate'
-
-
-const renderField = ({ input, label, type, meta: { touched, error } }) => (
-    <div>
-        <input  {...input}
-            placeholder={label}
-            type={type}
-            className="form-control"/>
-
-        <div>
-            <p className="help-block">
-                {touched && error && <span>{error}</span>}
-            </p>
-        </div>
-    </div>
-)
+import { InputField } from '../../../components/InputField'
 
 class RegistrationForm extends Component {
     constructor(props) {
@@ -77,20 +62,20 @@ class RegistrationForm extends Component {
                         {!this.state.valid && <div className="col-md-8 col-md-offset-2">
                             <div className="form-group">
                                 <label className="control-label" htmlFor="username">Username</label>
-                                <Field name="username" type="text" component={renderField} label="Username"/>
+                                <Field name="username" type="text" component={InputField} label="Username"/>
                             </div>
                             <div className="form-group">
                                 <label className="control-label" htmlFor="email">Email</label>
-                                <Field name="email" type="email" component={renderField}
+                                <Field name="email" type="email" component={InputField}
                                        label="Email"/>
                             </div>
                             <div className="form-group">
                                 <label className="control-label" htmlFor="password">Password</label>
-                                <Field name="password" type="password" component={renderField} label=""/>
+                                <Field name="password" type="password" component={InputField} label=""/>
                             </div>
                             <div className="form-group">
                                 <label className="control-label" htmlFor="confirmation">Password confirmation</label>
-                                <Field name="confirmation" type="password" component={renderField} label=""/>
+                                <Field name="confirmation" type="password" component={InputField} label=""/>
                             </div>
                             <button type="submit" disabled={submitting} className="btn btn-primary">Register</button>
                         </div>}

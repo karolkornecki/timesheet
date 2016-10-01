@@ -7,6 +7,13 @@ import allReducers from './reducers'
 import {loadState, saveState} from './localStorage'
 
 var data = {
+    authData: {
+        username: '',
+        password: '',
+        isAuthenticated: false,
+        isAuthenticationFailed: false,
+        token: ''
+    },
     user: {
         id: 1,
         firstName: 'Karol',
