@@ -7,6 +7,7 @@ import availableProjects from '../routes/TimesheetPage/reducers/availableProject
 import projectById from '../routes/TimesheetPage/reducers/projectById'
 import weekDateRangeLabel from '../routes/TimesheetPage/reducers/weekDateRangeLabel'
 import user from '../routes/SettingPage/reducer/user'
+import authData from '../routes/LoginPage/reducers/authData'
 
 const reducers = combineReducers({
     reservationById,
@@ -15,6 +16,7 @@ const reducers = combineReducers({
     projectById,
     weekDateRangeLabel,
     user,
+    authData,
     form: formReducer
 });
 

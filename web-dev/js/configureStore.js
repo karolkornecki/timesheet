@@ -10,6 +10,7 @@ var data = {
     authData: {
         username: '',
         password: '',
+        rememberMe: false,
         isAuthenticated: false,
         isAuthenticationFailed: false,
         token: ''

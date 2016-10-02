@@ -2,15 +2,34 @@ import React,{ Component } from 'react';
 import { Modal, Effect} from 'react-dynamic-modal';
 import { Field, reduxForm } from 'redux-form';
 import {Link} from 'react-router'
+import { connect } from 'react-redux'
+import client from '../../../client'
+
 import { InputField } from '../../../components/InputField'
 
 
 class LoginForm extends Component {
+    constructor(props) {
+        super(props);
+        this.submit = this.submit.bind(this);
+    }
+
+    submit(values) {
+        const sleep = ms => new Promise(resolve => setTimeout(resolve, ms))
+        return sleep(1000)
+            .then(() => {
+                client({method: 'POST', path: '/api/authentication'}).done(response => {
+                    console.log(response)
+                });
+                console.log('end');
+            })
+    }
+
 
     render() {
         return (
             <Modal style={{content: {marginTop: '5%'}}} effect={Effect.SlideFromRight}>
-                <form>
+                <form onSubmit={this.props.handleSubmit(this.submit)}>
                     <div className="modal-header">
                         <Link to='/' className="close">&times;</Link>
                         <h4 className="modal-title">Sign in</h4>
@@ -49,6 +68,10 @@ class LoginForm extends Component {
         )
     }
 }
-export default reduxForm({
+
+LoginForm = reduxForm({
     form: 'loginForm'
 })(LoginForm)
+
+
+export default LoginForm

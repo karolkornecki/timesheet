@@ -4,7 +4,6 @@ import com.codahale.metrics.MetricRegistry;
 import com.codahale.metrics.servlet.InstrumentedFilter;
 import com.codahale.metrics.servlets.MetricsServlet;
 import com.timesheet.web.filter.CachingHttpHeadersFilter;
-import com.timesheet.web.filter.StaticResourcesProductionFilter;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -45,12 +44,11 @@ public class WebConfigurer implements WebApplicationInitializer, EmbeddedServlet
     public void onStartup(ServletContext servletContext) throws ServletException {
         LOG.info("Web application configuration, using profiles: {}", Arrays.toString(env.getActiveProfiles()));
         EnumSet<DispatcherType> disps = EnumSet.of(DispatcherType.REQUEST, DispatcherType.FORWARD, DispatcherType.ASYNC);
+        initMetrics(servletContext, disps);
         if (env.acceptsProfiles(Constants.SPRING_PROFILE_PRODUCTION)) {
             initCachingHttpHeadersFilter(servletContext, disps);
-            initStaticResourcesProductionFilter(servletContext, disps);
         }
         if (env.acceptsProfiles(Constants.SPRING_PROFILE_DEVELOPMENT)) {
-            initMetrics(servletContext, disps);
             initH2Console(servletContext);
         }
         LOG.info("Web application fully configured");
@@ -67,22 +65,7 @@ public class WebConfigurer implements WebApplicationInitializer, EmbeddedServlet
         // CloudFoundry issue, see https://github.com/cloudfoundry/gorouter/issues/64
         mappings.add("json", "text/html;charset=utf-8");
         container.setMimeMappings(mappings);
-    }
-
-    /**
-     * Initializes the static resources production Filter.
-     */
-    private void initStaticResourcesProductionFilter(ServletContext servletContext,
-                                                     EnumSet<DispatcherType> disps) {
-
-        LOG.debug("Registering static resources production Filter");
-        FilterRegistration.Dynamic staticResourcesProductionFilter =
-                servletContext.addFilter("staticResourcesProductionFilter",
-                        new StaticResourcesProductionFilter());
-
-        staticResourcesProductionFilter.addMappingForUrlPatterns(disps, true, "/");
-        staticResourcesProductionFilter.addMappingForUrlPatterns(disps, true, "/index.html");
-        staticResourcesProductionFilter.setAsyncSupported(true);
+        //TODO add caching static resources
     }
 
     /**
@@ -95,7 +78,7 @@ public class WebConfigurer implements WebApplicationInitializer, EmbeddedServlet
                 servletContext.addFilter("cachingHttpHeadersFilter",
                         new CachingHttpHeadersFilter(env));
 
-        cachingHttpHeadersFilter.addMappingForUrlPatterns(disps, true, "/dist/assets/*");// TODO add scripts !!
+        cachingHttpHeadersFilter.addMappingForUrlPatterns(disps, true, "/js/*");
         cachingHttpHeadersFilter.setAsyncSupported(true);
     }
 
