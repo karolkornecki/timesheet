@@ -5,9 +5,15 @@ var errorCode = require('rest/interceptor/errorCode');
 var baseRegistry = require('rest/mime/registry');
 
 var registry = baseRegistry.child();
-registry.register('application/hal+json', require('rest/mime/type/application/hal'));
+registry.register('application/x-www-form-urlencoded', require('rest/mime/type/application/x-www-form-urlencoded'));
+registry.register('application/json', require('rest/mime/type/application/json'));
 
 module.exports = rest
-    .wrap(mime, { registry: registry })
+    .wrap(mime, {registry: registry})
     .wrap(errorCode)
-    .wrap(defaultRequest, { headers: { 'Accept': 'application/hal+json' }});
+    .wrap(defaultRequest, {
+        headers: {
+            'Accept': 'application/json, text/plain, */*',
+            'Content-Type': 'application/x-www-form-urlencoded'
+        }
+    });

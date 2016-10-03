@@ -12,28 +12,28 @@ class LoginForm extends Component {
     constructor(props) {
         super(props);
         this.submit = this.submit.bind(this);
+
     }
 
     submit(values) {
-        const sleep = ms => new Promise(resolve => setTimeout(resolve, ms))
-        return sleep(1000)
-            .then(() => {
-                client({
-                    method: 'POST',
-                    headers: {
-                        'Content-Type': 'application/x-www-form-urlencoded'
-                    },
-                    path: '/api/authentication',
-                    entity: {
-                        j_username: encodeURIComponent(values.username),
-                        j_password: encodeURIComponent(values.password) // TODO checkbox
-                    }
-                }).then(response => {
-                    console.log('OK' + JSON.stringify(response)) // TODO getAccount
-                }, error => {
-                    console.log('fails' + JSON.stringify(error))
-                });
+        client({
+            method: 'POST',
+            path: '/api/authentication',
+            entity: {
+                j_username: values.username,
+                j_password: values.password,
+                'remember-me': values.rememberme
+            }
+        }).then(() => {
+            return client({
+                method: 'GET',
+                path: '/api/account'
             })
+        }).then(response => {
+            console.log('OK', response)
+        }, error => {
+            console.log('fails' + JSON.stringify(error))
+        });
     }
 
 
@@ -60,13 +60,18 @@ class LoginForm extends Component {
                             <div className="col-md-8 col-md-offset-2">
                                 <div className="form-group">
                                     <label htmlFor="username">Login</label>
-                                    <Field name="username" type="text" component={InputField} label=""/>
+                                    <Field name="username" type="text" component={InputField} label="Your username"/>
                                 </div>
                                 <div className="form-group">
                                     <label htmlFor="password">Password</label>
-                                    <Field name="password" type="password" component={InputField} label=""/>
+                                    <Field name="password" type="password" component={InputField} label="Your password"/>
                                 </div>
-
+                                <div className="form-group">
+                                    <label htmlFor="rememberme">
+                                        <Field name="rememberme" type="checkbox" component="input"/>
+                                        <span >Remember me</span>
+                                    </label>
+                                </div>
                                 <button type="submit" className="btn btn-primary">Sign in</button>
                                 <p></p>
 
