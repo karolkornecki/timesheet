@@ -1,5 +1,5 @@
 import React,{ Component } from 'react';
-import { Modal, Effect} from 'react-dynamic-modal';
+import {ModalManager, Modal, Effect} from 'react-dynamic-modal';
 import { Field, reduxForm } from 'redux-form';
 import {Link} from 'react-router'
 import { connect } from 'react-redux'
@@ -18,17 +18,30 @@ class LoginForm extends Component {
         const sleep = ms => new Promise(resolve => setTimeout(resolve, ms))
         return sleep(1000)
             .then(() => {
-                client({method: 'POST', path: '/api/authentication'}).done(response => {
-                    console.log(response)
+                client({
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/x-www-form-urlencoded'
+                    },
+                    path: '/api/authentication',
+                    entity: {
+                        j_username: encodeURIComponent(values.username),
+                        j_password: encodeURIComponent(values.password) // TODO checkbox
+                    }
+                }).then(response => {
+                    console.log('OK' + JSON.stringify(response)) // TODO getAccount
+                }, error => {
+                    console.log('fails' + JSON.stringify(error))
                 });
-                console.log('end');
             })
     }
 
 
     render() {
         return (
-            <Modal style={{content: {marginTop: '5%'}}} effect={Effect.SlideFromRight}>
+            <Modal style={{content: {marginTop: '5%'}}}
+                   effect={Effect.SlideFromRight}
+                   onRequestClose={()=> ModalManager.close() }>
                 <form onSubmit={this.props.handleSubmit(this.submit)}>
                     <div className="modal-header">
                         <Link to='/' className="close">&times;</Link>
