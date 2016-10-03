@@ -1,9 +1,10 @@
 import React,{ Component } from 'react';
 import {ModalManager, Modal, Effect} from 'react-dynamic-modal';
 import { Field, reduxForm } from 'redux-form';
-import {Link} from 'react-router'
+import { Link, browserHistory } from 'react-router'
 import { connect } from 'react-redux'
 import client from '../../../client'
+import * as actions from '../actions/index'
 
 import { InputField } from '../../../components/InputField'
 
@@ -11,6 +12,7 @@ import { InputField } from '../../../components/InputField'
 class LoginForm extends Component {
     constructor(props) {
         super(props);
+        this.state = {authenticationFailed: false}
         this.submit = this.submit.bind(this);
 
     }
@@ -30,9 +32,12 @@ class LoginForm extends Component {
                 path: '/api/account'
             })
         }).then(response => {
-            console.log('OK', response)
+            console.log('Authentication success')
+            this.props.dispatch(actions.receiveLogin(response.entity))
+            browserHistory.push('/')
         }, error => {
-            console.log('fails' + JSON.stringify(error))
+            console.log('Authentication failed')
+            this.setState({authenticationFailed: true})
         });
     }
 
@@ -41,7 +46,7 @@ class LoginForm extends Component {
         return (
             <Modal style={{content: {marginTop: '5%'}}}
                    effect={Effect.SlideFromRight}
-                   onRequestClose={()=> ModalManager.close() }>
+                   onRequestClose={()=> browserHistory.push('/') }>
                 <form onSubmit={this.props.handleSubmit(this.submit)}>
                     <div className="modal-header">
                         <Link to='/' className="close">&times;</Link>
@@ -52,11 +57,11 @@ class LoginForm extends Component {
                             <div className="col-md-4 col-md-offset-4">
                                 <h1 >Sign in</h1>
                             </div>
-                            <div className="col-md-8 col-md-offset-2">
+                            {this.state.authenticationFailed && <div className="col-md-8 col-md-offset-2">
                                 <div className="alert alert-danger">
                                     <strong>Failed to sign in!</strong> Please check your credentials and try again.
                                 </div>
-                            </div>
+                            </div>}
                             <div className="col-md-8 col-md-offset-2">
                                 <div className="form-group">
                                     <label htmlFor="username">Login</label>
@@ -64,7 +69,8 @@ class LoginForm extends Component {
                                 </div>
                                 <div className="form-group">
                                     <label htmlFor="password">Password</label>
-                                    <Field name="password" type="password" component={InputField} label="Your password"/>
+                                    <Field name="password" type="password" component={InputField}
+                                           label="Your password"/>
                                 </div>
                                 <div className="form-group">
                                     <label htmlFor="rememberme">
@@ -87,9 +93,16 @@ class LoginForm extends Component {
     }
 }
 
+const mapDispatchToProps = (dispatch, ownProps) => ({
+    dispatch: dispatch
+})
+
 LoginForm = reduxForm({
     form: 'loginForm'
 })(LoginForm)
 
+LoginForm = connect(
+    mapDispatchToProps
+)(LoginForm)
 
 export default LoginForm

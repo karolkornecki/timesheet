@@ -7,15 +7,7 @@ import allReducers from './reducers'
 import {loadState, saveState} from './localStorage'
 
 var data = {
-    authData: {
-        username: '',
-        password: '',
-        rememberMe: false,
-        isAuthenticated: false,
-        isAuthenticationFailed: false,
-        token: ''
-    },
-    user: {
+    account: {
         id: 1,
         firstName: 'Karol',
         lastName: 'Kornecki',
@@ -127,7 +119,6 @@ const configureStore = ()=> {
     const logger = createLogger();
     return createStore(
         allReducers,
-        data,
         applyMiddleware(thunk, promise, logger)
     )
 }

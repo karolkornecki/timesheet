@@ -1,18 +1,10 @@
-export const requestLogin = (username, password) => ({
-    type: 'REQUEST_LOGIN',
-    isAuthenticated: false,
-    username,
-    password
-})
-
-export const receiveLogin = (user) => ({
+export const receiveLogin = (account) => ({
     type: 'LOGIN_SUCCESS',
     isAuthenticated: true,
-    user
+    account
 })
 
 export const loginError = (message) => ({
     type: 'LOGIN_FAILURE',
     isAuthenticated: false,
-    message
 })

@@ -1,8 +1,10 @@
 import React, { Component } from 'react'
-import {Link} from 'react-router'
+import { Link } from 'react-router'
+import { connect } from 'react-redux'
 
 class Header extends Component {
     render() {
+        let { isAuthenticated } = this.props
         return (
             <div className="header">
                 <nav className="navbar navbar-default" role="navigation">
@@ -11,12 +13,12 @@ class Header extends Component {
                         </div>
                         <div className="collapse navbar-collapse" id="navbar-collapse">
                             <ul className="nav navbar-nav navbar-right">
-                                <li>
+                                {isAuthenticated && <li>
                                     <Link to="/timesheet">
                                         <span className="glyphicon glyphicon-home"></span>
                                         <span className="hidden-sm">Timesheet</span>
                                     </Link>
-                                </li>
+                                </li>}
                                 <li className="dropdown pointer">
                                     <a className="dropdown-toggle" data-toggle="dropdown" href="" id="account-menu">
                                         <span>
@@ -28,30 +30,35 @@ class Header extends Component {
                                         </span>
                                     </a>
                                     <ul className="dropdown-menu">
-                                        <li>
+                                        {isAuthenticated && <li>
                                             <Link to="/settings">
                                                 <span className="glyphicon glyphicon-wrench"></span>
                                                 &#xA0;<span>Settings</span>
                                             </Link>
-                                        </li>
-                                        <li>
+                                        </li>}
+                                        {isAuthenticated && <li>
                                             <Link to="/password">
                                                 <span className="glyphicon glyphicon-lock"></span>
                                                 &#xA0;<span>Password</span>
                                             </Link>
-                                        </li>
-                                        <li><a><span className="glyphicon glyphicon-cloud"></span>
-                                            &#xA0;<span>Sessions</span></a></li>
+                                        </li>}
+                                        {isAuthenticated && <li>
+                                            <a><span className="glyphicon glyphicon-cloud"></span>
+                                                &#xA0;<span>Sessions</span>
+                                            </a>
+                                        </li>}
+                                        {isAuthenticated &&
                                         <li><a href="" id="logout"><span className="glyphicon glyphicon-log-out"></span>
-                                            &#xA0;<span>Sign out</span></a></li>
-                                        <li><Link to="/login"><span
+                                            &#xA0;<span>Sign out</span></a></li>}
+                                        {!isAuthenticated && <li><Link to="/login"><span
                                             className="glyphicon glyphicon-log-in"></span>
-                                            &#xA0;<span>Sign in</span></Link></li>
+                                            &#xA0;<span>Sign in</span></Link></li>}
+                                        {!isAuthenticated &&
                                         <li><Link to="register"><span className="glyphicon glyphicon-plus-sign"></span>
-                                            &#xA0;<span>Register</span></Link></li>
+                                            &#xA0;<span>Register</span></Link></li>}
                                     </ul>
                                 </li>
-                                <li className="dropdown pointer">
+                                {isAuthenticated && <li className="dropdown pointer">
                                     <a className="dropdown-toggle" data-toggle="dropdown" href="" id="admin-menu">
                                         <span>
                                             <span className="glyphicon glyphicon-tower"></span>
@@ -80,8 +87,8 @@ class Header extends Component {
                                             className="glyphicon glyphicon-hdd"></span>&#xA0;<span>Database</span></a>
                                         </li>
                                     </ul>
-                                </li>
-                                <li className="dropdown pointer">
+                                </li>}
+                                {isAuthenticated && <li className="dropdown pointer">
                                     <a className="dropdown-toggle" data-toggle="dropdown" href="">
                                         <span>
                                             <span className="glyphicon glyphicon-flag"></span>
@@ -94,7 +101,7 @@ class Header extends Component {
                                             <a href="" data-toggle="collapse">English</a>
                                         </li>
                                     </ul>
-                                </li>
+                                </li>}
                             </ul>
                         </div>
                     </div>
@@ -103,5 +110,13 @@ class Header extends Component {
         );
     }
 }
+
+const mapStateToProps = (state, ownProps) => ({
+    isAuthenticated: state.account.isAuthenticated
+})
+
+Header = connect(
+    mapStateToProps
+)(Header)
 
 export default Header

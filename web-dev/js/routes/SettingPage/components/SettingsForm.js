@@ -78,7 +78,7 @@ class SettingsForm extends Component {
 }
 
 const mapStateToProps = (state, ownProps) => ({
-    initialValues: state.user
+    initialValues: state.account
 })
 
 SettingsForm = reduxForm({

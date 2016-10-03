@@ -1,16 +1,13 @@
-const authData = (state = {}, action = {}) => {
+const account = (state = {}, action = {}) => { // default action to satisfy intellij checkstyle
     switch (action.type) {
         case 'REQUEST_LOGIN':
             // TODO rest api invokation
             return state;
         case 'LOGIN_SUCCESS':
+            let account = action.account
             return {
-                ...state,
-                username: '',
-                password: '',
+                ...account,
                 isAuthenticated: action.isAuthenticated,
-                isAuthenticationFailed: false,
-                token: action.user.token
             }
         case 'LOGIN_FAILURE':
             return {
@@ -27,4 +24,5 @@ const authData = (state = {}, action = {}) => {
     }
 }
 
-export default authData
+
+export default account
