@@ -14,34 +14,29 @@ class PasswordForm extends Component {
         this.state = {valid: false}
     }
 
-    validateLength() {
-        return new Promise((resolve, reject) => {
-            if (!_.isEqual(values.password, values.confirmation)) {
-                reject()
-            } else {
-                resolve()
-            }
-
-        })
-    }
-
     submit(values) {
-        return client({
-                method: 'POST',
-                path: '/api/account/change_password',
-                entity: values.password
-            }
-        ).then(
-            () => {
-                this.setState({valid: true})
-                this.props.reset()
-            }
-        ).catch(error => {
-                console.log(error)
+        return new Promise(resolve => resolve()).then(() => {
+            if (!_.isEqual(values.password, values.confirmation)) {
                 this.setState({valid: false})
-                throw new SubmissionError({_error: constants.SERVER_ERROR})
+                throw new SubmissionError({_error: constants.PASSWORD_DOES_NOT_MATCH})
             }
-        )
+            return client({
+                    method: 'POST',
+                    path: '/api/account/change_password',
+                    entity: values.password
+                }
+            ).then(
+                () => {
+                    this.setState({valid: true})
+                    this.props.reset()
+                }
+            ).catch(error => {
+                    console.log(error)
+                    this.setState({valid: false})
+                    throw new SubmissionError({_error: constants.SERVER_ERROR})
+                }
+            )
+        })
     }
 
 

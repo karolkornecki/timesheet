@@ -4,7 +4,7 @@ export const validate = values => {
     const errors = {}
     if (!values.password) {
         errors.password = msg.PASSWORD_REQUIRED
-    } else if (values.password.length < 1) {
+    } else if (values.password.length < 1) { // TODO min length = 5 on server
         errors.password = msg.PASSWORD_MINLENGTH
     } else if (values.password.length > 50) {
         errors.password = msg.PASSWORD_MAXLENGTH
