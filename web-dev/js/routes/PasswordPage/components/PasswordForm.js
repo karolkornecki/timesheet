@@ -74,7 +74,7 @@ class PasswordForm extends Component {
 }
 
 const mapStateToProps = (state, ownProps) => ({
-    initialValues: state.user
+    initialValues: state.account
 })
 
 PasswordForm = reduxForm({

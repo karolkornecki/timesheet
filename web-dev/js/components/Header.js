@@ -1,8 +1,23 @@
 import React, { Component } from 'react'
-import { Link } from 'react-router'
+import { Link, browserHistory } from 'react-router'
 import { connect } from 'react-redux'
 
+import { logout } from '../routes/LoginPage/actions/index'
+import client from '../client'
+
 class Header extends Component {
+
+    logout(e){
+        e.preventDefault()
+        client({
+            method: 'POST',
+            path: '/api/logout'
+        }).then(() => {
+            this.props.dispatch(logout())
+            browserHistory.push('/')
+        })
+    }
+
     render() {
         let { isAuthenticated } = this.props
         return (
@@ -48,7 +63,7 @@ class Header extends Component {
                                             </a>
                                         </li>}
                                         {isAuthenticated &&
-                                        <li><a href="" id="logout"><span className="glyphicon glyphicon-log-out"></span>
+                                        <li><a href="" onClick={ (e) => this.logout(e) }><span className="glyphicon glyphicon-log-out"></span>
                                             &#xA0;<span>Sign out</span></a></li>}
                                         {!isAuthenticated && <li><Link to="/login"><span
                                             className="glyphicon glyphicon-log-in"></span>
@@ -113,6 +128,10 @@ class Header extends Component {
 
 const mapStateToProps = (state, ownProps) => ({
     isAuthenticated: state.account.isAuthenticated
+})
+
+const mapDispatchToProps = (dispatch, ownProps) => ({
+    dispatch : dispatch
 })
 
 Header = connect(

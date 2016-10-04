@@ -1,7 +1,6 @@
 package com.timesheet.config;
 
 import com.timesheet.security.*;
-import com.timesheet.web.filter.CsrfCookieGeneratorFilter;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.core.env.Environment;
@@ -16,7 +15,6 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.data.repository.query.SecurityEvaluationContextExtension;
 import org.springframework.security.web.authentication.RememberMeServices;
-import org.springframework.security.web.csrf.CsrfFilter;
 
 import javax.inject.Inject;
 
@@ -75,15 +73,15 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
                 .csrf().disable()
 //                .and()
 //                .addFilterAfter(new CsrfCookieGeneratorFilter(), CsrfFilter.class)
-//                .exceptionHandling()
-//                .accessDeniedHandler(new CustomAccessDeniedHandler())
-//                .authenticationEntryPoint(authenticationEntryPoint)
-//                .and()
-//                .rememberMe()
-//                .rememberMeServices(rememberMeServices)
-//                .rememberMeParameter("remember-me")
-//                .key(env.getProperty("timesheet.security.rememberme.key"))
-//                .and()
+                .exceptionHandling()
+                .accessDeniedHandler(new CustomAccessDeniedHandler())
+                .authenticationEntryPoint(authenticationEntryPoint)
+                .and()
+                .rememberMe()
+                .rememberMeServices(rememberMeServices)
+                .rememberMeParameter("remember-me")
+                .key(env.getProperty("timesheet.security.rememberme.key"))
+                .and()
                 .formLogin()
                 .loginProcessingUrl("/api/authentication")
                 .successHandler(ajaxAuthenticationSuccessHandler)

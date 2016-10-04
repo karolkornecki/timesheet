@@ -8,3 +8,8 @@ export const loginError = (message) => ({
     type: 'LOGIN_FAILURE',
     isAuthenticated: false,
 })
+
+export const logout = () => ({
+    type: 'LOGOUT',
+    isAuthenticated: false,
+})
