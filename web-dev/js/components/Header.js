@@ -7,7 +7,7 @@ import client from '../client'
 
 class Header extends Component {
 
-    logout(e){
+    logout(e) {
         e.preventDefault()
         client({
             method: 'POST',
@@ -62,15 +62,22 @@ class Header extends Component {
                                                 &#xA0;<span>Sessions</span>
                                             </a>
                                         </li>}
-                                        {isAuthenticated &&
-                                        <li><a href="" onClick={ (e) => this.logout(e) }><span className="glyphicon glyphicon-log-out"></span>
-                                            &#xA0;<span>Sign out</span></a></li>}
-                                        {!isAuthenticated && <li><Link to="/login"><span
-                                            className="glyphicon glyphicon-log-in"></span>
-                                            &#xA0;<span>Sign in</span></Link></li>}
-                                        {!isAuthenticated &&
-                                        <li><Link to="register"><span className="glyphicon glyphicon-plus-sign"></span>
-                                            &#xA0;<span>Register</span></Link></li>}
+                                        {isAuthenticated && <li><a href="" onClick={ (e) => this.logout(e) }>
+                                            <span className="glyphicon glyphicon-log-out"></span>
+                                            &#xA0;<span>Sign out</span>
+                                        </a>
+                                        </li>}
+                                        {!isAuthenticated && <li>
+                                            <Link to="/login">
+                                                <span className="glyphicon glyphicon-log-in"></span>
+                                                &#xA0;<span>Sign in</span>
+                                            </Link>
+                                        </li>}
+                                        {!isAuthenticated && <li><Link to="register">
+                                            <span className="glyphicon glyphicon-plus-sign"></span>
+                                            &#xA0;<span>Register</span>
+                                        </Link>
+                                        </li>}
                                     </ul>
                                 </li>
                                 {isAuthenticated && <li className="dropdown pointer">
@@ -131,7 +138,7 @@ const mapStateToProps = (state, ownProps) => ({
 })
 
 const mapDispatchToProps = (dispatch, ownProps) => ({
-    dispatch : dispatch
+    dispatch: dispatch
 })
 
 Header = connect(
