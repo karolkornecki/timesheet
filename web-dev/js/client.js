@@ -13,7 +13,6 @@ module.exports = rest
     .wrap(errorCode)
     .wrap(defaultRequest, {
         headers: {
-            'Accept': 'application/json, text/plain, */*',
-            'Content-Type': 'application/x-www-form-urlencoded'
+            'Accept': 'application/json, text/plain, */*'
         }
     });

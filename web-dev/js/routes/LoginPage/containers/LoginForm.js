@@ -18,8 +18,11 @@ class LoginForm extends Component {
     }
 
     submit(values) {
-        client({
+        return client({
             method: 'POST',
+            headers: {
+                'Content-Type': 'application/x-www-form-urlencoded'
+            },
             path: '/api/authentication',
             entity: {
                 j_username: values.username,
@@ -35,8 +38,8 @@ class LoginForm extends Component {
             console.log('Authentication success')
             this.props.dispatch(actions.receiveLogin(response.entity))
             browserHistory.push('/')
-        }, error => {
-            console.log('Authentication failed')
+        }).catch(error => {
+            console.log('Authentication failed' + error)
             this.setState({authenticationFailed: true})
         });
     }

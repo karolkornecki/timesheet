@@ -5,6 +5,7 @@ import { connect } from 'react-redux'
 import { validate } from '../validate'
 import * as constants from '../../../errorCodes.js'
 import { InputField } from '../../../components/InputField'
+import client from '../../../client'
 
 class PasswordForm extends Component {
     constructor(props) {
@@ -13,20 +14,34 @@ class PasswordForm extends Component {
         this.state = {valid: false}
     }
 
+    validateLength() {
+        return new Promise((resolve, reject) => {
+            if (!_.isEqual(values.password, values.confirmation)) {
+                reject()
+            } else {
+                resolve()
+            }
+
+        })
+    }
+
     submit(values) {
-        const sleep = ms => new Promise(resolve => setTimeout(resolve, ms))
-        return sleep(1000)
-            .then(() => {
-                this.setState({valid: false})
-                if (!_.isEqual(values.password, values.confirmation)) {
-                    throw new SubmissionError({_error: constants.PASSWORD_DOES_NOT_MATCH})
-                }
-                if (!['john'].includes(values.password)) {
-                    throw new SubmissionError({_error: constants.SERVER_ERROR})
-                }
+        return client({
+                method: 'POST',
+                path: '/api/account/change_password',
+                entity: values.password
+            }
+        ).then(
+            () => {
                 this.setState({valid: true})
                 this.props.reset()
-            })
+            }
+        ).catch(error => {
+                console.log(error)
+                this.setState({valid: false})
+                throw new SubmissionError({_error: constants.SERVER_ERROR})
+            }
+        )
     }
 
 
