@@ -5,13 +5,6 @@ import org.springframework.web.cors.CorsConfiguration;
 
 import javax.validation.constraints.NotNull;
 
-/**
- * Properties specific to JHipster.
- *
- * <p>
- *     Properties are configured in the application.yml file.
- * </p>
- */
 @ConfigurationProperties(prefix = "timesheet", ignoreUnknownFields = false)
 public class TimesheetProperties {
 
