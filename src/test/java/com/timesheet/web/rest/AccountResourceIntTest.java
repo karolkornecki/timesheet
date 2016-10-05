@@ -144,7 +144,8 @@ public class AccountResourceIntTest {
     @Transactional
     public void testRegisterValid() throws Exception {
         UserDTO u = new UserDTO(
-                "joe",
+                1L,
+                "kkor",
                 "password",
                 "Karol",
                 "Kornecki",
@@ -160,7 +161,7 @@ public class AccountResourceIntTest {
                         .content(TestUtil.convertObjectToJsonBytes(u)))
                 .andExpect(status().isCreated());
 
-        Optional<User> user = userRepository.findOneByLogin("joe");
+        Optional<User> user = userRepository.findOneByLogin("kkor");
         assertThat(user.isPresent()).isTrue();
     }
 
@@ -168,6 +169,7 @@ public class AccountResourceIntTest {
     @Transactional
     public void testRegisterInvalidLogin() throws Exception {
         UserDTO u = new UserDTO(
+                1L,
                 "karol!!!",          // login <-- invalid
                 "password",
                 "karol",
@@ -192,6 +194,7 @@ public class AccountResourceIntTest {
     @Transactional
     public void testRegisterInvalidEmail() throws Exception {
         UserDTO u = new UserDTO(
+                1L,
                 "kkor",
                 "password",
                 "karol",
@@ -217,6 +220,7 @@ public class AccountResourceIntTest {
     public void testRegisterDuplicateLogin() throws Exception {
         // Good
         UserDTO u = new UserDTO(
+                1L,
                 "ala",
                 "password",
                 "Ala",
@@ -228,7 +232,7 @@ public class AccountResourceIntTest {
         );
 
         // Duplicate login, different e-mail
-        UserDTO dup = new UserDTO(u.getLogin(), u.getPassword(), u.getLogin(), u.getLastName(),
+        UserDTO dup = new UserDTO(1L, u.getLogin(), u.getPassword(), u.getLogin(), u.getLastName(),
                 "ula@test.com", true, u.getLangKey(), u.getAuthorities());
 
         // Good user
@@ -254,6 +258,7 @@ public class AccountResourceIntTest {
     public void testRegisterDuplicateEmail() throws Exception {
         // Good
         UserDTO u = new UserDTO(
+                1L,
                 "karol",
                 "password",
                 "Karol",
@@ -265,7 +270,7 @@ public class AccountResourceIntTest {
         );
 
         // Duplicate e-mail, different login
-        UserDTO dup = new UserDTO("karol2", u.getPassword(), u.getLogin(), u.getLastName(),
+        UserDTO dup = new UserDTO(1L, "karol2", u.getPassword(), u.getLogin(), u.getLastName(),
                 u.getEmail(), true, u.getLangKey(), u.getAuthorities());
 
         // Good user
@@ -290,6 +295,7 @@ public class AccountResourceIntTest {
     @Transactional
     public void testRegisterAdminIsIgnored() throws Exception {
         UserDTO u = new UserDTO(
+                1L,
                 "admin2",
                 "password2",
                 "Admin2",

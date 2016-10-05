@@ -20,12 +20,4 @@ describe("login form actions - test suite", () => {
             isAuthenticated: true
         })
     })
-
-    it("loginError should create LOGIN_FAILURE action", () => {
-        expect(actions.loginError('some message')).toEqual({
-            type: "LOGIN_FAILURE",
-            message: 'some message',
-            isAuthenticated: false
-        })
-    })
 })

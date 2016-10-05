@@ -4,7 +4,7 @@ import { Field, reduxForm } from 'redux-form';
 import { Link, browserHistory } from 'react-router'
 import { connect } from 'react-redux'
 import client from '../../../client'
-import * as actions from '../actions/index'
+import { receiveLogin, logout} from '../actions/index'
 
 import { InputField } from '../../../components/InputField'
 
@@ -16,6 +16,7 @@ class LoginForm extends Component {
     }
 
     submit(values) {  // TODO to refactor
+        const { dispatch } = this.props
         return client({
             method: 'POST',
             headers: {
@@ -34,7 +35,7 @@ class LoginForm extends Component {
             })
         }).then(response => {
             console.log('Authentication success')
-            this.props.dispatch(actions.receiveLogin(response.entity))
+            dispatch(receiveLogin(response.entity))
             browserHistory.push('/')
         }).catch(error => {
             console.log('Authentication failed' + error)
@@ -42,7 +43,7 @@ class LoginForm extends Component {
                 method: 'POST',
                 path: '/api/logout'
             }).then(() => {
-                this.props.dispatch(actions.logout())
+                dispatch(logout())
                 throw new SubmissionError({_error: 'Failed to sign in!'})
             })
         })

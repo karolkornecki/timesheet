@@ -8,11 +8,7 @@ const account = (state = {}, action = {}) => { // default action to satisfy inte
             let account = action.account
             return {
                 ...account,
-                isAuthenticated: action.isAuthenticated,
-            }
-        case 'LOGIN_FAILURE':
-            return {
-                isAuthenticated: action.isAuthenticated,
+                isAuthenticated: action.isAuthenticated
             }
         default :
             return state;

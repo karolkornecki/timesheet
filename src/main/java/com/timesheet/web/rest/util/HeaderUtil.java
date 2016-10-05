@@ -29,7 +29,7 @@ public class HeaderUtil {
 
     public static HttpHeaders createFailureAlert(String entityName, String errorKey, String defaultMessage) {
         HttpHeaders headers = new HttpHeaders();
-        headers.add("X-timesheetApp-error", "error." + errorKey);
+        headers.add("X-timesheetApp-error", "ERROR_" + errorKey);
         headers.add("X-timesheetApp-params", entityName);
         return headers;
     }

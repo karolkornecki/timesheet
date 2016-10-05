@@ -1,10 +1,10 @@
 package com.timesheet.web.rest.dto;
 
+import com.timesheet.domain.Authority;
+import com.timesheet.domain.User;
 import lombok.Getter;
 import lombok.Setter;
 import org.hibernate.validator.constraints.Email;
-import com.timesheet.domain.Authority;
-import com.timesheet.domain.User;
 
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Pattern;
@@ -19,6 +19,10 @@ public class UserDTO {
 
     public static final int PASSWORD_MIN_LENGTH = 5;
     public static final int PASSWORD_MAX_LENGTH = 100;
+
+    @Getter
+    @Setter
+    private Long id;
 
     @Getter
     @Setter
@@ -66,15 +70,16 @@ public class UserDTO {
     }
 
     public UserDTO(User user) {
-        this(user.getLogin(), null, user.getFirstName(), user.getLastName(),
+        this(user.getId(), user.getLogin(), null, user.getFirstName(), user.getLastName(),
                 user.getEmail(), user.isActivated(), user.getLangKey(),
                 user.getAuthorities().stream().map(Authority::getName)
                         .collect(Collectors.toSet()));
     }
 
-    public UserDTO(String login, String password, String firstName, String lastName,
+    public UserDTO(Long id, String login, String password, String firstName, String lastName,
                    String email, boolean activated, String langKey, Set<String> authorities) {
 
+        this.id = id;
         this.login = login;
         this.password = password;
         this.firstName = firstName;

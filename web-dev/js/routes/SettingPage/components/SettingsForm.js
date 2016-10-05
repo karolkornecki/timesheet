@@ -7,8 +7,10 @@ import _ from 'lodash'
 import { validate } from '../validate'
 import {languages} from '../../../constants'
 import client from '../../../client'
+import { receiveLogin } from '../../LoginPage/actions/index'
 
 import { InputField } from '../../../components/InputField'
+import { ERROR_MESSAGES } from '../../../errorCodes'
 
 class LanguageSelect extends Component {
     render() {
@@ -36,18 +38,29 @@ class SettingsForm extends Component {
                     'Content-Type': 'application/json'
                 },
                 path: '/api/account',
-                entity: values.firstName
+                entity: {
+                    ...values
+                }
+            }
+        ).then(() => {
+                return client({
+                    method: 'GET',
+                    path: '/api/account'
+                })
+            }
+        ).then((response) => {
+                this.props.dispatch(receiveLogin(response.entity))
             }
         ).catch((error)=> {
-                console.log(error)
-                throw new SubmissionError({_error: 'error???'})
+                let code = error.headers['X-Timesheetapp-Error']
+                throw new SubmissionError({_error: ERROR_MESSAGES[code]})
             }
         )
     }
 
 
     render() {
-
+        const { error } = this.props.error
         return (
             <form onSubmit={this.props.handleSubmit(this.submit)}>
                 <div className="container">
@@ -57,6 +70,9 @@ class SettingsForm extends Component {
 
                             {this.props.submitSucceeded && <div className="alert alert-success">
                                 <strong>Settings saved!</strong>
+                            </div>}
+                            {error && <div className="alert alert-danger">
+                                <strong> {error} </strong>
                             </div>}
                             <div className="form-group">
                                 <label className="control-label" htmlFor="firstName">First Name</label>
@@ -87,6 +103,10 @@ class SettingsForm extends Component {
 
 const mapStateToProps = (state, ownProps) => ({
     initialValues: state.account
+})
+
+const mapDispatchToProps = (dispatch, ownProps) => ({
+    dispatch: dispatch
 })
 
 SettingsForm = reduxForm({
