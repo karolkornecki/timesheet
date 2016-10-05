@@ -12,12 +12,10 @@ import { InputField } from '../../../components/InputField'
 class LoginForm extends Component {
     constructor(props) {
         super(props);
-        this.state = {authenticationFailed: false}
         this.submit = this.submit.bind(this);
-
     }
 
-    submit(values) {
+    submit(values) {  // TODO to refactor
         return client({
             method: 'POST',
             headers: {
@@ -40,8 +38,14 @@ class LoginForm extends Component {
             browserHistory.push('/')
         }).catch(error => {
             console.log('Authentication failed' + error)
-            this.setState({authenticationFailed: true})
-        });
+            client({
+                method: 'POST',
+                path: '/api/logout'
+            }).then(() => {
+                this.props.dispatch(actions.logout())
+                throw new SubmissionError({_error: 'Failed to sign in!'})
+            })
+        })
     }
 
 
@@ -60,9 +64,9 @@ class LoginForm extends Component {
                             <div className="col-md-4 col-md-offset-4">
                                 <h1 >Sign in</h1>
                             </div>
-                            {this.state.authenticationFailed && <div className="col-md-8 col-md-offset-2">
+                            {this.props.submitFailed && <div className="col-md-8 col-md-offset-2">
                                 <div className="alert alert-danger">
-                                    <strong>Failed to sign in!</strong> Please check your credentials and try again.
+                                    <strong>{this.props.error}</strong> Please check your credentials and try again.
                                 </div>
                             </div>}
                             <div className="col-md-8 col-md-offset-2">

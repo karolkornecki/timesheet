@@ -6,10 +6,10 @@ export const receiveLogin = (account) => ({
 
 export const loginError = (message) => ({
     type: 'LOGIN_FAILURE',
-    isAuthenticated: false,
+    isAuthenticated: false
 })
 
 export const logout = () => ({
     type: 'LOGOUT',
-    isAuthenticated: false,
+    isAuthenticated: false
 })

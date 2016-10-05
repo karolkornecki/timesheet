@@ -11,13 +11,11 @@ class PasswordForm extends Component {
     constructor(props) {
         super(props);
         this.submit = this.submit.bind(this);
-        this.state = {valid: false}
     }
 
     submit(values) {
         return new Promise(resolve => resolve()).then(() => {
             if (!_.isEqual(values.password, values.confirmation)) {
-                this.setState({valid: false})
                 throw new SubmissionError({_error: constants.PASSWORD_DOES_NOT_MATCH})
             }
             return client({
@@ -27,12 +25,11 @@ class PasswordForm extends Component {
                 }
             ).then(
                 () => {
-                    this.setState({valid: true})
                     this.props.reset()
                 }
-            ).catch(error => {
+            ).catch(
+                    error => {
                     console.log(error)
-                    this.setState({valid: false})
                     throw new SubmissionError({_error: constants.SERVER_ERROR})
                 }
             )
@@ -49,7 +46,7 @@ class PasswordForm extends Component {
                         <div className="col-md-8 col-md-offset-2">
                             <h2>Password for [<b>{this.props.initialValues.firstName}</b>]</h2>
 
-                            {this.state.valid && <div className="alert alert-success">
+                            {this.props.submitSucceeded && <div className="alert alert-success">
                                 <strong>Password changed!</strong>
                             </div>}
 
