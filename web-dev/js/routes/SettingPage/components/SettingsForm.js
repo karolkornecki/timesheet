@@ -6,6 +6,7 @@ import _ from 'lodash'
 
 import { validate } from '../validate'
 import {languages} from '../../../constants'
+import client from '../../../client'
 
 import { InputField } from '../../../components/InputField'
 
@@ -26,15 +27,22 @@ class SettingsForm extends Component {
     constructor(props) {
         super(props);
         this.submit = this.submit.bind(this);
-        this.state = {valid: false}
     }
 
-    submit() {
-        const sleep = ms => new Promise(resolve => setTimeout(resolve, ms))
-        return sleep(1000)
-            .then(() => {
-                this.setState({valid: true})
-            })
+    submit(values) {
+        return client({
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                path: '/api/account',
+                entity: values.firstName
+            }
+        ).catch((error)=> {
+                console.log(error)
+                throw new SubmissionError({_error: 'error???'})
+            }
+        )
     }
 
 
@@ -47,7 +55,7 @@ class SettingsForm extends Component {
                         <div className="col-md-8 col-md-offset-2">
                             <h2 >User settings for [<b>{this.props.initialValues.firstName}</b>]</h2>
 
-                            {this.state.valid && <div className="alert alert-success">
+                            {this.props.submitSucceeded && <div className="alert alert-success">
                                 <strong>Settings saved!</strong>
                             </div>}
                             <div className="form-group">
