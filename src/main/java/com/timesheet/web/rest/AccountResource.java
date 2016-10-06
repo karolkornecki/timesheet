@@ -59,7 +59,7 @@ public class AccountResource {
         return userRepository.findOneByLogin(userDTO.getLogin())
                 .map(user -> new ResponseEntity<>("login already in use", HttpStatus.BAD_REQUEST))
                 .orElseGet(() -> userRepository.findOneByEmail(userDTO.getEmail())
-                                .map(user -> new ResponseEntity<>("e-mail address already in use", HttpStatus.BAD_REQUEST))
+                                .map(user -> new ResponseEntity<>("EMAIL_ALREADY_IN_USE", HttpStatus.BAD_REQUEST))
                                 .orElseGet(() -> {
                                     User user = userService.createUserInformation(userDTO.getLogin(), userDTO.getPassword(),
                                             userDTO.getFirstName(), userDTO.getLastName(), userDTO.getEmail().toLowerCase(),

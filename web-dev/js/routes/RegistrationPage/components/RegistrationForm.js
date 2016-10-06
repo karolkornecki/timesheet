@@ -1,39 +1,54 @@
 import React, { Component } from 'react';
-import { Field, reduxForm } from 'redux-form';
+import { Field, reduxForm, SubmissionError } from 'redux-form';
 import { connect } from 'react-redux'
-import { SubmissionError } from 'redux-form'
 import _ from 'lodash'
 
-import * as constants from '../../../errorCodes.js'
+import * as constants from '../../../errorCodes'
 import { validate } from '../validate'
 import { InputField } from '../../../components/InputField'
+import client from '../../../client'
 
 class RegistrationForm extends Component {
     constructor(props) {
         super(props);
         this.submit = this.submit.bind(this);
-        this.state = {valid: false}
     }
 
     submit(values) {
-        const sleep = ms => new Promise(resolve => setTimeout(resolve, ms))
-        return sleep(1000)
-            .then(() => {
-                this.setState({valid: false})
-                if (!_.isEqual(values.password, values.confirmation)) {
-                    throw new SubmissionError({_error: constants.PASSWORD_DOES_NOT_MATCH})
+        return new Promise(resolve => resolve()).then(() => {
+            if (!_.isEqual(values.password, values.confirmation)) {
+                throw new SubmissionError({_error: constants.PASSWORD_DOES_NOT_MATCH})
+            }
+            return client({
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
+                    path: '/api/register',
+                    entity: {
+                        login: values.username,
+                        password: values.password,
+                        email: values.email
+                    }
                 }
-                if (!['john'].includes(values.username)) {
-                    throw new SubmissionError({_error: constants.SERVER_ERROR})
+            ).then(()=> {
+                    this.props.reset()
                 }
-                this.setState({valid: true})
-                this.props.reset()
-            })
+            ).catch(response => {
+                    if (response.entity === constants.EMAIL_ALREADY_IN_USE) {
+                        throw new SubmissionError({_error: constants.EMAIL_ALREADY_IN_USE})
+                    } else {
+                        throw new SubmissionError({_error: constants.SERVER_ERROR})
+                    }
+                }
+            )
+        })
+
     }
 
 
     render() {
-        const { error, handleSubmit, submitting } = this.props
+        const { error, handleSubmit, submitting, submitSucceeded } = this.props
         return (
             <form onSubmit={handleSubmit(this.submit)}>
                 <div className="container">
@@ -41,7 +56,7 @@ class RegistrationForm extends Component {
                         <div className="col-md-8 col-md-offset-2">
                             <h1>Registration</h1>
 
-                            {this.state.valid && <div className="alert alert-success">
+                            {submitSucceeded && <div className="alert alert-success">
                                 <strong>Registration saved!</strong> Please check your email for confirmation.
                             </div>}
                             {error && error === constants.SERVER_ERROR && <div className="alert alert-danger">
@@ -59,7 +74,7 @@ class RegistrationForm extends Component {
                                 The password and its confirmation do not match!
                             </div>}
                         </div>
-                        {!this.state.valid && <div className="col-md-8 col-md-offset-2">
+                        {!submitSucceeded && <div className="col-md-8 col-md-offset-2">
                             <div className="form-group">
                                 <label className="control-label" htmlFor="username">Username</label>
                                 <Field name="username" type="text" component={InputField} label="Username"/>

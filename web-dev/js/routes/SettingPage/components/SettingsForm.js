@@ -60,15 +60,15 @@ class SettingsForm extends Component {
 
 
     render() {
-        const { error } = this.props.error
+        const { error, submitSucceeded, initialValues, handleSubmit} = this.props
         return (
-            <form onSubmit={this.props.handleSubmit(this.submit)}>
+            <form onSubmit={handleSubmit(this.submit)}>
                 <div className="container">
                     <div className="row">
                         <div className="col-md-8 col-md-offset-2">
-                            <h2 >User settings for [<b>{this.props.initialValues.firstName}</b>]</h2>
+                            <h2 >User settings for [<b>{initialValues.firstName}</b>]</h2>
 
-                            {this.props.submitSucceeded && <div className="alert alert-success">
+                            {submitSucceeded && <div className="alert alert-success">
                                 <strong>Settings saved!</strong>
                             </div>}
                             {error && <div className="alert alert-danger">
