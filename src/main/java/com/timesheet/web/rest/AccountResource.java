@@ -57,7 +57,7 @@ public class AccountResource {
     @Timed
     public ResponseEntity<?> registerAccount(@Valid @RequestBody UserDTO userDTO, HttpServletRequest request) {
         return userRepository.findOneByLogin(userDTO.getLogin())
-                .map(user -> new ResponseEntity<>("login already in use", HttpStatus.BAD_REQUEST))
+                .map(user -> new ResponseEntity<>("LOGIN_ALREADY_IN_USE", HttpStatus.BAD_REQUEST))
                 .orElseGet(() -> userRepository.findOneByEmail(userDTO.getEmail())
                                 .map(user -> new ResponseEntity<>("EMAIL_ALREADY_IN_USE", HttpStatus.BAD_REQUEST))
                                 .orElseGet(() -> {
@@ -65,11 +65,11 @@ public class AccountResource {
                                             userDTO.getFirstName(), userDTO.getLastName(), userDTO.getEmail().toLowerCase(),
                                             userDTO.getLangKey());
                                     String baseUrl = request.getScheme() + // "http"
-                                            "://" +                                // "://"
-                                            request.getServerName() +              // "myhost"
-                                            ":" +                                  // ":"
-                                            request.getServerPort() +              // "80"
-                                            request.getContextPath();              // "/myContextPath" or "" if deployed in root context
+                                            "://" +
+                                            request.getServerName() +
+                                            ":" +
+                                            request.getServerPort() +
+                                            request.getContextPath();
 
                                     mailService.sendActivationEmail(user, baseUrl);
                                     return new ResponseEntity<>(HttpStatus.CREATED);

@@ -31,12 +31,11 @@ class RegistrationForm extends Component {
                         email: values.email
                     }
                 }
-            ).then(()=> {
-                    this.props.reset()
-                }
             ).catch(response => {
                     if (response.entity === constants.EMAIL_ALREADY_IN_USE) {
                         throw new SubmissionError({_error: constants.EMAIL_ALREADY_IN_USE})
+                    } else if (response.entity === constants.LOGIN_ALREADY_IN_USE) {
+                        throw new SubmissionError({_error: constants.LOGIN_ALREADY_IN_USE})
                     } else {
                         throw new SubmissionError({_error: constants.SERVER_ERROR})
                     }
@@ -62,7 +61,7 @@ class RegistrationForm extends Component {
                             {error && error === constants.SERVER_ERROR && <div className="alert alert-danger">
                                 <strong>Registration failed!</strong> Please try again later.
                             </div>}
-                            {error && error === constants.LOGIN_ALREADY_REGISTRED &&
+                            {error && error === constants.LOGIN_ALREADY_IN_USE &&
                             <div className="alert alert-danger">
                                 <strong>Login name already registered!</strong> Please choose another one.
                             </div>}
