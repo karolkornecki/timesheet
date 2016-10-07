@@ -71,6 +71,15 @@ app.post('/api/account', function (req, res) {
     }
 });
 
+app.post('/api/account/change_password', function (req, res) {
+    if (req.body === 'admin') {
+        res.status(200).send('Password changed')
+    } else if (req.body === 'system') {
+        res.status(400).send('Bad request')
+    } else {
+        res.status(500).send('Internal server error')
+    }
+});
 
 app.listen(app.get('port'), function () {
     console.log('Server started: http://localhost:' + app.get('port') + '/');

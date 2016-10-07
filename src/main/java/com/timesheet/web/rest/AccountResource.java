@@ -146,7 +146,7 @@ public class AccountResource {
     @Timed
     public ResponseEntity<?> changePassword(@RequestBody String password) {
         if (!checkPasswordLength(password)) {
-            return new ResponseEntity<>("Incorrect password", HttpStatus.BAD_REQUEST);
+            return new ResponseEntity<>("Incorrect password. It must be minimum 4 character length!", HttpStatus.BAD_REQUEST);
         }
         userService.changePassword(password);
         return new ResponseEntity<>(HttpStatus.OK);

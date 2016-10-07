@@ -1,6 +1,6 @@
 import React,{ Component } from 'react';
 import {ModalManager, Modal, Effect} from 'react-dynamic-modal';
-import { Field, reduxForm } from 'redux-form';
+import { Field, reduxForm, SubmissionError } from 'redux-form';
 import { Link, browserHistory } from 'react-router'
 import { connect } from 'react-redux'
 import client from '../../../client'
@@ -39,7 +39,7 @@ class LoginForm extends Component {
             browserHistory.push('/')
         }).catch(error => {
             console.log('Authentication failed' + error)
-            client({
+            return client({
                 method: 'POST',
                 path: '/api/logout'
             }).then(() => {
@@ -65,7 +65,7 @@ class LoginForm extends Component {
                             <div className="col-md-4 col-md-offset-4">
                                 <h1 >Sign in</h1>
                             </div>
-                            {this.props.submitFailed && <div className="col-md-8 col-md-offset-2">
+                            {this.props.error && <div className="col-md-8 col-md-offset-2">
                                 <div className="alert alert-danger">
                                     <strong>{this.props.error}</strong> Please check your credentials and try again.
                                 </div>
