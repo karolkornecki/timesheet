@@ -64,7 +64,7 @@ class SettingsForm extends Component {
 
 
     render() {
-        const { error, submitSucceeded, initialValues, handleSubmit} = this.props
+        const { error, submitSucceeded, initialValues, handleSubmit, submitting, invalid} = this.props
         return (
             <form onSubmit={handleSubmit(this.submit)}>
                 <div className="container">
@@ -96,7 +96,8 @@ class SettingsForm extends Component {
                                        component={(field) => (
                                                     <LanguageSelect value={field.input.value} onChange={ e => field.input.onChange(e.target.value)}/>)}/>
                             </div>
-                            <button type="submit" className="btn btn-primary">Save</button>
+                            <button type="submit" disabled={invalid || submitting} className="btn btn-primary">Save
+                            </button>
                         </div>
                     </div>
                 </div>

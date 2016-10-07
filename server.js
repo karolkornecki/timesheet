@@ -81,6 +81,18 @@ app.post('/api/account/change_password', function (req, res) {
     }
 });
 
+app.post('/api/register', function (req, res) {
+    if (req.body['login'] === 'admin') {
+        res.status(200).send('Ok')
+    } else if (req.body['login'] === 'system') {
+        res.status(400).send('LOGIN_ALREADY_IN_USE')
+    } else if (req.body['email'] === 'system@system.pl') {
+        res.status(400).send('EMAIL_ALREADY_IN_USE')
+    } else {
+        res.status(500).send('Internal server error')
+    }
+});
+
 app.listen(app.get('port'), function () {
     console.log('Server started: http://localhost:' + app.get('port') + '/');
 });

@@ -34,11 +34,10 @@ class LoginForm extends Component {
                 path: '/api/account'
             })
         }).then(response => {
-            console.log('Authentication success')
             dispatch(receiveLogin(response.entity))
             browserHistory.push('/')
         }).catch(error => {
-            console.log('Authentication failed' + error)
+            console.error('Authentication failed' + error)
             return client({
                 method: 'POST',
                 path: '/api/logout'

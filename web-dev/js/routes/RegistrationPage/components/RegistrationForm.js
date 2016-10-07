@@ -47,7 +47,7 @@ class RegistrationForm extends Component {
 
 
     render() {
-        const { error, handleSubmit, submitting, submitSucceeded } = this.props
+        const { error, handleSubmit, submitting, submitSucceeded, invalid } = this.props
         return (
             <form onSubmit={handleSubmit(this.submit)}>
                 <div className="container">
@@ -91,7 +91,7 @@ class RegistrationForm extends Component {
                                 <label className="control-label" htmlFor="confirmation">Password confirmation</label>
                                 <Field name="confirmation" type="password" component={InputField} label=""/>
                             </div>
-                            <button type="submit" disabled={submitting} className="btn btn-primary">Register</button>
+                            <button type="submit" disabled={invalid || submitting}  className="btn btn-primary">Register</button>
                         </div>}
                     </div>
                 </div>
