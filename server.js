@@ -43,11 +43,12 @@ app.get('/api/account', function (req, res) {
 
 app.post('/api/account', function (req, res) {
     if (req.body['email'] === 'admin@admin.pl') {
-        res.headers['X-Timesheetapp-Error'] = 'Code 400: bad request'
+        res.setHeader('X-Timesheetapp-Error', 'ERROR_EMAIL_EXISTS')
         res.status(400).send('Bad request')
     } else if (req.body['email'] === 'system@system.pl') {
-        res.headers['X-Timesheetapp-Error'] = 'Code 500: internal error'
         res.status(500).send('Internal server error')
+    } else if (req.body['email'] === '404@404.pl') {
+        res.status(404).send('Not found')
     } else {
         fs.readFile(ACCOUNT_FILE, function (err, data) {
             if (err) {

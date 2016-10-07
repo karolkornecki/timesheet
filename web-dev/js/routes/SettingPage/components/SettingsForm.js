@@ -51,8 +51,12 @@ class SettingsForm extends Component {
         ).then((response) => {
                 this.props.dispatch(receiveLogin(response.entity))
             }
-        ).catch((error)=> {
-                let code = error.headers['X-Timesheetapp-Error']
+        ).catch((response)=> {
+                console.error(response)
+                let code = response.headers['X-Timesheetapp-Error']
+                if (typeof code === 'undefined') {
+                    throw new SubmissionError({_error: ERROR_MESSAGES['ERROR_INTERNAL_SERVER_ERROR']})
+                }
                 throw new SubmissionError({_error: ERROR_MESSAGES[code]})
             }
         )
