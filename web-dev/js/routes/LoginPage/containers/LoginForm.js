@@ -65,7 +65,7 @@ class LoginForm extends Component {
                                 <h1 >Sign in</h1>
                             </div>
                             {this.props.error && <div className="col-md-8 col-md-offset-2">
-                                <div className="alert alert-danger">
+                                <div id="login-failed" className="alert alert-danger">
                                     <strong>{this.props.error}</strong> Please check your credentials and try again.
                                 </div>
                             </div>}
@@ -85,7 +85,7 @@ class LoginForm extends Component {
                                         <span >Remember me</span>
                                     </label>
                                 </div>
-                                <button type="submit" className="btn btn-primary">Sign in</button>
+                                <button id="sign-in" type="submit" className="btn btn-primary">Sign in</button>
                                 <p></p>
 
                                 <div className="alert alert-warning">

@@ -6,11 +6,11 @@
   "repository": "https://github.com/karolkornecki",
   "scripts": {
     "dev": "webpack",
-    "start": "webpack-dev-server",
-    "start-react": "react-scripts start",
+    "start": "webpack-dev-server | node mock_server.js",
     "build": "react-scripts build",
     "eject": "react-scripts eject",
-    "test": "react-scripts test"
+    "test": "react-scripts test",
+    "e2e-test": "mocha --timeout 15000 e2e/*.js"
   },
   "license": "MIT",
   "dependencies": {
@@ -27,7 +27,6 @@
     "css-loader": "^0.23.1",
     "deep-freeze": "^0.0.1",
     "expect": "^1.20.1",
-    "immutable": "^3.8.1",
     "lodash": "^4.16.1",
     "node-libs-browser": "^1.0.0",
     "node-sass": "^3.8.0",
@@ -54,10 +53,13 @@
   "devDependencies": {
     "babel-plugin-react-transform": "^2.0.2",
     "babel-preset-stage-0": "^6.5.0",
+    "chai": "^3.5.0",
     "enzyme": "^2.4.1",
+    "mocha": "^3.1.0",
     "react-addons-test-utils": "^15.3.0",
     "react-scripts": "^0.4.0",
     "react-transform-hmr": "^1.0.4",
+    "selenium-webdriver": "^3.0.0-beta-3",
     "webpack": "^1.13.2"
   },
   "eslintConfig": {
