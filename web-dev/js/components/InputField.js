@@ -9,7 +9,7 @@ export const InputField = ({ input, label, type, meta: { touched, error } }) => 
 
         <div>
             <p className="help-block">
-                {touched && error && <span>{error}</span>}
+                {touched && error && <span className="validation-error">{error}</span>}
             </p>
         </div>
     </div>

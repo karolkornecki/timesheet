@@ -73,7 +73,7 @@ class Header extends Component {
                                                 &#xA0;<span>Sign in</span>
                                             </Link>
                                         </li>}
-                                        {!isAuthenticated && <li><Link to="register">
+                                        {!isAuthenticated && <li><Link to="/register">
                                             <span className="glyphicon glyphicon-plus-sign"></span>
                                             &#xA0;<span>Register</span>
                                         </Link>

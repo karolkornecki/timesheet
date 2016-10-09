@@ -76,22 +76,24 @@ class RegistrationForm extends Component {
                         {!submitSucceeded && <div className="col-md-8 col-md-offset-2">
                             <div className="form-group">
                                 <label className="control-label" htmlFor="username">Username</label>
-                                <Field name="username" type="text" component={InputField} label="Username"/>
+                                <Field name="username" type="text" component={InputField} label="Your username"/>
                             </div>
                             <div className="form-group">
                                 <label className="control-label" htmlFor="email">Email</label>
                                 <Field name="email" type="email" component={InputField}
-                                       label="Email"/>
+                                       label="Your email"/>
                             </div>
                             <div className="form-group">
                                 <label className="control-label" htmlFor="password">Password</label>
-                                <Field name="password" type="password" component={InputField} label=""/>
+                                <Field name="password" type="password" component={InputField} label="Your password"/>
                             </div>
                             <div className="form-group">
                                 <label className="control-label" htmlFor="confirmation">Password confirmation</label>
                                 <Field name="confirmation" type="password" component={InputField} label=""/>
                             </div>
-                            <button type="submit" disabled={invalid || submitting}  className="btn btn-primary">Register</button>
+                            <button id="register" type="submit" disabled={invalid || submitting}
+                                    className="btn btn-primary">Register
+                            </button>
                         </div>}
                     </div>
                 </div>
