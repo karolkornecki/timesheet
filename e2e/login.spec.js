@@ -57,6 +57,18 @@ describe('Login page - test suite', ()=> {
 
     })
 
+    it('should not redirect if login failed', (done)=> {
+
+        driver.findElement(By.css('input[name="username"]')).sendKeys('any_name')
+        driver.findElement(By.css('input[name="password"]')).sendKeys('')
+        driver.findElement(By.id('sign-in')).click()
+        driver.wait(until.elementLocated(By.id('login-failed')))
+        driver.getCurrentUrl()
+            .then((url) => expect(url).not.to.equal('http://localhost:3000'))
+            .then(() => done())
+
+    })
+
     after(() => driver.quit());
 
 

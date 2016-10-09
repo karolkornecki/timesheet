@@ -49,17 +49,20 @@
     "babel-preset-stage-0": "^6.5.0",
     "chai": "^3.5.0",
     "enzyme": "^2.4.1",
+    "express": "^4.14.0",
+    "fs": "0.0.1-security",
     "mocha": "^3.1.0",
+    "path": "^0.12.7",
     "react-addons-test-utils": "^15.3.0",
     "react-scripts": "^0.4.0",
     "react-transform-hmr": "^1.0.4",
+    "sass-loader": "^4.0.0",
     "selenium-webdriver": "^3.0.0-beta-3",
+    "style-loader": "^0.13.1",
     "webpack": "^1.13.2",
     "webpack-dev-middleware": "^1.6.1",
     "webpack-dev-server": "^1.14.1",
-    "webpack-hot-middleware": "^2.11.0",
-    "sass-loader": "^4.0.0",
-    "style-loader": "^0.13.1"
+    "webpack-hot-middleware": "^2.11.0"
   },
   "eslintConfig": {
     "extends": "./node_modules/react-scripts/config/eslint.js"

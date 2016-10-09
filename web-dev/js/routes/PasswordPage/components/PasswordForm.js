@@ -23,13 +23,9 @@ class PasswordForm extends Component {
                     path: '/api/account/change_password',
                     entity: values.password
                 }
-            ).then(
-                () => {
-                    this.props.reset()
-                }
-            ).catch(
-                    error => {
-                    console.log(error)
+            ).then(() => this.props.reset()
+            ).catch(response => {
+                    console.error(response)
                     throw new SubmissionError({_error: constants.SERVER_ERROR})
                 }
             )
@@ -46,16 +42,18 @@ class PasswordForm extends Component {
                         <div className="col-md-8 col-md-offset-2">
                             <h2>Password for [<b>{this.props.initialValues.firstName}</b>]</h2>
 
-                            {this.props.submitSucceeded && <div className="alert alert-success">
+                            {this.props.submitSucceeded &&
+                            <div id="password-change-success" className="alert alert-success">
                                 <strong>Password changed!</strong>
                             </div>}
 
-                            {error && error === constants.SERVER_ERROR && <div className="alert alert-danger">
+                            {error && error === constants.SERVER_ERROR &&
+                            <div id="password-change-failed" className="alert alert-danger">
                                 <strong>An error has occurred!</strong> The password could not be changed.
                             </div>}
 
                             {error && error === constants.PASSWORD_DOES_NOT_MATCH &&
-                            <div className="alert alert-danger">
+                            <div id="password-does-not-match" className="alert alert-danger">
                                 The password and its confirmation do not match!
                             </div>}
 
@@ -70,7 +68,8 @@ class PasswordForm extends Component {
                                     confirmation</label>
                                 <Field name="confirmation" type="password" component={InputField}/>
                             </div>
-                            <button type="submit" disabled={invalid || submitting} className="btn btn-primary">Save
+                            <button id="change-password" type="submit" disabled={invalid || submitting}
+                                    className="btn btn-primary">Save
                             </button>
                         </div>
                     </div>
