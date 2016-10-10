@@ -49,6 +49,11 @@ Go to: [http://localhost:3000/](http://localhost:3000/)
 
 ### Running e2e tests
 
+0. Download and copy to bin/
+```
+selenium-server-standalone-3.0.0-beta4.jar from http://www.seleniumhq.org
+geckodriver v0.10 from https://github.com/mozilla/geckodriver
+```
 
 1. Start the development server.
 ```
@@ -57,7 +62,7 @@ Go to: [http://localhost:3000/](http://localhost:3000/)
 
 2. Run tests.
 ```
-> npm run e2e-test
+> nightwatch
 ```
 
 ## Links
