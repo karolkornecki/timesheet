@@ -51,24 +51,24 @@ app.post('/api/account', function (req, res) {
     } else if (req.body['email'] === '404@404.pl') {
         res.status(404).send('Not found')
     } else {
-        fs.readFile(ACCOUNT_FILE, function (err, data) {
-            if (err) {
-                console.error(err);
-                process.exit(1);
-            }
-            var account = JSON.parse(data);
-            account.firstName = req.body.firstName
-            account.lastName = req.body.lastName
-            account.email = req.body.email
-            account.langKey = req.body.langKey
-            fs.writeFile(ACCOUNT_FILE, JSON.stringify(account, null, 4), function (err) {
-                if (err) {
-                    console.error(err);
-                    process.exit(1);
-                }
-            });
-            res.status(200).send("Success")
-        });
+        //fs.readFile(ACCOUNT_FILE, function (err, data) {
+        //    if (err) {
+        //        console.error(err);
+        //        process.exit(1);
+        //    }
+        //    var account = JSON.parse(data);
+        //    account.firstName = req.body.firstName
+        //    account.lastName = req.body.lastName
+        //    account.email = req.body.email
+        //    account.langKey = req.body.langKey
+        //    fs.writeFile(ACCOUNT_FILE, JSON.stringify(account, null, 4), function (err) {
+        //        if (err) {
+        //            console.error(err);
+        //            process.exit(1);
+        //        }
+        //    });
+        //});
+        res.status(200).send("Success")
     }
 });
 
