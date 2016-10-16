@@ -55,21 +55,21 @@ class RegistrationForm extends Component {
                         <div className="col-md-8 col-md-offset-2">
                             <h1>Registration</h1>
 
-                            {submitSucceeded && <div className="alert alert-success">
+                            {submitSucceeded && <div id="success" className="alert alert-success">
                                 <strong>Registration saved!</strong> Please check your email for confirmation.
                             </div>}
-                            {error && error === constants.SERVER_ERROR && <div className="alert alert-danger">
+                            {error && error === constants.SERVER_ERROR && <div id="failed" className="alert alert-danger">
                                 <strong>Registration failed!</strong> Please try again later.
                             </div>}
                             {error && error === constants.LOGIN_ALREADY_IN_USE &&
-                            <div className="alert alert-danger">
+                            <div id="login-registered" className="alert alert-danger">
                                 <strong>Login name already registered!</strong> Please choose another one.
                             </div>}
-                            {error && error === constants.EMAIL_ALREADY_IN_USE && <div className="alert alert-danger">
+                            {error && error === constants.EMAIL_ALREADY_IN_USE && <div id="email-in-use" className="alert alert-danger">
                                 <strong>E-mail is already in use!</strong> Please choose another one.
                             </div>}
                             {error && error === constants.PASSWORD_DOES_NOT_MATCH &&
-                            <div className="alert alert-danger">
+                            <div id="password-failed" className="alert alert-danger">
                                 The password and its confirmation do not match!
                             </div>}
                         </div>
