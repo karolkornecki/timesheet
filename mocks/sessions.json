@@ -1,0 +1,14 @@
+[
+  {
+    "series": "1",
+    "tokenDate": "2016-10-22",
+    "ipAddress": "127.0.0.1",
+    "userAgent": "Mozilla/5.0 (Macintosh; Intel Mac OS X 10.11; rv:49.0) Gecko/20100101 Firefox/49.0"
+  },
+  {
+    "series": "2",
+    "tokenDate": "2016-10-23",
+    "ipAddress": "127.0.0.129",
+    "userAgent": "Safari"
+  }
+]
