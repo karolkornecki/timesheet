@@ -74,7 +74,7 @@ class SessionsForm extends Component {
                             <strong>Session invalidated!</strong>
                         </div>}
                         {this.state.showErrorMsg && <div className="alert alert-danger">
-                            <strong>An error has occured!</strong> The session could not be invalidated.
+                            <strong>An error has occured!</strong>The session could not be invalidated.
                         </div>}
 
                         <div className="table-responsive">
