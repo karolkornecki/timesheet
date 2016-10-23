@@ -8,6 +8,7 @@ import RegistrationForm from '../routes/RegistrationPage/components/Registration
 import SettingsForm from '../routes/SettingPage/components/SettingsForm'
 import PasswordForm from '../routes/PasswordPage/components/PasswordForm'
 import LoginForm from '../routes/LoginPage/containers/LoginForm'
+import SessionsForm from '../routes/SessionsPage/components/SessionsForm'
 
 class ApplicationRoot extends Component {
     render() {
@@ -20,6 +21,7 @@ class ApplicationRoot extends Component {
                         <Route path='/settings' component={SettingsForm}/>
                         <Route path='/password' component={PasswordForm}/>
                         <Route path='/login' component={LoginForm}/>
+                        <Route path='/sessions' component={SessionsForm} />
                     </Route>
                 </Router>
             </Provider>

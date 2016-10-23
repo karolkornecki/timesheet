@@ -5,6 +5,7 @@ var bodyParser = require('body-parser');
 var app = express();
 
 var ACCOUNT_FILE = path.join(__dirname, 'mocks/account.json');
+var SESSIONS_FILE = path.join(__dirname, 'mocks/sessions.json');
 
 app.set('port', (process.env.PORT || 3001));
 
@@ -51,23 +52,6 @@ app.post('/api/account', function (req, res) {
     } else if (req.body['email'] === '404@404.pl') {
         res.status(404).send('Not found')
     } else {
-        //fs.readFile(ACCOUNT_FILE, function (err, data) {
-        //    if (err) {
-        //        console.error(err);
-        //        process.exit(1);
-        //    }
-        //    var account = JSON.parse(data);
-        //    account.firstName = req.body.firstName
-        //    account.lastName = req.body.lastName
-        //    account.email = req.body.email
-        //    account.langKey = req.body.langKey
-        //    fs.writeFile(ACCOUNT_FILE, JSON.stringify(account, null, 4), function (err) {
-        //        if (err) {
-        //            console.error(err);
-        //            process.exit(1);
-        //        }
-        //    });
-        //});
         res.status(200).send("Success")
     }
 });
@@ -84,7 +68,7 @@ app.post('/api/account/change_password', function (req, res) {
 
 app.post('/api/register', function (req, res) {
     if (req.body['login'] === 'admin') {
-        res.status(200).send('Ok')
+        res.status(200).send('Success')
     } else if (req.body['login'] === 'system') {
         res.status(400).send('LOGIN_ALREADY_IN_USE')
     } else if (req.body['email'] === 'system@system.pl') {
@@ -92,6 +76,42 @@ app.post('/api/register', function (req, res) {
     } else {
         res.status(500).send('Internal server error')
     }
+});
+
+app.get('/api/account/sessions', function (req, res) {
+    fs.readFile(SESSIONS_FILE, function (err, data) {
+        if (err) {
+            console.error(err);
+            process.exit(1);
+        }
+        res.json(JSON.parse(data));
+    });
+});
+
+app.delete('/api/account/sessions/:series', function (req, res) {
+    if (req.params['series'] === '2') {
+        res.status('500').send('Internal server error.')
+        return;
+    }
+    fs.readFile(SESSIONS_FILE, function (err, data) {
+        if (err) {
+            console.error(err);
+            process.exit(1);
+        }
+        var sessions = JSON.parse(data).filter(function (session) {
+            if (session.series !== req.params['series']) {
+                return session;
+            }
+        });
+
+        fs.writeFile(SESSIONS_FILE, JSON.stringify(sessions, null, 4), function (err) {
+            if (err) {
+                console.error(err);
+                process.exit(1);
+            }
+        });
+    });
+    res.status(200).send('Success')
 });
 
 app.listen(app.get('port'), function () {

@@ -58,9 +58,9 @@ class Header extends Component {
                                             </Link>
                                         </li>}
                                         {isAuthenticated && <li>
-                                            <a><span className="glyphicon glyphicon-cloud"></span>
+                                            <Link to="/sessions"><span className="glyphicon glyphicon-cloud"></span>
                                                 &#xA0;<span>Sessions</span>
-                                            </a>
+                                            </Link>
                                         </li>}
                                         {isAuthenticated && <li><a href="" onClick={ (e) => this.logout(e) }>
                                             <span className="glyphicon glyphicon-log-out"></span>
