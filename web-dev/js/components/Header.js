@@ -1,6 +1,7 @@
 import React, { Component } from 'react'
 import { Link, browserHistory } from 'react-router'
 import { connect } from 'react-redux'
+import MenuElement from '../components/header/MenuElement'
 
 import { logout } from '../routes/LoginPage/actions/index'
 import client from '../client'
@@ -45,39 +46,21 @@ class Header extends Component {
                                         </span>
                                     </a>
                                     <ul className="dropdown-menu">
-                                        {isAuthenticated && <li>
-                                            <Link to="/settings">
-                                                <span className="glyphicon glyphicon-wrench"></span>
-                                                &#xA0;<span>Settings</span>
-                                            </Link>
-                                        </li>}
-                                        {isAuthenticated && <li>
-                                            <Link to="/password">
-                                                <span className="glyphicon glyphicon-lock"></span>
-                                                &#xA0;<span>Password</span>
-                                            </Link>
-                                        </li>}
-                                        {isAuthenticated && <li>
-                                            <Link to="/sessions"><span className="glyphicon glyphicon-cloud"></span>
-                                                &#xA0;<span>Sessions</span>
-                                            </Link>
-                                        </li>}
+                                        <MenuElement isAuthenticated={isAuthenticated} linkTo="/settings"
+                                                     cssClasses="glyphicon glyphicon-wrench" menuText="Settings"/>
+                                        <MenuElement isAuthenticated={isAuthenticated} linkTo="/password"
+                                                     cssClasses="glyphicon glyphicon-lock" menuText="Password"/>
+                                        <MenuElement isAuthenticated={isAuthenticated} linkTo="/sessions"
+                                                     cssClasses="glyphicon glyphicon-cloud" menuText="Sessions"/>
                                         {isAuthenticated && <li><a href="" onClick={ (e) => this.logout(e) }>
                                             <span className="glyphicon glyphicon-log-out"></span>
                                             &#xA0;<span>Sign out</span>
                                         </a>
                                         </li>}
-                                        {!isAuthenticated && <li>
-                                            <Link to="/login">
-                                                <span className="glyphicon glyphicon-log-in"></span>
-                                                &#xA0;<span>Sign in</span>
-                                            </Link>
-                                        </li>}
-                                        {!isAuthenticated && <li><Link to="/register">
-                                            <span className="glyphicon glyphicon-plus-sign"></span>
-                                            &#xA0;<span>Register</span>
-                                        </Link>
-                                        </li>}
+                                        <MenuElement isAuthenticated={!isAuthenticated} linkTo="/login"
+                                                     cssClasses="glyphicon glyphicon-log-in" menuText="Sign in"/>
+                                        <MenuElement isAuthenticated={!isAuthenticated} linkTo="/register"
+                                                     cssClasses="glyphicon glyphicon-plus-sign" menuText="Register"/>
                                     </ul>
                                 </li>
                                 {isAuthenticated && <li className="dropdown pointer">
