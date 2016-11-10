@@ -72,6 +72,8 @@ class Header extends Component {
                                         </span>
                                     </a>
                                     <ul className="dropdown-menu">
+                                        <MenuElement isAuthenticated={isAuthenticated} linkTo="/project_management"
+                                                     cssClasses="glyphicon glyphicon-blackboard" menuText="Project management"/>
                                         <li><a><span className="glyphicon glyphicon-user"></span>&#xA0;<span>Team management</span></a>
                                         </li>
                                         <li><a><span className="glyphicon glyphicon-user"></span>&#xA0;<span>User management</span></a>

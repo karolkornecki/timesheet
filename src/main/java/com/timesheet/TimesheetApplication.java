@@ -42,10 +42,8 @@ public class TimesheetApplication {
         } else {
             LOG.info("Running with Spring profile(s) : {}", Arrays.toString(env.getActiveProfiles()));
             Collection<String> activeProfiles = Arrays.asList(env.getActiveProfiles());
-            if (activeProfiles.contains(Constants.SPRING_PROFILE_DEVELOPMENT)
-                    && activeProfiles.contains(Constants.SPRING_PROFILE_PRODUCTION)) {
-                LOG.error("You have misconfigured your application! " +
-                        "It should not run with both the 'dev' and 'prod' profiles at the same time.");
+            if (activeProfiles.contains(Constants.SPRING_PROFILE_DEVELOPMENT) && activeProfiles.contains(Constants.SPRING_PROFILE_PRODUCTION)) {
+                LOG.error("You have misconfigured your application! It should not run with both the 'dev' and 'prod' profiles at the same time.");
             }
         }
     }

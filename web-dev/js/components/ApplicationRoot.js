@@ -9,6 +9,7 @@ import SettingsForm from '../routes/SettingPage/components/SettingsForm'
 import PasswordForm from '../routes/PasswordPage/components/PasswordForm'
 import LoginForm from '../routes/LoginPage/containers/LoginForm'
 import SessionsForm from '../routes/SessionsPage/components/SessionsForm'
+import ProjectForm from '../routes/ProjectPage/components/ProjectForm'
 
 class ApplicationRoot extends Component {
     render() {
@@ -22,6 +23,7 @@ class ApplicationRoot extends Component {
                         <Route path='/password' component={PasswordForm}/>
                         <Route path='/login' component={LoginForm}/>
                         <Route path='/sessions' component={SessionsForm} />
+                        <Route path='/project_management' component={ProjectForm} />
                     </Route>
                 </Router>
             </Provider>
